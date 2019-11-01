@@ -6,7 +6,7 @@ p = Path(__file__).absolute()
 root = p.parent.parent.parent.absolute()
 print(root)
 sys.path.append(str(root))
-from aio_parallel_tools import AioTaskPool
+from aio_parallel_tools import AioTaskPoolSimple
 
 def test(name):
     print(f"{name} start")
@@ -14,11 +14,11 @@ def test(name):
         time.sleep(1)
     result = f"{name} done"
     print(result)
-    return "ok:"+ result
+    return "ok:" + result
 
 
 async def main():
-    async with AioTaskPool() as task_pool:
+    async with AioTaskPoolSimple() as task_pool:
         print(f"test pool size {task_pool.size}")
         print("test 4 task with pool size 3")
         await asyncio.gather(
@@ -60,13 +60,10 @@ async def main():
         print(f"after 2 s test pool size {task_pool.size}")
 
         print("scale_nowait -3 hard")
-        task_pool.scale_nowait(-3,soft=False)
+        task_pool.scale_nowait(-3, soft=False)
         print(f"test pool size {task_pool.size}")
         await asyncio.sleep(2)
         print(f"after 2 s test pool size {task_pool.size}")
-
-
-
 
 
 if __name__ == "__main__":

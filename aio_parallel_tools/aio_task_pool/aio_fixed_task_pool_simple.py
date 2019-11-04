@@ -2,12 +2,14 @@
 import asyncio
 import concurrent
 from typing import Optional
-from .aio_task_pool_base import AioTaskPoolBase
-from .mixins.simpleq_mixin import SimpleQMixin
+from aio_parallel_tools.aio_task_pool.core.task_pool_base import AioTaskPoolBase
+from aio_parallel_tools.aio_task_pool.core.mixins.queue_mixin.simpleq_mixin import SimpleQMixin
+from aio_parallel_tools.aio_task_pool.core.mixins.worker_manager_mixin.fix_worker_manager_mixin import FixedWorkerManagerMixin
+from aio_parallel_tools.aio_task_pool.core.mixins.producer_mixin.simple_producer_mixin import SimpleProducerMixin
 
 
-class AioTaskPoolSimple(SimpleQMixin, AioTaskPoolBase):
-    """Asynchronous Task Pool Class.
+class AioFixedTaskPoolSimple(SimpleProducerMixin, FixedWorkerManagerMixin, SimpleQMixin, AioTaskPoolBase):
+    """Simple Asynchronous Task Pool Class.
 
     this pool is used when you need to limit the max number of parallel tasks at one time.
     It's a derivative of `Producer Consumer model`.
@@ -45,11 +47,11 @@ class AioTaskPoolSimple(SimpleQMixin, AioTaskPoolBase):
     ...     return "ok:"+ result
 
     >>> async def main():
-    ...     async with AioTaskPool() as task_pool:
+    ...     async with AioFixedTaskPoolSimple() as task_pool:
     ...         print(f"test pool size {task_pool.size}")
     ...         print("test 4 task with pool size 3")
     ...         print("test await blocking submit")
-    ...         r = await task_pool.submit(test, args=["e"])
+    ...         r = await task_pool.submit(test, func_args=["e"])
     ...         assert r == "ok:e done"
     ...         print("test await blocking submit")
     ...         print("scale 3")
@@ -81,5 +83,7 @@ class AioTaskPoolSimple(SimpleQMixin, AioTaskPoolBase):
             executor (concurrent.futures.Executor, optional): [description]. Defaults to None.
 
         """
-        AioTaskPoolBase.__init__(self, init_size=init_size, loop=loop, executor=executor)
+        AioTaskPoolBase.__init__(self, loop=loop)
         SimpleQMixin.__init__(self, queue=queue, queue_maxsize=queue_maxsize)
+        FixedWorkerManagerMixin.__init__(self, init_size=init_size, executor=executor)
+        SimpleProducerMixin.__init__(self)

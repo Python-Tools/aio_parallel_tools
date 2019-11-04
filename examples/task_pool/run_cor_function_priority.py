@@ -1,41 +1,40 @@
 import sys
-import time
 import asyncio
 from pathlib import Path
 p = Path(__file__).absolute()
 root = p.parent.parent.parent.absolute()
 print(root)
 sys.path.append(str(root))
-from aio_parallel_tools import AioFixedTaskPoolSimple
+from aio_parallel_tools import AioFixedTaskPoolPriority
 
-def test(name):
+async def test(name):
     print(f"{name} start")
     for i in range(5):
-        time.sleep(1)
+        await asyncio.sleep(1)
     result = f"{name} done"
     print(result)
     return "ok:" + result
 
 
 async def main():
-    async with AioFixedTaskPoolSimple() as task_pool:
+    async with AioFixedTaskPoolPriority() as task_pool:
         print(f"test pool size {task_pool.size}")
         print("test 4 task with pool size 3")
         await asyncio.gather(
-            task_pool.submit(test, func_args=["c"]),
-            task_pool.submit(test, func_args=["b"]),
-            task_pool.submit(test, func_args=["a"]),
-            task_pool.submit(test, func_args=["d"])
+            task_pool.submit(test, func_args=["c"],weight=5),
+            task_pool.submit(test, func_args=["b"],weight=5),
+            task_pool.submit(test, func_args=["a"],weight=5),
+            task_pool.submit(test, func_args=["d"],weight=5)
         )
         print("test await blocking submit")
-        r = await task_pool.submit(test, func_args=["e"])
+        r = await task_pool.submit(test, func_args=["e"], weight=5)
         print(r)
         print("test await no blocking submit")
-        fut = await task_pool.submit(test, func_args=["f"], blocking=False)
+        fut = await task_pool.submit(test, func_args=["f"], weight=5, blocking=False)
         r = await fut
         print(r)
         print("test await no blocking submit_nowait")
-        fut = task_pool.submit_nowait(test, func_args=["h"])
+        fut = task_pool.submit_nowait(test, func_args=["h"], weight=5)
         r = await fut
         print(r)
 

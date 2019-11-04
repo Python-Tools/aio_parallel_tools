@@ -2,11 +2,13 @@
 import asyncio
 import concurrent
 from typing import Optional
-from .aio_task_pool_base import AioTaskPoolBase
-from .mixins.lifoq_mixin import LifoQMixin
+from aio_parallel_tools.aio_task_pool.core.task_pool_base import AioTaskPoolBase
+from aio_parallel_tools.aio_task_pool.core.mixins.queue_mixin.lifoq_mixin import LifoQMixin
+from aio_parallel_tools.aio_task_pool.core.mixins.worker_manager_mixin.fix_worker_manager_mixin import FixedWorkerManagerMixin
+from aio_parallel_tools.aio_task_pool.core.mixins.producer_mixin.simple_producer_mixin import SimpleProducerMixin
 
 
-class AioTaskPoolFifo(LifoQMixin, AioTaskPoolBase):
+class AioFixedTaskPoolLifo(SimpleProducerMixin, FixedWorkerManagerMixin, LifoQMixin, AioTaskPoolBase):
     """Asynchronous Task Pool Class with lifo queue.
 
     this pool is used when you need to limit the max number of parallel tasks at one time.
@@ -45,11 +47,11 @@ class AioTaskPoolFifo(LifoQMixin, AioTaskPoolBase):
     ...     return "ok:"+ result
 
     >>> async def main():
-    ...     async with AioTaskPool() as task_pool:
+    ...     async with AioFixedTaskPoolLifo() as task_pool:
     ...         print(f"test pool size {task_pool.size}")
     ...         print("test 4 task with pool size 3")
     ...         print("test await blocking submit")
-    ...         r = await task_pool.submit(test, args=["e"])
+    ...         r = await task_pool.submit(test, func_args=["e"])
     ...         assert r == "ok:e done"
     ...         print("test await blocking submit")
     ...         print("scale 3")
@@ -81,5 +83,7 @@ class AioTaskPoolFifo(LifoQMixin, AioTaskPoolBase):
             executor (concurrent.futures.Executor, optional): [description]. Defaults to None.
 
         """
-        AioTaskPoolBase.__init__(self, init_size=init_size, loop=loop, executor=executor)
+        AioTaskPoolBase.__init__(self, loop=loop)
         LifoQMixin.__init__(self, queue=queue, queue_maxsize=queue_maxsize)
+        FixedWorkerManagerMixin.__init__(self, init_size=init_size, executor=executor)
+        SimpleProducerMixin.__init__(self)

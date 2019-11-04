@@ -11,7 +11,7 @@ async def worker(q):
 
 async def prod(q, a):
     while True:
-        await q.put((random.randint(1, 9), a))
+        await q.put([random.randint(1, 9), a])
         await asyncio.sleep(0.1)
 
 

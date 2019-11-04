@@ -215,15 +215,7 @@ class AioTaskPoolBase(abc.ABC):
                 self._remove_worker_hard(num)
         return result
 
-    def _make_task(self,
-                   task_func: Callable[[Any], Any],
-                   args: List[Any] = [],
-                   kwargs: Dict[str, Any] = {}) -> Task:
-        fut = self._loop.create_future()
-        args = copy.deepcopy(args)
-        kwargs = copy.deepcopy(kwargs)
-        task = Task(fut, task_func, args, kwargs)
-        return task
+    
 
     async def _task_handdler(self, task: Task) -> Any:
         if not inspect.isfunction(task.task_func):

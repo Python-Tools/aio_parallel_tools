@@ -2,10 +2,10 @@
 import asyncio
 import concurrent
 from typing import Optional, Union
-from .task_pool_abc import AioTaskPoolAbc
+from .task_pool_abc import AioTaskPoolABC
 
 
-class AioTaskPoolBase(AioTaskPoolAbc):
+class AioTaskPoolBase(AioTaskPoolABC):
     """Base Task Pool Class."""
 
     def __init__(self, *, loop: Optional[asyncio.events.AbstractEventLoop] = None) -> None:

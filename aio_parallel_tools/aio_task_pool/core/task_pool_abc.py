@@ -12,7 +12,7 @@ from .signal import WorkerCloseSignal
 from .exception import UnknownTaskType
 
 
-class AioTaskPoolAbc(abc.ABC):
+class AioTaskPoolABC(abc.ABC):
     """Asynchronous Task Pool Basic Class.
 
     this pool is used when you need to limit the max number of parallel tasks at one time.
@@ -34,7 +34,7 @@ class AioTaskPoolAbc(abc.ABC):
             bool: can submit or not.
 
         """
-        raise NotImplemented
+        return NotImplemented
 
     @abc.abstractproperty
     def size(self) -> int:
@@ -44,12 +44,12 @@ class AioTaskPoolAbc(abc.ABC):
             int: Pool's size
 
         """
-        raise NotImplemented
+        return NotImplemented
 
     @abc.abstractproperty
     def closed(self) -> bool:
         """Check if the pool is closed."""
-        raise NotImplemented
+        return NotImplemented
 
     @abc.abstractproperty
     def waiting_tasks_number(self) -> int:
@@ -59,7 +59,7 @@ class AioTaskPoolAbc(abc.ABC):
             int: The number of the waiting tasks.
 
         """
-        raise NotImplemented
+        return NotImplemented
 
     @abc.abstractproperty
     def max_tasks_number(self) -> int:
@@ -69,7 +69,7 @@ class AioTaskPoolAbc(abc.ABC):
             int: The maximum number of the waiting tasks.
 
         """
-        raise NotImplemented
+        return NotImplemented
 
     @abc.abstractmethod
     async def __aenter__(self) -> "AioTaskPool":
@@ -93,7 +93,7 @@ class AioTaskPoolAbc(abc.ABC):
     @abc.abstractmethod
     async def start(self) -> None:
         """Initialize workers and open the task pool to accept tasks."""
-        raise NotImplemented
+        return NotImplemented
 
     @abc.abstractmethod
     def pause(self) -> bool:
@@ -103,7 +103,7 @@ class AioTaskPoolAbc(abc.ABC):
             bool: Check if The task pool is paused
 
         """
-        raise NotImplemented
+        return NotImplemented
 
     @abc.abstractmethod
     async def close(self, close_worker_timeout: Union[int, float, None] = None, close_pool_timeout: int = 3, safe=True) -> None:
@@ -121,7 +121,7 @@ class AioTaskPoolAbc(abc.ABC):
             e: unknown error when waiting for left tasks done
 
         """
-        raise NotImplemented
+        return NotImplemented
 
     @abc.abstractmethod
     async def scale(self, num: int) -> int:
@@ -134,7 +134,7 @@ class AioTaskPoolAbc(abc.ABC):
             int: the number will scale to.
 
         """
-        raise NotImplemented
+        return NotImplemented
 
     @abc.abstractmethod
     def scale_nowait(self, num: int, soft=True) -> int:
@@ -149,7 +149,7 @@ class AioTaskPoolAbc(abc.ABC):
             int: the number will scale to.
 
         """
-        raise NotImplemented
+        return NotImplemented
 
     @abc.abstractmethod
     async def submit(self, task_func: Callable[[Any], Any], *,
@@ -172,7 +172,7 @@ class AioTaskPoolAbc(abc.ABC):
             else it will return a future which you can await it to get the result.
 
         """
-        raise NotImplemented
+        return NotImplemented
 
     @abc.abstractmethod
     def submit_nowait(self, task_func: Callable[[Any], Any], *,
@@ -194,4 +194,4 @@ class AioTaskPoolAbc(abc.ABC):
             asyncio.Future: a future which you can await it to get the result.
 
         """
-        raise NotImplemented
+        return NotImplemented

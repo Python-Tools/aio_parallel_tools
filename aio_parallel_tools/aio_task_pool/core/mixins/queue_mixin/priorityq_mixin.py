@@ -1,3 +1,4 @@
+"""Submit tasks and Send Signals using Priority Q."""
 import asyncio
 import dataclasses
 from typing import Optional, Dict, List, Any, Callable, Union
@@ -7,6 +8,8 @@ from aio_parallel_tools.aio_task_pool.core.signal import WorkerCloseSignal
 
 @dataclasses.dataclass(order=True)
 class PriorityTask:
+    """Priority Task Message."""
+
     weight: int = dataclasses.field()
     task: Any = dataclasses.field(compare=False)
 
@@ -80,6 +83,6 @@ class PriorityQMixin:
         pt = PriorityTask(1, WorkerCloseSignal)
         return pt
 
-    def parser_message(self, message) -> Any:
+    def parser_message(self, message: PriorityTask) -> Any:
         """Parser messages from queue."""
         return message.task

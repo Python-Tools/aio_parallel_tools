@@ -5,7 +5,6 @@ from aio_parallel_tools.aio_task_pool.core.task import Task
 from aio_parallel_tools.aio_task_pool.core.signal import WorkerCloseSignal
 
 
-
 class LifoQMixin:
     """Submit tasks and Send Signals using Lifo Q.
 
@@ -58,7 +57,7 @@ class LifoQMixin:
         """
         return self._queue.maxsize
 
-    def make_message(self, task, **kwargs):
+    def make_message(self, task: Task, **kwargs):
         """Make task message to send."""
         return task
 
@@ -66,6 +65,6 @@ class LifoQMixin:
         """Make close signal to send."""
         return WorkerCloseSignal
 
-    def parser_message(self, message) -> Any:
+    def parser_message(self, message: Any) -> Any:
         """Parser messages from queue."""
         return message

@@ -18,11 +18,8 @@ class AioFixedTaskPoolLifo(SimpleProducerMixin, FixedWorkerManagerMixin, LifoQMi
     And you, as the Producer, can send your task with the `submit` interface.
     If you want to close submit interface, you can use `pause` interface.
 
-    Attributes:
-        init_size (int): The size set when initial. Defaults to 3.
-
-
     Property:
+        loop (asyncio.events.AbstractEventLoop):Event loop running on.
         size (int): The worker pool's size.
         closed (bool): Check if the worker pool's size is 0 and the worker pool is paused
         paused (bool): Check if the worker pool is paused. If can accept new tasks,the result is False; else it's True.
@@ -30,11 +27,15 @@ class AioFixedTaskPoolLifo(SimpleProducerMixin, FixedWorkerManagerMixin, LifoQMi
         max_tasks_number (int): The maximum number of the waiting tasks.
 
     Method:
-
+        pause (function): Pause the task pool.
+        scale_nowait (function): Scale the number of the task pool's worker without waiting.
+        submit_nowait (function): Submit task to the task pool with no wait.
 
     Asynchronous Method:
-
-
+        start (function): Initialize workers and open the task pool to accept tasks.
+        close (function): Close all workers and paused the task pool.
+        scale (function): Scale the number of the task pool's worker.
+        submit (function): Submit task to the task pool.
 
     Example:
     >>> import asyncio
@@ -76,11 +77,11 @@ class AioFixedTaskPoolLifo(SimpleProducerMixin, FixedWorkerManagerMixin, LifoQMi
         """Initialize task pool.
 
         Args:
-            init_size (int, optional): [description]. Defaults to 3.
-            loop (Optional[asyncio.events.AbstractEventLoop], optional): [description]. Defaults to None.
-            queue (Optional[asyncio.Queue], optional): [description]. Defaults to None.
-            queue_maxsize (int, optional): [description]. Defaults to 0.
-            executor (concurrent.futures.Executor, optional): [description]. Defaults to None.
+            init_size (int, optional): Set the binginning size of task pool. Defaults to 3.
+            loop (Optional[asyncio.events.AbstractEventLoop], optional): Event loop running on.. Defaults to None.
+            queue (Optional[asyncio.Queue], optional): Using a exist queue. Defaults to None.
+            queue_maxsize (int, optional): Set the maxsize of a new queue. Defaults to 0.
+            executor (concurrent.futures.Executor, optional): Executor to run synchronous functions. Defaults to None.
 
         """
         AioTaskPoolBase.__init__(self, loop=loop)

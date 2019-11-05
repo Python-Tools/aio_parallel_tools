@@ -1,4 +1,4 @@
-"""define Signal object to send to worker."""
+"""Define Signal object to send to worker."""
 
 
 class TaskPoolSignal(Exception):

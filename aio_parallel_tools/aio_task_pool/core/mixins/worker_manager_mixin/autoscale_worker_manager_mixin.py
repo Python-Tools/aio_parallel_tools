@@ -1,26 +1,31 @@
 """Fixed Worker Manager Mixin."""
 import inspect
 import asyncio
+import warnings
 import random
 import concurrent
-from typing import Any
+from collections import deque
+import math
+import statistics
+from typing import Any, Optional
 from aio_parallel_tools.aio_task_pool.core.exception import UnknownTaskType
 from aio_parallel_tools.aio_task_pool.core.signal import WorkerCloseSignal
 from aio_parallel_tools.aio_task_pool.core.task import Task
 
 
-class FixedWorkerManagerMixin:
-    """Fixed Worker Manager Mixin.
+class AutoScaleWorkerManagerMixin:
+    """Auto scale Worker Manager Mixin.
 
     Requirement:
         loop (Property): event loop.
         queue (Property): msg queue.
         make_close_signal (Method): Make close signal to send.
         parser_message (Method): Parser messages from queue.
+        waiting_tasks_number (Property): Now number of the waiting tasks.
+        paused (Property): Check if user can submit tasks.
 
 
     Support:
-        size (Property): worker pool's size.
         size (Property): worker set's size.
         start_workers (Asynchronous Method): Initialize workers and open the task pool to accept tasks.
         scale  (Asynchronous Method): Scale the number of the task pool's worker.
@@ -29,14 +34,22 @@ class FixedWorkerManagerMixin:
         close_workers (Asynchronous Method): Send worker pool size's close signal to the queue.
         close_workers_nowait_soft (Method): Send worker pool size's close signal to the queue with no wait.
         close_workers_hard (Method): Cancel worker hardlly.
+        close_auto_scale_worker (Method): Close auto scale worker.
     """
 
-    def __init__(self, min_size: int = 3, max_size=None, executor: concurrent.futures.Executor = None):
+    def __init__(self, *,
+                 min_size: int = 3,
+                 max_size: Optional[int] = None,
+                 auto_scale_interval: int = 10,
+                 auto_scale_cache_len: int = 20,
+                 executor: concurrent.futures.Executor = None):
         """Initialize task Fixed Worker Manager Mixin.
 
         Args:
-            init_size (int, optional): [description]. Defaults to 3.
-            executor (concurrent.futures.Executor, optional): [description]. Defaults to None.
+            min_size (int, optional): Min size of task pool. Defaults to 3.
+            max_size (int, optional): Max size of task pool. Defaults to min_size+5.
+            auto_scale_interval (int, optional): How often auto scale task run.
+            executor (concurrent.futures.Executor, optional): executor to run synchronous functions. Defaults to None.
 
         """
         if not isinstance(min_size, int):
@@ -50,9 +63,11 @@ class FixedWorkerManagerMixin:
         self._workers = set()
         self._min_size = min_size
         self._max_size = max_size
+        self._auto_scale_interval = auto_scale_interval
+        self._auto_scale_cache_len = auto_scale_cache_len
+        self._stat_cache = deque([], maxlen=self._auto_scale_cache_len)
+        self._auto_scale_worker = None
         self._executor = executor
-
-    
 
     @property
     def size(self) -> int:
@@ -64,10 +79,68 @@ class FixedWorkerManagerMixin:
         """
         return len(self._workers)
 
+    def _auto_scale_worker_close_callback(self, fut):
+        self._auto_scale_worker = None
+        warnings.warn("auto_scale_worker closed")
+
     async def start_workers(self) -> None:
         """Initialize workers and open the task pool to accept tasks."""
         size = self._min_size - self.size
         await self.scale(size)
+        if self._auto_scale_worker is None:
+            self._auto_scale_worker = asyncio.create_task(self.start_auto_scale())
+            self._auto_scale_worker.add_done_callback(self._auto_scale_worker_close_callback)
+            warnings.warn("auto_scale_worker starting")
+
+    def close_auto_scale_worker(self):
+        """Close _auto_scale_worker."""
+        self._auto_scale_worker.cancel()
+
+    async def _auto_scale(self):
+        if self.size == 0:
+            if self.paused:
+                return False
+            else:
+                await self.scale(self._min_size)
+                return True
+        score = self.waiting_tasks_number / self.size
+        self._stat_cache.append(score)
+        stat_cache = list(self._stat_cache)
+        avg_score = statistics.mean(stat_cache)
+        half_avg_score = statistics.mean(stat_cache[int(len(stat_cache) / 2):])
+        quarter_avg_score = statistics.mean(stat_cache[int(len(stat_cache) * 3 / 4):])
+        result = 0
+        _range = self._max_size - self.size
+        rate = 1
+        if score > 2 and score > quarter_avg_score > half_avg_score > avg_score:
+            warnings.warn("Task accumulation!")
+            rate = 1
+        if score > 2:
+            rate = 0.6
+        elif score >= 1:
+            rate = 0.3
+        elif score > 0 and score > quarter_avg_score:
+            rate = 0.05
+        else:
+            _range = self._min_size - self.size
+            rate = 0.1
+            if quarter_avg_score < 0.1:
+                rate += 0.2
+                if half_avg_score < 0.1:
+                    rate -= 0.2
+                    if avg_score < 0.2:
+                        rate -= 0.1
+        if _range > 0:
+            result = math.ceil(_range * rate)
+        else:
+            result = math.floor(_range * rate)
+        await self.scale(result)
+        return True
+
+    async def start_auto_scale(self) -> None:
+        while True:
+            await asyncio.sleep(self._auto_scale_interval)
+            await self._auto_scale()
 
     async def scale(self, num: int) -> int:
         """Scale the number of the task pool's worker.
@@ -81,14 +154,16 @@ class FixedWorkerManagerMixin:
         """
         result = self.size + num
         if result > self._max_size:
+            result = self._max_size
             self._make_worker(self._max_size - self.size)
-        elif self._max_size >= result > self._min_size:
+        elif self._max_size >= result >= self._min_size:
             if num > 0:
                 self._make_worker(num)
             elif num < 0:
                 num = abs(num)
                 await self._remove_worker(num)
         else:
+            result = self._min_size
             num = self.size - self._min_size
             await self._remove_worker(num)
         return result
@@ -106,7 +181,10 @@ class FixedWorkerManagerMixin:
 
         """
         result = self.size + num
-        if result > 0:
+        if result > self._max_size:
+            result = self._max_size
+            self._make_worker(self._max_size - self.size)
+        elif self._max_size >= result >= self._min_size:
             if num > 0:
                 self._make_worker(num)
             elif num < 0:
@@ -116,8 +194,8 @@ class FixedWorkerManagerMixin:
                 else:
                     self._remove_worker_hard(num)
         else:
-            result = 0
-            num = self.size
+            result = self._min_size
+            num = self.size - self._min_size
             if soft:
                 self._remove_worker_nowait_soft(num)
             else:

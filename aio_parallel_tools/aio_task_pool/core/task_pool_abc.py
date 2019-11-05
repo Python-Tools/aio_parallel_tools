@@ -90,11 +90,10 @@ class AioTaskPoolAbc(abc.ABC):
         """
         await self.close()
 
+    @abc.abstractmethod
     async def start(self) -> None:
         """Initialize workers and open the task pool to accept tasks."""
-        size = self.init_size - self.size
-        await self.scale(size)
-        self._paused = False
+        raise NotImplemented
 
     @abc.abstractmethod
     def pause(self) -> bool:
@@ -120,17 +119,6 @@ class AioTaskPoolAbc(abc.ABC):
             e: unknown error when closing workers.
             te: waiting for left tasks done timeout
             e: unknown error when waiting for left tasks done
-
-        """
-        raise NotImplemented
-
-    @abc.abstractmethod
-    def close_nowait(self, soft=True) -> None:
-        """Close all workers and paused the task pool without waiting.
-
-        Args:
-            soft (bool, optional): if True, this interface will send Signal to task pool to close workers;
-             else all workers will be cancel. Defaults to True.
 
         """
         raise NotImplemented
@@ -207,4 +195,3 @@ class AioTaskPoolAbc(abc.ABC):
 
         """
         raise NotImplemented
-

@@ -1,4 +1,4 @@
-"""define task object to send to worker."""
+"""Define task object to send to worker."""
 import asyncio
 from typing import Dict, List, Any, Callable, NamedTuple
 

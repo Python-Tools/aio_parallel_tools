@@ -20,7 +20,6 @@ class FixedWorkerManagerMixin:
 
 
     Support:
-        size (Property): worker pool's size.
         size (Property): worker set's size.
         start_workers (Asynchronous Method): Initialize workers and open the task pool to accept tasks.
         scale  (Asynchronous Method): Scale the number of the task pool's worker.
@@ -35,8 +34,8 @@ class FixedWorkerManagerMixin:
         """Initialize task Fixed Worker Manager Mixin.
 
         Args:
-            init_size (int, optional): [description]. Defaults to 3.
-            executor (concurrent.futures.Executor, optional): [description]. Defaults to None.
+            init_size (int, optional): Set the binginning size of task pool. Defaults to 3.
+            executor (concurrent.futures.Executor, optional): Executor to run synchronous functions. Defaults to None.
 
         """
         self._workers = set()

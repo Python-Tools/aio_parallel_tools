@@ -1,4 +1,4 @@
-"""define Exceptions of task pool."""
+"""Define Exceptions of task pool."""
 
 
 class TaskPoolException(Exception):

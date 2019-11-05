@@ -1,3 +1,4 @@
+"""The simplest mixin for creating and submiting tasks to task pool."""
 import copy
 import warnings
 import asyncio
@@ -19,8 +20,6 @@ class SimpleProducerMixin:
         close_workers_nowait_soft (Method): Send worker pool size's close signal to the queue with no wait.
         close_workers_hard (Method): Cancel worker hardlly.
 
-
-
     Support:
         paused (Property): Check if user can submit tasks.
         closed (Property): Check if the pool is closed.
@@ -29,8 +28,8 @@ class SimpleProducerMixin:
         pause (Method): Pause the task pool.
         submit (Asynchronous Method): Submit task to the task pool.
         submit_nowait (Method): Submit task to the task pool with no wait.
-        close (Asynchronous Method): Send close signal to all worker.
-        close_nowait (Method): Send close signal to all workers with no waiting.
+        close_pool (Asynchronous Method): Send close signal to all worker.
+        close_pool_nowait (Method): Send close signal to all workers with no waiting.
 
     """
 
@@ -79,7 +78,8 @@ class SimpleProducerMixin:
         task = Task(fut, task_func, args, kwargs)
         return task
 
-    async def submit(self, task_func: Callable[[Any], Any], *,
+    async def submit(self,
+                     task_func: Callable[[Any], Any], *,
                      func_args: List[Any] = [],
                      func_kwargs: Dict[str, Any] = {},
                      blocking: bool = True, **kwargs) -> Union[asyncio.Future, Any]:
@@ -89,7 +89,7 @@ class SimpleProducerMixin:
             task_func (Callable[[Any], Any]): The task function which will be called by the workers.
             func_args (List[Any], optional): The positional parameters for the task function. Defaults to [].
             func_kwargs (Dict[str, Any], optional): The keyword parameters for the task function. Defaults to {}.
-            blocking (bool, optional): set if waiting for the task's result. Defaults to True.
+            blocking (bool, optional): Set if waiting for the task's result. Defaults to True.
 
         Raises:
             NotAvailable: The task pool is paused
@@ -112,7 +112,8 @@ class SimpleProducerMixin:
         else:
             raise NotAvailable("task pool is paused")
 
-    def submit_nowait(self, task_func: Callable[[Any], Any], *,
+    def submit_nowait(self,
+                      task_func: Callable[[Any], Any], *,
                       func_args: List[Any] = [],
                       func_kwargs: Dict[str, Any] = {},
                       **kwargs) -> asyncio.Future:
@@ -147,7 +148,10 @@ class SimpleProducerMixin:
         else:
             raise NotAvailable("task pool is paused")
 
-    async def close(self, close_worker_timeout: Union[int, float, None] = None, close_pool_timeout: int = 3, safe=True) -> None:
+    async def close_pool(self,
+                         close_worker_timeout: Union[int, float, None] = None,
+                         close_pool_timeout: int = 3,
+                         safe: bool = True) -> None:
         """Close all workers and paused the task pool.
 
         Args:
@@ -192,7 +196,7 @@ class SimpleProducerMixin:
                 else:
                     raise e
 
-    def close_nowait(self, soft=True) -> None:
+    def close_pool_nowait(self, soft: bool = True) -> None:
         """Close all workers and paused the task pool without waiting.
 
         Args:

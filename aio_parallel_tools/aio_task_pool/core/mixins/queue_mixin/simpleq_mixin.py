@@ -24,8 +24,8 @@ class SimpleQMixin:
         """Initialize Simple Queue Mixin.
 
         Args:
-            queue (Optional[asyncio.Queue], optional): using a exist queue. Defaults to None.
-            queue_maxsize (int, optional): set the maxsize of a new queue. Defaults to 0.
+            queue (Optional[asyncio.Queue], optional): Using a exist queue. Defaults to None.
+            queue_maxsize (int, optional): Set the maxsize of a new queue. Defaults to 0.
 
         """
         if isinstance(queue, asyncio.Queue):
@@ -66,6 +66,6 @@ class SimpleQMixin:
         """Make close signal to send."""
         return WorkerCloseSignal
 
-    def parser_message(self, message) -> Any:
+    def parser_message(self, message: Any) -> Any:
         """Parser messages from queue."""
         return message

@@ -1,15 +1,15 @@
 """Asynchronous Task Pool Class."""
 import asyncio
 import concurrent
-from typing import Optional, Dict, List, Any, Callable, Union
+from typing import Optional, Union
 from aio_parallel_tools.aio_task_pool.core.task_pool_base import AioTaskPoolBase
-from aio_parallel_tools.aio_task_pool.core.mixins.queue_mixin.priorityq_mixin import PriorityQMixin
-from aio_parallel_tools.aio_task_pool.core.mixins.worker_manager_mixin.fix_worker_manager_mixin import FixedWorkerManagerMixin
+from aio_parallel_tools.aio_task_pool.core.mixins.queue_mixin.simpleq_mixin import SimpleQMixin
+from aio_parallel_tools.aio_task_pool.core.mixins.worker_manager_mixin.autoscale_worker_manager_mixin import AutoScaleWorkerManagerMixin
 from aio_parallel_tools.aio_task_pool.core.mixins.producer_mixin.simple_producer_mixin import SimpleProducerMixin
 
 
-class AioFixedTaskPoolPriority(SimpleProducerMixin, FixedWorkerManagerMixin, PriorityQMixin, AioTaskPoolBase):
-    """Asynchronous Task Pool Class.
+class AioAutoScaleTaskPoolSimple(SimpleProducerMixin, AutoScaleWorkerManagerMixin, SimpleQMixin, AioTaskPoolBase):
+    """Auto Scale Asynchronous Task Pool Class.
 
     this pool is used when you need to limit the max number of parallel tasks at one time.
     It's a derivative of `Producer Consumer model`.
@@ -48,11 +48,11 @@ class AioFixedTaskPoolPriority(SimpleProducerMixin, FixedWorkerManagerMixin, Pri
     ...     return "ok:"+ result
 
     >>> async def main():
-    ...     async with AioFixedTaskPoolPriority() as task_pool:
+    ...     async with AioAutoScaleTaskPoolSimple() as task_pool:
     ...         print(f"test pool size {task_pool.size}")
     ...         print("test 4 task with pool size 3")
     ...         print("test await blocking submit")
-    ...         r = await task_pool.submit(test, func_args=["e"],weight=3)
+    ...         r = await task_pool.submit(test, func_args=["e"])
     ...         assert r == "ok:e done"
     ...         print("test await blocking submit")
     ...         print("scale 3")
@@ -69,69 +69,50 @@ class AioFixedTaskPoolPriority(SimpleProducerMixin, FixedWorkerManagerMixin, Pri
     """
 
     def __init__(self, *,
-                 init_size: int = 3,
                  loop: Optional[asyncio.events.AbstractEventLoop] = None,
+                 min_size: int = 3,
+                 max_size: Optional[int] = None,
+                 auto_scale_interval: int = 10,
+                 auto_scale_cache_len: int = 20,
                  executor: concurrent.futures.Executor = None,
                  queue: Optional[asyncio.Queue] = None,
                  queue_maxsize: int = 0) -> None:
         """Initialize task pool.
 
         Args:
-            init_size (int, optional): Set the binginning size of task pool. Defaults to 3.
             loop (Optional[asyncio.events.AbstractEventLoop], optional): Event loop running on.. Defaults to None.
+            min_size (int, optional): Min size of task pool. Defaults to 3.
+            max_size (int, optional): Max size of task pool. Defaults to min_size+5.
+            auto_scale_interval (int, optional): How often auto scale task run.
+            auto_scale_cache_len (int, optional): Cache length.
             queue (Optional[asyncio.Queue], optional): Using a exist queue. Defaults to None.
             queue_maxsize (int, optional): Set the maxsize of a new queue. Defaults to 0.
             executor (concurrent.futures.Executor, optional): Executor to run synchronous functions. Defaults to None.
 
         """
         AioTaskPoolBase.__init__(self, loop=loop)
-        PriorityQMixin.__init__(self, queue=queue, queue_maxsize=queue_maxsize)
-        FixedWorkerManagerMixin.__init__(self, init_size=init_size, executor=executor)
+        SimpleQMixin.__init__(self, queue=queue, queue_maxsize=queue_maxsize)
+        AutoScaleWorkerManagerMixin.__init__(self, min_size=min_size,
+                                             max_size=max_size,
+                                             auto_scale_interval=auto_scale_interval,
+                                             auto_scale_cache_len=auto_scale_cache_len,
+                                             executor=executor)
         SimpleProducerMixin.__init__(self)
 
-    async def submit(self, task_func: Callable[[Any], Any], *,
-                     func_args: List[Any] = [],
-                     func_kwargs: Dict[str, Any] = {},
-                     weight: int = 4,
-                     blocking: bool = True) -> Union[asyncio.Future, Any]:
-        """Submit task to the task pool.
+    async def close(self, close_worker_timeout: Union[int, float, None] = None, close_pool_timeout: int = 3, safe: bool = True):
+        """Close all workers and paused the task pool.
 
         Args:
-            task_func (Callable[[Any], Any]): The task function which will be called by the workers.
-            func_args (List[Any], optional): The positional parameters for the task function. Defaults to [].
-            func_kwargs (Dict[str, Any], optional): The keyword parameters for the task function. Defaults to {}.
-            weight (int): Task's weight.  Defaults to 4.
-            blocking (bool, optional): set if waiting for the task's result. Defaults to True.
+            close_worker_timeout (Union[int, float, None], optional): Timeout for closing all workers. Defaults to None.
+            close_pool_timeout (int, optional): Timeout for join left tasks. Defaults to 3.
+            safe (bool, optional): when getting  exceptions, raise it or warning it. Defaults to True.
 
         Raises:
-            NotAvailable: The task pool is paused
-
-        Returns:
-            Union[asyncio.Future, Any]: if blocking is True, submit will return the result of the task;
-            else it will return a future which you can await it to get the result.
-
-        """
-        return await SimpleProducerMixin.submit(self, task_func=task_func, func_args=func_args, func_kwargs=func_kwargs, weight=weight, blocking=blocking)
-
-    def submit_nowait(self, task_func: Callable[[Any], Any], *,
-                      func_args: List[Any] = [],
-                      func_kwargs: Dict[str, Any] = {},
-                      weight: int = 4) -> asyncio.Future:
-        """Submit task to the task pool with no wait.
-
-        Args:
-            task_func (Callable[[Any], Any]): The task function which will be called by the workers.
-            func_args (List[Any], optional): The positional parameters for the task function. Defaults to [].
-            func_kwargs (Dict[str, Any], optional): The keyword parameters for the task function. Defaults to {}.
-            weight (int): Task's weight.  Defaults to 4.
-
-        Raises:
-            NotAvailable: The task pool is paused or
-            e: other exception
-            NotAvailable: task pool is full, can not put task any more
-
-        Returns:
-            asyncio.Future: a future which you can await it to get the result.
+            te: close workers timeout.
+            e: unknown error when closing workers.
+            te: waiting for left tasks done timeout
+            e: unknown error when waiting for left tasks done
 
         """
-        return SimpleProducerMixin.submit_nowait(self, task_func=task_func, func_args=func_args, func_kwargs=func_kwargs, weight=weight)
+        self.close_auto_scale_worker()
+        await self.close_pool(close_worker_timeout=close_worker_timeout, close_pool_timeout=close_pool_timeout, safe=safe)

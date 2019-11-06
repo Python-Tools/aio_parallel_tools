@@ -18,7 +18,8 @@ extensions = [
     'sphinx.ext.todo',
     'sphinx.ext.viewcode',
     'sphinx.ext.napoleon',
-    'sphinx.ext.mathjax'
+    'sphinx.ext.mathjax',
+    'sphinx.ext.extlinks'
 ]
 
 templates_path = ['_templates']
@@ -34,18 +35,19 @@ author = project_info["author"]
 copyright = f'{year}, {author}'
 version = project_info["version"]
 release = ''
-language = 'en'
+language = 'zh'
 exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
 pygments_style = 'sphinx'
 todo_include_todos = True
 html_theme = 'alabaster'
+#html_theme = "sphinx_rtd_theme"
 html_static_path = ['_static']
 htmlhelp_basename = project_info["project-name"]
 latex_elements = {
 }
 latex_documents = [
     (
-        master_doc, 
+        master_doc,
         f'{project}.tex',
         f'{project} Documentation',
         'Author',
@@ -76,8 +78,21 @@ epub_exclude_files = ['search.html']
 todo_include_todos = True
 url_doc_root = project_info["url"]
 
+html_theme_options = {
+    'description': 'Tools for develope asynchronous script easily.',
+    'github_user': "Python-Tools",
+    'github_repo': 'aio_parallel_tools',
+    'github_banner': True,
+    'github_button': True,
+    'sidebar_collapse': False
+}
+
 locale_dirs = ['locale/']
 gettext_compact = False
+extlinks = {
+    "ZH":(f"{url_doc_root}/index.html","ZH"),
+    "EN":(f"{url_doc_root}en/index.html","EN")
+}
 
 def setup(app):
     app.add_config_value('recommonmark_config', {

@@ -1,10 +1,10 @@
 
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh">
   <head>
     <meta charset="utf-8" />
-    <title>aio_parallel_tools.aio_task_pool.core.mixins.worker_manager_mixin.autoscale_worker_manager_mixin &#8212; aio_parallel_tools  documentation</title>
+    <title>aio_parallel_tools.aio_task_pool.core.mixins.worker_manager_mixin.autoscale_worker_manager_mixin &#8212; aio_parallel_tools  文档</title>
     <link rel="stylesheet" href="../../../../../../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../../../../../../_static/pygments.css" type="text/css" />
     <script type="text/javascript" id="documentation_options" data-url_root="../../../../../../" src="../../../../../../_static/documentation_options.js"></script>
@@ -12,8 +12,8 @@
     <script type="text/javascript" src="../../../../../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../../../../../_static/doctools.js"></script>
     <script type="text/javascript" src="../../../../../../_static/language_data.js"></script>
-    <link rel="index" title="Index" href="../../../../../../genindex.html" />
-    <link rel="search" title="Search" href="../../../../../../search.html" />
+    <link rel="index" title="索引" href="../../../../../../genindex.html" />
+    <link rel="search" title="搜索" href="../../../../../../search.html" />
    
   <link rel="stylesheet" href="../../../../../../_static/custom.css" type="text/css" />
   
@@ -30,7 +30,7 @@
 
           <div class="body" role="main">
             
-  <h1>Source code for aio_parallel_tools.aio_task_pool.core.mixins.worker_manager_mixin.autoscale_worker_manager_mixin</h1><div class="highlight"><pre>
+  <h1>aio_parallel_tools.aio_task_pool.core.mixins.worker_manager_mixin.autoscale_worker_manager_mixin 源代码</h1><div class="highlight"><pre>
 <span></span><span class="sd">&quot;&quot;&quot;Fixed Worker Manager Mixin.&quot;&quot;&quot;</span>
 <span class="kn">import</span> <span class="nn">inspect</span>
 <span class="kn">import</span> <span class="nn">asyncio</span>
@@ -46,7 +46,7 @@
 <span class="kn">from</span> <span class="nn">aio_parallel_tools.aio_task_pool.core.task</span> <span class="k">import</span> <span class="n">Task</span>
 
 
-<div class="viewcode-block" id="AutoScaleWorkerManagerMixin"><a class="viewcode-back" href="../../../../../../aio_parallel_tools.aio_task_pool.core.mixins.worker_manager_mixin.html#aio_parallel_tools.aio_task_pool.core.mixins.worker_manager_mixin.autoscale_worker_manager_mixin.AutoScaleWorkerManagerMixin">[docs]</a><span class="k">class</span> <span class="nc">AutoScaleWorkerManagerMixin</span><span class="p">:</span>
+<div class="viewcode-block" id="AutoScaleWorkerManagerMixin"><a class="viewcode-back" href="../../../../../../aio_parallel_tools.aio_task_pool.core.mixins.worker_manager_mixin.html#aio_parallel_tools.aio_task_pool.core.mixins.worker_manager_mixin.autoscale_worker_manager_mixin.AutoScaleWorkerManagerMixin">[文档]</a><span class="k">class</span> <span class="nc">AutoScaleWorkerManagerMixin</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;Auto scale Worker Manager Mixin.</span>
 
 <span class="sd">    Requirement:</span>
@@ -127,7 +127,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_auto_scale_worker</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">&quot;auto_scale_worker closed&quot;</span><span class="p">)</span>
 
-<div class="viewcode-block" id="AutoScaleWorkerManagerMixin.start_workers"><a class="viewcode-back" href="../../../../../../aio_parallel_tools.aio_task_pool.core.mixins.worker_manager_mixin.html#aio_parallel_tools.aio_task_pool.core.mixins.worker_manager_mixin.autoscale_worker_manager_mixin.AutoScaleWorkerManagerMixin.start_workers">[docs]</a>    <span class="k">async</span> <span class="k">def</span> <span class="nf">start_workers</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<div class="viewcode-block" id="AutoScaleWorkerManagerMixin.start_workers"><a class="viewcode-back" href="../../../../../../aio_parallel_tools.aio_task_pool.core.mixins.worker_manager_mixin.html#aio_parallel_tools.aio_task_pool.core.mixins.worker_manager_mixin.autoscale_worker_manager_mixin.AutoScaleWorkerManagerMixin.start_workers">[文档]</a>    <span class="k">async</span> <span class="k">def</span> <span class="nf">start_workers</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Initialize workers and open the task pool to accept tasks.&quot;&quot;&quot;</span>
         <span class="n">size</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_min_size</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span>
         <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">scale</span><span class="p">(</span><span class="n">size</span><span class="p">)</span>
@@ -136,7 +136,7 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">_auto_scale_worker</span><span class="o">.</span><span class="n">add_done_callback</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_auto_scale_worker_close_callback</span><span class="p">)</span>
             <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">&quot;auto_scale_worker starting&quot;</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="AutoScaleWorkerManagerMixin.close_auto_scale_worker"><a class="viewcode-back" href="../../../../../../aio_parallel_tools.aio_task_pool.core.mixins.worker_manager_mixin.html#aio_parallel_tools.aio_task_pool.core.mixins.worker_manager_mixin.autoscale_worker_manager_mixin.AutoScaleWorkerManagerMixin.close_auto_scale_worker">[docs]</a>    <span class="k">def</span> <span class="nf">close_auto_scale_worker</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="AutoScaleWorkerManagerMixin.close_auto_scale_worker"><a class="viewcode-back" href="../../../../../../aio_parallel_tools.aio_task_pool.core.mixins.worker_manager_mixin.html#aio_parallel_tools.aio_task_pool.core.mixins.worker_manager_mixin.autoscale_worker_manager_mixin.AutoScaleWorkerManagerMixin.close_auto_scale_worker">[文档]</a>    <span class="k">def</span> <span class="nf">close_auto_scale_worker</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Close _auto_scale_worker.&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_auto_scale_worker</span><span class="o">.</span><span class="n">cancel</span><span class="p">()</span></div>
 
@@ -181,12 +181,12 @@
         <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">scale</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
         <span class="k">return</span> <span class="kc">True</span>
 
-<div class="viewcode-block" id="AutoScaleWorkerManagerMixin.start_auto_scale"><a class="viewcode-back" href="../../../../../../aio_parallel_tools.aio_task_pool.core.mixins.worker_manager_mixin.html#aio_parallel_tools.aio_task_pool.core.mixins.worker_manager_mixin.autoscale_worker_manager_mixin.AutoScaleWorkerManagerMixin.start_auto_scale">[docs]</a>    <span class="k">async</span> <span class="k">def</span> <span class="nf">start_auto_scale</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<div class="viewcode-block" id="AutoScaleWorkerManagerMixin.start_auto_scale"><a class="viewcode-back" href="../../../../../../aio_parallel_tools.aio_task_pool.core.mixins.worker_manager_mixin.html#aio_parallel_tools.aio_task_pool.core.mixins.worker_manager_mixin.autoscale_worker_manager_mixin.AutoScaleWorkerManagerMixin.start_auto_scale">[文档]</a>    <span class="k">async</span> <span class="k">def</span> <span class="nf">start_auto_scale</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
             <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_auto_scale_interval</span><span class="p">)</span>
             <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_auto_scale</span><span class="p">()</span></div>
 
-<div class="viewcode-block" id="AutoScaleWorkerManagerMixin.scale"><a class="viewcode-back" href="../../../../../../aio_parallel_tools.aio_task_pool.core.mixins.worker_manager_mixin.html#aio_parallel_tools.aio_task_pool.core.mixins.worker_manager_mixin.autoscale_worker_manager_mixin.AutoScaleWorkerManagerMixin.scale">[docs]</a>    <span class="k">async</span> <span class="k">def</span> <span class="nf">scale</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">num</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<div class="viewcode-block" id="AutoScaleWorkerManagerMixin.scale"><a class="viewcode-back" href="../../../../../../aio_parallel_tools.aio_task_pool.core.mixins.worker_manager_mixin.html#aio_parallel_tools.aio_task_pool.core.mixins.worker_manager_mixin.autoscale_worker_manager_mixin.AutoScaleWorkerManagerMixin.scale">[文档]</a>    <span class="k">async</span> <span class="k">def</span> <span class="nf">scale</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">num</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Scale the number of the task pool&#39;s worker.</span>
 
 <span class="sd">        Args:</span>
@@ -212,7 +212,7 @@
             <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_remove_worker</span><span class="p">(</span><span class="n">num</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">result</span></div>
 
-<div class="viewcode-block" id="AutoScaleWorkerManagerMixin.scale_nowait"><a class="viewcode-back" href="../../../../../../aio_parallel_tools.aio_task_pool.core.mixins.worker_manager_mixin.html#aio_parallel_tools.aio_task_pool.core.mixins.worker_manager_mixin.autoscale_worker_manager_mixin.AutoScaleWorkerManagerMixin.scale_nowait">[docs]</a>    <span class="k">def</span> <span class="nf">scale_nowait</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">num</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">soft</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<div class="viewcode-block" id="AutoScaleWorkerManagerMixin.scale_nowait"><a class="viewcode-back" href="../../../../../../aio_parallel_tools.aio_task_pool.core.mixins.worker_manager_mixin.html#aio_parallel_tools.aio_task_pool.core.mixins.worker_manager_mixin.autoscale_worker_manager_mixin.AutoScaleWorkerManagerMixin.scale_nowait">[文档]</a>    <span class="k">def</span> <span class="nf">scale_nowait</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">num</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">soft</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Scale the number of the task pool&#39;s worker without waiting.</span>
 
 <span class="sd">        Args:</span>
@@ -306,15 +306,15 @@
         <span class="n">msg</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">make_close_signal</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">queue</span><span class="o">.</span><span class="n">put_nowait</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
 
-<div class="viewcode-block" id="AutoScaleWorkerManagerMixin.close_workers"><a class="viewcode-back" href="../../../../../../aio_parallel_tools.aio_task_pool.core.mixins.worker_manager_mixin.html#aio_parallel_tools.aio_task_pool.core.mixins.worker_manager_mixin.autoscale_worker_manager_mixin.AutoScaleWorkerManagerMixin.close_workers">[docs]</a>    <span class="k">async</span> <span class="k">def</span> <span class="nf">close_workers</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="AutoScaleWorkerManagerMixin.close_workers"><a class="viewcode-back" href="../../../../../../aio_parallel_tools.aio_task_pool.core.mixins.worker_manager_mixin.html#aio_parallel_tools.aio_task_pool.core.mixins.worker_manager_mixin.autoscale_worker_manager_mixin.AutoScaleWorkerManagerMixin.close_workers">[文档]</a>    <span class="k">async</span> <span class="k">def</span> <span class="nf">close_workers</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Send worker pool size&#39;s close signal to the queue.&quot;&quot;&quot;</span>
         <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_remove_worker</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="AutoScaleWorkerManagerMixin.close_workers_nowait_soft"><a class="viewcode-back" href="../../../../../../aio_parallel_tools.aio_task_pool.core.mixins.worker_manager_mixin.html#aio_parallel_tools.aio_task_pool.core.mixins.worker_manager_mixin.autoscale_worker_manager_mixin.AutoScaleWorkerManagerMixin.close_workers_nowait_soft">[docs]</a>    <span class="k">def</span> <span class="nf">close_workers_nowait_soft</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<div class="viewcode-block" id="AutoScaleWorkerManagerMixin.close_workers_nowait_soft"><a class="viewcode-back" href="../../../../../../aio_parallel_tools.aio_task_pool.core.mixins.worker_manager_mixin.html#aio_parallel_tools.aio_task_pool.core.mixins.worker_manager_mixin.autoscale_worker_manager_mixin.AutoScaleWorkerManagerMixin.close_workers_nowait_soft">[文档]</a>    <span class="k">def</span> <span class="nf">close_workers_nowait_soft</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Send worker pool size&#39;s close signal to the queue with no wait.&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_remove_worker_soft_nowait</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="AutoScaleWorkerManagerMixin.close_workers_hard"><a class="viewcode-back" href="../../../../../../aio_parallel_tools.aio_task_pool.core.mixins.worker_manager_mixin.html#aio_parallel_tools.aio_task_pool.core.mixins.worker_manager_mixin.autoscale_worker_manager_mixin.AutoScaleWorkerManagerMixin.close_workers_hard">[docs]</a>    <span class="k">def</span> <span class="nf">close_workers_hard</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<div class="viewcode-block" id="AutoScaleWorkerManagerMixin.close_workers_hard"><a class="viewcode-back" href="../../../../../../aio_parallel_tools.aio_task_pool.core.mixins.worker_manager_mixin.html#aio_parallel_tools.aio_task_pool.core.mixins.worker_manager_mixin.autoscale_worker_manager_mixin.AutoScaleWorkerManagerMixin.close_workers_hard">[文档]</a>    <span class="k">def</span> <span class="nf">close_workers_hard</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Cancel worker hardlly.&quot;&quot;&quot;</span>
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_workers</span><span class="p">):</span>
             <span class="n">i</span><span class="o">.</span><span class="n">cancel</span><span class="p">()</span></div></div>
@@ -330,32 +330,58 @@
 
 
 
+<p class="blurb">Tools for develope asynchronous script easily.</p>
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=Python-Tools&repo=aio_parallel_tools&type=watch&count=true&size=large&v=2"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
 
 
 
 
 
-<h3>Navigation</h3>
+<h3>导航</h3>
 <p class="caption"><span class="caption-text">API:</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../../../../aio_parallel_tools.html">Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../aio_parallel_tools.html">Modules</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../../../aio_parallel_tools.aio_task_pool.html">aio_parallel_tools.aio_task_pool package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../../../aio_parallel_tools.aio_task_pool.html#taskpools">TaskPools</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../../../aio_parallel_tools.aio_task_pool.html#module-aio_parallel_tools.aio_task_pool.aio_autoscale_task_pool_lifo">aio_autoscale_task_pool_lifo module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../../../aio_parallel_tools.aio_task_pool.html#module-aio_parallel_tools.aio_task_pool.aio_autoscale_task_pool_priority">aio_autoscale_task_pool_priority module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../../../aio_parallel_tools.aio_task_pool.html#module-aio_parallel_tools.aio_task_pool.aio_autoscale_task_pool_simple">aio_autoscale_task_pool_simple module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../../../aio_parallel_tools.aio_task_pool.html#module-aio_parallel_tools.aio_task_pool.aio_fixed_task_pool_lifo">aio_fixed_task_pool_lifo module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../../../aio_parallel_tools.aio_task_pool.html#module-aio_parallel_tools.aio_task_pool.aio_fixed_task_pool_priority">aio_fixed_task_pool_priority module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../../../aio_parallel_tools.aio_task_pool.html#module-aio_parallel_tools.aio_task_pool.aio_fixed_task_pool_simple">aio_fixed_task_pool_simple module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../../../aio_parallel_tools.aio_task_pool.html#task-pool-core-api">Task Pool Core API</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../../../aio_parallel_tools.aio_task_pool.core.html">Interface</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../../../aio_parallel_tools.aio_task_pool.core.html#mixins">Mixins</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 
 <div class="relations">
 <h3>Related Topics</h3>
 <ul>
   <li><a href="../../../../../../index.html">Documentation overview</a><ul>
-  <li><a href="../../../../../index.html">Module code</a><ul>
+  <li><a href="../../../../../index.html">模块代码</a><ul>
   </ul></li>
   </ul></li>
 </ul>
 </div>
 <div id="searchbox" style="display: none" role="search">
-  <h3 id="searchlabel">Quick search</h3>
+  <h3 id="searchlabel">快速搜索</h3>
     <div class="searchformwrapper">
     <form class="search" action="../../../../../../search.html" method="get">
       <input type="text" name="q" aria-labelledby="searchlabel" />
-      <input type="submit" value="Go" />
+      <input type="submit" value="转向" />
     </form>
     </div>
 </div>
@@ -381,6 +407,10 @@
       
     </div>
 
+    
+    <a href="https://github.com/Python-Tools/aio_parallel_tools" class="github">
+        <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"  class="github"/>
+    </a>
     
 
     

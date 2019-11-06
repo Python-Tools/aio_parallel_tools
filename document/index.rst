@@ -6,6 +6,10 @@
 Welcome to aio parallel tools's documentation!
 ==============================================
 
+Last change: |today|
+
+:ZH: | :EN:
+
 .. toctree::
    :maxdepth: 4
    :caption: API:

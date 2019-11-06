@@ -7,11 +7,12 @@
     "license": "MIT",
     "version": "0.0.1",
     "status": "dev",
-    "url": "",
+    "url": "https://python-tools.github.io/aio_parallel_tools/",
     "author": "huangsizhe",
-    "author-email": "",
+    "author-email": "hsz1273327@gmail.com",
     "keywords": [
-        "tools"
+        "tools",
+        "asyncio"
     ],
     "description": "simple tools",
     "gcc": "",

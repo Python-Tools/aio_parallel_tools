@@ -1,0 +1,262 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh">
+  <head>
+    <meta charset="utf-8" />
+    <title>aio_parallel_tools.aio_task_pool.aio_autoscale_task_pool_priority &#8212; aio_parallel_tools  文档</title>
+    <link rel="stylesheet" href="../../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../../_static/language_data.js"></script>
+    <link rel="index" title="索引" href="../../../genindex.html" />
+    <link rel="search" title="搜索" href="../../../search.html" />
+   
+  <link rel="stylesheet" href="../../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <h1>aio_parallel_tools.aio_task_pool.aio_autoscale_task_pool_priority 源代码</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;Asynchronous Task Pool Class.&quot;&quot;&quot;</span>
+<span class="kn">import</span> <span class="nn">asyncio</span>
+<span class="kn">import</span> <span class="nn">concurrent</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="k">import</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Union</span>
+<span class="kn">from</span> <span class="nn">aio_parallel_tools.aio_task_pool.core.task_pool_base</span> <span class="k">import</span> <span class="n">AioTaskPoolBase</span>
+<span class="kn">from</span> <span class="nn">aio_parallel_tools.aio_task_pool.core.mixins.queue_mixin.priorityq_mixin</span> <span class="k">import</span> <span class="n">PriorityQMixin</span>
+<span class="kn">from</span> <span class="nn">aio_parallel_tools.aio_task_pool.core.mixins.worker_manager_mixin.autoscale_worker_manager_mixin</span> <span class="k">import</span> <span class="n">AutoScaleWorkerManagerMixin</span>
+<span class="kn">from</span> <span class="nn">aio_parallel_tools.aio_task_pool.core.mixins.producer_mixin.simple_producer_mixin</span> <span class="k">import</span> <span class="n">SimpleProducerMixin</span>
+
+
+<div class="viewcode-block" id="AioAutoScaleTaskPoolPriority"><a class="viewcode-back" href="../../../aio_parallel_tools.aio_task_pool.html#aio_parallel_tools.aio_task_pool.aio_autoscale_task_pool_priority.AioAutoScaleTaskPoolPriority">[文档]</a><span class="k">class</span> <span class="nc">AioAutoScaleTaskPoolPriority</span><span class="p">(</span><span class="n">SimpleProducerMixin</span><span class="p">,</span> <span class="n">AutoScaleWorkerManagerMixin</span><span class="p">,</span> <span class="n">PriorityQMixin</span><span class="p">,</span> <span class="n">AioTaskPoolBase</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Auto Scale Asynchronous Task Pool Class.</span>
+
+<span class="sd">    this pool is used when you need to limit the max number of parallel tasks at one time.</span>
+<span class="sd">    It&#39;s a derivative of `Producer Consumer model`.</span>
+<span class="sd">    The pool instance will manage a number of consumer as worker.</span>
+<span class="sd">    You can scale the worker&#39;s number as you wish with the `scale` interface.</span>
+<span class="sd">    And you, as the Producer, can send your task with the `submit` interface.</span>
+<span class="sd">    If you want to close submit interface, you can use `pause` interface.</span>
+
+<span class="sd">    Property:</span>
+<span class="sd">    </span>
+<span class="sd">        loop (asyncio.events.AbstractEventLoop):Event loop running on.</span>
+
+<span class="sd">        size (int): The worker pool&#39;s size.</span>
+
+<span class="sd">        closed (bool): Check if the worker pool&#39;s size is 0 and the worker pool is paused</span>
+
+<span class="sd">        paused (bool): Check if the worker pool is paused. If can accept new tasks,the result is False; else it&#39;s True.</span>
+
+<span class="sd">        waiting_tasks_number (int): The number of the waiting tasks.</span>
+
+<span class="sd">        max_tasks_number (int): The maximum number of the waiting tasks.</span>
+
+<span class="sd">    Method:</span>
+
+<span class="sd">        pause (function): Pause the task pool.</span>
+
+<span class="sd">        scale_nowait (function): Scale the number of the task pool&#39;s worker without waiting.</span>
+
+<span class="sd">        submit_nowait (function): Submit task to the task pool with no wait.</span>
+
+<span class="sd">    Asynchronous Method:</span>
+
+<span class="sd">        start (function): Initialize workers and open the task pool to accept tasks.</span>
+
+<span class="sd">        close (function): Close all workers and paused the task pool.</span>
+
+<span class="sd">        scale (function): Scale the number of the task pool&#39;s worker.</span>
+
+<span class="sd">        submit (function): Submit task to the task pool.</span>
+
+<span class="sd">    Example:</span>
+
+<span class="sd">    &gt;&gt;&gt; import asyncio</span>
+<span class="sd">    &gt;&gt;&gt; async def test(name):</span>
+<span class="sd">    ...     print(f&quot;{name} start&quot;)</span>
+<span class="sd">    ...     for i in range(5):</span>
+<span class="sd">    ...         await asyncio.sleep(1)</span>
+<span class="sd">    ...     result = f&quot;{name} done&quot;</span>
+<span class="sd">    ...     print(result)</span>
+<span class="sd">    ...     return &quot;ok:&quot;+ result</span>
+<span class="sd">    &gt;&gt;&gt; async def main():</span>
+<span class="sd">    ...     async with AioAutoScaleTaskPoolPriority() as task_pool:</span>
+<span class="sd">    ...         print(f&quot;test pool size {task_pool.size}&quot;)</span>
+<span class="sd">    ...         print(&quot;test 4 task with pool size 3&quot;)</span>
+<span class="sd">    ...         print(&quot;test await blocking submit&quot;)</span>
+<span class="sd">    ...         r = await task_pool.submit(test, func_args=[&quot;e&quot;])</span>
+<span class="sd">    ...         assert r == &quot;ok:e done&quot;</span>
+<span class="sd">    ...         print(&quot;test await blocking submit&quot;)</span>
+<span class="sd">    ...         print(&quot;scale 3&quot;)</span>
+<span class="sd">    ...         await task_pool.scale(3)</span>
+<span class="sd">    ...         print(f&quot;test pool size {task_pool.size}&quot;)</span>
+<span class="sd">    ...</span>
+<span class="sd">    ...         print(&quot;scale -3&quot;)</span>
+<span class="sd">    ...         await task_pool.scale(-3)</span>
+<span class="sd">    ...         print(f&quot;test pool size {task_pool.size}&quot;)</span>
+<span class="sd">    ...         await asyncio.sleep(2)</span>
+<span class="sd">    ...         assert task_pool.size==6</span>
+<span class="sd">    ...         print(f&quot;after 2 s test pool size {task_pool.size}&quot;)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span>
+                 <span class="n">loop</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">asyncio</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">AbstractEventLoop</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                 <span class="n">min_size</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">3</span><span class="p">,</span>
+                 <span class="n">max_size</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                 <span class="n">auto_scale_interval</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span>
+                 <span class="n">auto_scale_cache_len</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">20</span><span class="p">,</span>
+                 <span class="n">executor</span><span class="p">:</span> <span class="n">concurrent</span><span class="o">.</span><span class="n">futures</span><span class="o">.</span><span class="n">Executor</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                 <span class="n">queue</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">asyncio</span><span class="o">.</span><span class="n">Queue</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                 <span class="n">queue_maxsize</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Initialize task pool.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            loop (Optional[asyncio.events.AbstractEventLoop], optional): Event loop running on.. Defaults to None.</span>
+<span class="sd">            min_size (int, optional): Min size of task pool. Defaults to 3.</span>
+<span class="sd">            max_size (int, optional): Max size of task pool. Defaults to min_size+5.</span>
+<span class="sd">            auto_scale_interval (int, optional): How often auto scale task run.</span>
+<span class="sd">            auto_scale_cache_len (int, optional): Cache length.</span>
+<span class="sd">            queue (Optional[asyncio.Queue], optional): Using a exist queue. Defaults to None.</span>
+<span class="sd">            queue_maxsize (int, optional): Set the maxsize of a new queue. Defaults to 0.</span>
+<span class="sd">            executor (concurrent.futures.Executor, optional): Executor to run synchronous functions. Defaults to None.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">AioTaskPoolBase</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">loop</span><span class="o">=</span><span class="n">loop</span><span class="p">)</span>
+        <span class="n">PriorityQMixin</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">queue</span><span class="o">=</span><span class="n">queue</span><span class="p">,</span> <span class="n">queue_maxsize</span><span class="o">=</span><span class="n">queue_maxsize</span><span class="p">)</span>
+        <span class="n">AutoScaleWorkerManagerMixin</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">min_size</span><span class="o">=</span><span class="n">min_size</span><span class="p">,</span>
+                                             <span class="n">max_size</span><span class="o">=</span><span class="n">max_size</span><span class="p">,</span>
+                                             <span class="n">auto_scale_interval</span><span class="o">=</span><span class="n">auto_scale_interval</span><span class="p">,</span>
+                                             <span class="n">auto_scale_cache_len</span><span class="o">=</span><span class="n">auto_scale_cache_len</span><span class="p">,</span>
+                                             <span class="n">executor</span><span class="o">=</span><span class="n">executor</span><span class="p">)</span>
+        <span class="n">SimpleProducerMixin</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+<div class="viewcode-block" id="AioAutoScaleTaskPoolPriority.close"><a class="viewcode-back" href="../../../aio_parallel_tools.aio_task_pool.html#aio_parallel_tools.aio_task_pool.aio_autoscale_task_pool_priority.AioAutoScaleTaskPoolPriority.close">[文档]</a>    <span class="k">async</span> <span class="k">def</span> <span class="nf">close</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">close_worker_timeout</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">close_pool_timeout</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">3</span><span class="p">,</span> <span class="n">safe</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Close all workers and paused the task pool.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            close_worker_timeout (Union[int, float, None], optional): Timeout for closing all workers. Defaults to None.</span>
+<span class="sd">            close_pool_timeout (int, optional): Timeout for join left tasks. Defaults to 3.</span>
+<span class="sd">            safe (bool, optional): when getting  exceptions, raise it or warning it. Defaults to True.</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            te: close workers timeout.</span>
+<span class="sd">            e: unknown error when closing workers.</span>
+<span class="sd">            te: waiting for left tasks done timeout</span>
+<span class="sd">            e: unknown error when waiting for left tasks done</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">close_auto_scale_worker</span><span class="p">()</span>
+        <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">close_pool</span><span class="p">(</span><span class="n">close_worker_timeout</span><span class="o">=</span><span class="n">close_worker_timeout</span><span class="p">,</span> <span class="n">close_pool_timeout</span><span class="o">=</span><span class="n">close_pool_timeout</span><span class="p">,</span> <span class="n">safe</span><span class="o">=</span><span class="n">safe</span><span class="p">)</span></div></div>
+</pre></div>
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../../index.html">aio_parallel_tools</a></h1>
+
+
+
+<p class="blurb">Tools for develope asynchronous script easily.</p>
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=Python-Tools&repo=aio_parallel_tools&type=watch&count=true&size=large&v=2"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+
+
+
+<h3>导航</h3>
+<p class="caption"><span class="caption-text">API:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../aio_parallel_tools.html">Modules</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../aio_parallel_tools.aio_task_pool.html">aio_parallel_tools.aio_task_pool package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../aio_parallel_tools.aio_task_pool.html#taskpools">TaskPools</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../aio_parallel_tools.aio_task_pool.html#module-aio_parallel_tools.aio_task_pool.aio_autoscale_task_pool_lifo">aio_autoscale_task_pool_lifo module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../aio_parallel_tools.aio_task_pool.html#module-aio_parallel_tools.aio_task_pool.aio_autoscale_task_pool_priority">aio_autoscale_task_pool_priority module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../aio_parallel_tools.aio_task_pool.html#module-aio_parallel_tools.aio_task_pool.aio_autoscale_task_pool_simple">aio_autoscale_task_pool_simple module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../aio_parallel_tools.aio_task_pool.html#module-aio_parallel_tools.aio_task_pool.aio_fixed_task_pool_lifo">aio_fixed_task_pool_lifo module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../aio_parallel_tools.aio_task_pool.html#module-aio_parallel_tools.aio_task_pool.aio_fixed_task_pool_priority">aio_fixed_task_pool_priority module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../aio_parallel_tools.aio_task_pool.html#module-aio_parallel_tools.aio_task_pool.aio_fixed_task_pool_simple">aio_fixed_task_pool_simple module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../aio_parallel_tools.aio_task_pool.html#task-pool-core-api">Task Pool Core API</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../aio_parallel_tools.aio_task_pool.core.html">Interface</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../aio_parallel_tools.aio_task_pool.core.html#mixins">Mixins</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../../index.html">Documentation overview</a><ul>
+  <li><a href="../../index.html">模块代码</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">快速搜索</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="转向" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2019, huangsizhe.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.1.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+    </div>
+
+    
+    <a href="https://github.com/Python-Tools/aio_parallel_tools" class="github">
+        <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"  class="github"/>
+    </a>
+    
+
+    
+  </body>
+</html>

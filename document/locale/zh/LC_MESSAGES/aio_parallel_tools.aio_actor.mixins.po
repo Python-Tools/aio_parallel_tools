@@ -1,0 +1,113 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2019, huangsizhe
+# This file is distributed under the same license as the aio_parallel_tools
+# package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2019.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: aio_parallel_tools 0.0.1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-11-06 16:41+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.7.0\n"
+
+#: ../../document/aio_parallel_tools.aio_actor.mixins.rst:2
+msgid "aio\\_parallel\\_tools.aio\\_actor.mixins package"
+msgstr ""
+
+#: ../../document/aio_parallel_tools.aio_actor.mixins.rst:5
+msgid "Submodules"
+msgstr ""
+
+#: ../../document/aio_parallel_tools.aio_actor.mixins.rst:8
+msgid "aio\\_parallel\\_tools.aio\\_actor.mixins.hooks\\_mixin module"
+msgstr ""
+
+#: aio_parallel_tools.aio_actor.mixins.hooks_mixin.HooksMixin:1
+#: aio_parallel_tools.aio_actor.mixins.id_mixin.IdentifyMixin:1
+#: aio_parallel_tools.aio_actor.mixins.inbox_mixin.InboxMixin:1
+#: aio_parallel_tools.aio_actor.mixins.loop_mixin.LoopMixin:1
+#: aio_parallel_tools.aio_actor.mixins.manage_mixin.ManageMixin:1
+#: aio_parallel_tools.aio_actor.mixins.task_mixin.TaskMixin:1 of
+msgid "Bases: :class:`object`"
+msgstr ""
+
+#: aio_parallel_tools.aio_actor.mixins.hooks_mixin.HooksMixin.after_actor_close:1
+#: of
+msgid "actor关闭后执行的钩子."
+msgstr ""
+
+#: aio_parallel_tools.aio_actor.mixins.hooks_mixin.HooksMixin.after_actor_start:1
+#: of
+msgid "actor启动后执行的钩子."
+msgstr ""
+
+#: aio_parallel_tools.aio_actor.mixins.hooks_mixin.HooksMixin.after_deal_rev:1
+#: of
+msgid "每次处理收到的消息后执行的钩子."
+msgstr ""
+
+#: aio_parallel_tools.aio_actor.mixins.hooks_mixin.HooksMixin.after_every_loop:1
+#: of
+msgid "每个循环执行后执行的钩子."
+msgstr ""
+
+#: aio_parallel_tools.aio_actor.mixins.hooks_mixin.HooksMixin.befor_actor_colse:1
+#: of
+msgid "actor关闭前执行的钩子."
+msgstr ""
+
+#: aio_parallel_tools.aio_actor.mixins.hooks_mixin.HooksMixin.before_actor_start:1
+#: of
+msgid "actor启动前执行的钩子."
+msgstr ""
+
+#: aio_parallel_tools.aio_actor.mixins.hooks_mixin.HooksMixin.before_deal_rev:1
+#: of
+msgid "每次处理收到的消息前执行的钩子."
+msgstr ""
+
+#: aio_parallel_tools.aio_actor.mixins.hooks_mixin.HooksMixin.before_every_loop:1
+#: of
+msgid "每个循环执行前执行的钩子."
+msgstr ""
+
+#: ../../document/aio_parallel_tools.aio_actor.mixins.rst:16
+msgid "aio\\_parallel\\_tools.aio\\_actor.mixins.id\\_mixin module"
+msgstr ""
+
+#: ../../document/aio_parallel_tools.aio_actor.mixins.rst:24
+msgid "aio\\_parallel\\_tools.aio\\_actor.mixins.inbox\\_mixin module"
+msgstr ""
+
+#: aio_parallel_tools.aio_actor.mixins.inbox_mixin.InboxMixin.send:1 of
+msgid "Send a message to the actor."
+msgstr ""
+
+#: aio_parallel_tools.aio_actor.mixins.inbox_mixin.InboxMixin.send_nowait:1 of
+msgid "Send a message to the actor"
+msgstr ""
+
+#: ../../document/aio_parallel_tools.aio_actor.mixins.rst:32
+msgid "aio\\_parallel\\_tools.aio\\_actor.mixins.loop\\_mixin module"
+msgstr ""
+
+#: ../../document/aio_parallel_tools.aio_actor.mixins.rst:40
+msgid "aio\\_parallel\\_tools.aio\\_actor.mixins.manage\\_mixin module"
+msgstr ""
+
+#: ../../document/aio_parallel_tools.aio_actor.mixins.rst:48
+msgid "aio\\_parallel\\_tools.aio\\_actor.mixins.task\\_mixin module"
+msgstr ""
+
+#: ../../document/aio_parallel_tools.aio_actor.mixins.rst:57
+msgid "Module contents"
+msgstr ""
+

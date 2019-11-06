@@ -19,25 +19,39 @@ class AioFixedTaskPoolSimple(SimpleProducerMixin, FixedWorkerManagerMixin, Simpl
     If you want to close submit interface, you can use `pause` interface.
 
     Property:
+
         loop (asyncio.events.AbstractEventLoop):Event loop running on.
+
         size (int): The worker pool's size.
+
         closed (bool): Check if the worker pool's size is 0 and the worker pool is paused
+
         paused (bool): Check if the worker pool is paused. If can accept new tasks,the result is False; else it's True.
+
         waiting_tasks_number (int): The number of the waiting tasks.
+
         max_tasks_number (int): The maximum number of the waiting tasks.
 
     Method:
+
         pause (function): Pause the task pool.
+
         scale_nowait (function): Scale the number of the task pool's worker without waiting.
+
         submit_nowait (function): Submit task to the task pool with no wait.
 
     Asynchronous Method:
+
         start (function): Initialize workers and open the task pool to accept tasks.
+
         close (function): Close all workers and paused the task pool.
+
         scale (function): Scale the number of the task pool's worker.
+
         submit (function): Submit task to the task pool.
 
     Example:
+
     >>> import asyncio
     >>> async def test(name):
     ...     print(f"{name} start")
@@ -46,7 +60,6 @@ class AioFixedTaskPoolSimple(SimpleProducerMixin, FixedWorkerManagerMixin, Simpl
     ...     result = f"{name} done"
     ...     print(result)
     ...     return "ok:"+ result
-
     >>> async def main():
     ...     async with AioFixedTaskPoolSimple() as task_pool:
     ...         print(f"test pool size {task_pool.size}")

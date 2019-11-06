@@ -11,24 +11,37 @@ class SimpleProducerMixin:
     """Simple Producer Mixin.
 
     Requirement: 
+
         queue (Property): msg queue.
+
         loop (Property): event loop.
+
         size (Property): worker pool's size.
 
         make_message (Method): make task to message
+
         close_workers (Asynchronous Method): Send worker pool size's close signal to the queue.
+
         close_workers_nowait_soft (Method): Send worker pool size's close signal to the queue with no wait.
+        
         close_workers_hard (Method): Cancel worker hardlly.
 
     Support:
+
         paused (Property): Check if user can submit tasks.
+
         closed (Property): Check if the pool is closed.
 
         start_accept (Method): Start Accept tasks.
+
         pause (Method): Pause the task pool.
+
         submit (Asynchronous Method): Submit task to the task pool.
+
         submit_nowait (Method): Submit task to the task pool with no wait.
+
         close_pool (Asynchronous Method): Send close signal to all worker.
+        
         close_pool_nowait (Method): Send close signal to all workers with no waiting.
 
     """

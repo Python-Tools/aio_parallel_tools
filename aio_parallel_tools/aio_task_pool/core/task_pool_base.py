@@ -1,7 +1,7 @@
 """Base Task Pool Class."""
 import asyncio
 import concurrent
-from typing import Optional, Union
+from typing import Optional, Union, Any
 from .task_pool_abc import AioTaskPoolABC
 
 
@@ -22,7 +22,7 @@ class AioTaskPoolBase(AioTaskPoolABC):
         """Event loop."""
         return self._loop
 
-    async def __aenter__(self) -> AioTaskPoolAbc:
+    async def __aenter__(self) -> AioTaskPoolABC:
         """Asynchronous Context Interface.
 
         You can use `async with` syntax to manager the task pool.

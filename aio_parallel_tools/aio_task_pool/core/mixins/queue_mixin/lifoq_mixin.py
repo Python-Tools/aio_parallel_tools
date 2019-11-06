@@ -9,11 +9,21 @@ class LifoQMixin:
     """Submit tasks and Send Signals using Lifo Q.
 
     Requirement:
-        loop (Property): event loop.
 
-    Overload:
-        make_message (Method): make task to message
-        make_close_signal (Method): make worker colse signal
+        loop (Property): Event loop.
+
+    Support:
+
+        queue(Property): Event loop.
+
+        waiting_tasks_number(Property): Task size in queue.
+
+        max_tasks_number(Property): Queue's max size.
+
+        make_message (Method): Make task to message.
+
+        make_close_signal (Method): Make worker colse signal.
+
         parser_message (Method): Parser messages from queue.
     """
 

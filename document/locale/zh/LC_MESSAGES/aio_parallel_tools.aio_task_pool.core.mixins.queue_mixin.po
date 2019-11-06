@@ -1,0 +1,210 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2019, huangsizhe
+# This file is distributed under the same license as the aio_parallel_tools
+# package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2019.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: aio_parallel_tools 0.0.1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-11-06 16:41+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.7.0\n"
+
+#: ../../document/aio_parallel_tools.aio_task_pool.core.mixins.queue_mixin.rst:2
+msgid "Queue Mixins"
+msgstr ""
+
+#: ../../document/aio_parallel_tools.aio_task_pool.core.mixins.queue_mixin.rst:5
+msgid "lifoq\\_mixin module"
+msgstr ""
+
+#: aio_parallel_tools.aio_task_pool.core.mixins.queue_mixin.lifoq_mixin:1
+#: aio_parallel_tools.aio_task_pool.core.mixins.queue_mixin.lifoq_mixin.LifoQMixin:1
+#: of
+msgid "Submit tasks and Send Signals using Lifo Q."
+msgstr ""
+
+#: aio_parallel_tools.aio_task_pool.core.mixins.queue_mixin.lifoq_mixin.LifoQMixin:1
+#: aio_parallel_tools.aio_task_pool.core.mixins.queue_mixin.priorityq_mixin.PriorityQMixin:1
+#: aio_parallel_tools.aio_task_pool.core.mixins.queue_mixin.priorityq_mixin.PriorityTask:1
+#: aio_parallel_tools.aio_task_pool.core.mixins.queue_mixin.simpleq_mixin.SimpleQMixin:1
+#: of
+msgid "Bases: :class:`object`"
+msgstr ""
+
+#: aio_parallel_tools.aio_task_pool.core.mixins.queue_mixin.lifoq_mixin.LifoQMixin:3
+#: aio_parallel_tools.aio_task_pool.core.mixins.queue_mixin.priorityq_mixin.PriorityQMixin:3
+#: aio_parallel_tools.aio_task_pool.core.mixins.queue_mixin.simpleq_mixin.SimpleQMixin:3
+#: of
+msgid "Requirement:"
+msgstr ""
+
+#: aio_parallel_tools.aio_task_pool.core.mixins.queue_mixin.lifoq_mixin.LifoQMixin:5
+#: aio_parallel_tools.aio_task_pool.core.mixins.queue_mixin.simpleq_mixin.SimpleQMixin:5
+#: of
+msgid "loop (Property): Event loop."
+msgstr ""
+
+#: aio_parallel_tools.aio_task_pool.core.mixins.queue_mixin.lifoq_mixin.LifoQMixin:7
+#: aio_parallel_tools.aio_task_pool.core.mixins.queue_mixin.priorityq_mixin.PriorityQMixin:7
+#: aio_parallel_tools.aio_task_pool.core.mixins.queue_mixin.simpleq_mixin.SimpleQMixin:7
+#: of
+msgid "Support:"
+msgstr ""
+
+#: aio_parallel_tools.aio_task_pool.core.mixins.queue_mixin.lifoq_mixin.LifoQMixin:9
+#: aio_parallel_tools.aio_task_pool.core.mixins.queue_mixin.priorityq_mixin.PriorityQMixin:9
+#: aio_parallel_tools.aio_task_pool.core.mixins.queue_mixin.simpleq_mixin.SimpleQMixin:9
+#: of
+msgid "queue(Property): Event loop."
+msgstr ""
+
+#: aio_parallel_tools.aio_task_pool.core.mixins.queue_mixin.lifoq_mixin.LifoQMixin:11
+#: aio_parallel_tools.aio_task_pool.core.mixins.queue_mixin.priorityq_mixin.PriorityQMixin:11
+#: aio_parallel_tools.aio_task_pool.core.mixins.queue_mixin.simpleq_mixin.SimpleQMixin:11
+#: of
+msgid "waiting_tasks_number(Property): Task size in queue."
+msgstr ""
+
+#: aio_parallel_tools.aio_task_pool.core.mixins.queue_mixin.lifoq_mixin.LifoQMixin:13
+#: aio_parallel_tools.aio_task_pool.core.mixins.queue_mixin.priorityq_mixin.PriorityQMixin:13
+#: aio_parallel_tools.aio_task_pool.core.mixins.queue_mixin.simpleq_mixin.SimpleQMixin:13
+#: of
+msgid "max_tasks_number(Property): Queue's max size."
+msgstr ""
+
+#: aio_parallel_tools.aio_task_pool.core.mixins.queue_mixin.lifoq_mixin.LifoQMixin:15
+#: aio_parallel_tools.aio_task_pool.core.mixins.queue_mixin.priorityq_mixin.PriorityQMixin:15
+#: aio_parallel_tools.aio_task_pool.core.mixins.queue_mixin.simpleq_mixin.SimpleQMixin:15
+#: of
+msgid "make_message (Method): Make task to message."
+msgstr ""
+
+#: aio_parallel_tools.aio_task_pool.core.mixins.queue_mixin.lifoq_mixin.LifoQMixin:17
+#: aio_parallel_tools.aio_task_pool.core.mixins.queue_mixin.priorityq_mixin.PriorityQMixin:17
+#: aio_parallel_tools.aio_task_pool.core.mixins.queue_mixin.simpleq_mixin.SimpleQMixin:17
+#: of
+msgid "make_close_signal (Method): Make worker colse signal."
+msgstr ""
+
+#: aio_parallel_tools.aio_task_pool.core.mixins.queue_mixin.lifoq_mixin.LifoQMixin:19
+#: aio_parallel_tools.aio_task_pool.core.mixins.queue_mixin.priorityq_mixin.PriorityQMixin:19
+#: aio_parallel_tools.aio_task_pool.core.mixins.queue_mixin.simpleq_mixin.SimpleQMixin:19
+#: of
+msgid "parser_message (Method): Parser messages from queue."
+msgstr ""
+
+#: aio_parallel_tools.aio_task_pool.core.mixins.queue_mixin.lifoq_mixin.LifoQMixin.make_close_signal:1
+#: aio_parallel_tools.aio_task_pool.core.mixins.queue_mixin.priorityq_mixin.PriorityQMixin.make_close_signal:1
+#: aio_parallel_tools.aio_task_pool.core.mixins.queue_mixin.simpleq_mixin.SimpleQMixin.make_close_signal:1
+#: of
+msgid "Make close signal to send."
+msgstr ""
+
+#: aio_parallel_tools.aio_task_pool.core.mixins.queue_mixin.lifoq_mixin.LifoQMixin.make_message:1
+#: aio_parallel_tools.aio_task_pool.core.mixins.queue_mixin.priorityq_mixin.PriorityQMixin.make_message:1
+#: aio_parallel_tools.aio_task_pool.core.mixins.queue_mixin.simpleq_mixin.SimpleQMixin.make_message:1
+#: of
+msgid "Make task message to send."
+msgstr ""
+
+#: aio_parallel_tools.aio_task_pool.core.mixins.queue_mixin.lifoq_mixin.LifoQMixin.max_tasks_number:1
+#: aio_parallel_tools.aio_task_pool.core.mixins.queue_mixin.priorityq_mixin.PriorityQMixin.max_tasks_number:1
+#: aio_parallel_tools.aio_task_pool.core.mixins.queue_mixin.simpleq_mixin.SimpleQMixin.max_tasks_number:1
+#: of
+msgid "Maximum number of the waiting tasks."
+msgstr ""
+
+#: aio_parallel_tools.aio_task_pool.core.mixins.queue_mixin.lifoq_mixin.LifoQMixin.max_tasks_number
+#: aio_parallel_tools.aio_task_pool.core.mixins.queue_mixin.lifoq_mixin.LifoQMixin.waiting_tasks_number
+#: aio_parallel_tools.aio_task_pool.core.mixins.queue_mixin.priorityq_mixin.PriorityQMixin.max_tasks_number
+#: aio_parallel_tools.aio_task_pool.core.mixins.queue_mixin.priorityq_mixin.PriorityQMixin.waiting_tasks_number
+#: aio_parallel_tools.aio_task_pool.core.mixins.queue_mixin.simpleq_mixin.SimpleQMixin.max_tasks_number
+#: aio_parallel_tools.aio_task_pool.core.mixins.queue_mixin.simpleq_mixin.SimpleQMixin.waiting_tasks_number
+#: of
+msgid "Returns"
+msgstr ""
+
+#: aio_parallel_tools.aio_task_pool.core.mixins.queue_mixin.lifoq_mixin.LifoQMixin.max_tasks_number:3
+#: aio_parallel_tools.aio_task_pool.core.mixins.queue_mixin.priorityq_mixin.PriorityQMixin.max_tasks_number:3
+#: aio_parallel_tools.aio_task_pool.core.mixins.queue_mixin.simpleq_mixin.SimpleQMixin.max_tasks_number:3
+#: of
+msgid "The maximum number of the waiting tasks."
+msgstr ""
+
+#: aio_parallel_tools.aio_task_pool.core.mixins.queue_mixin.lifoq_mixin.LifoQMixin.max_tasks_number
+#: aio_parallel_tools.aio_task_pool.core.mixins.queue_mixin.lifoq_mixin.LifoQMixin.waiting_tasks_number
+#: aio_parallel_tools.aio_task_pool.core.mixins.queue_mixin.priorityq_mixin.PriorityQMixin.max_tasks_number
+#: aio_parallel_tools.aio_task_pool.core.mixins.queue_mixin.priorityq_mixin.PriorityQMixin.waiting_tasks_number
+#: aio_parallel_tools.aio_task_pool.core.mixins.queue_mixin.simpleq_mixin.SimpleQMixin.max_tasks_number
+#: aio_parallel_tools.aio_task_pool.core.mixins.queue_mixin.simpleq_mixin.SimpleQMixin.waiting_tasks_number
+#: of
+msgid "Return type"
+msgstr ""
+
+#: aio_parallel_tools.aio_task_pool.core.mixins.queue_mixin.lifoq_mixin.LifoQMixin.parser_message:1
+#: aio_parallel_tools.aio_task_pool.core.mixins.queue_mixin.priorityq_mixin.PriorityQMixin.parser_message:1
+#: aio_parallel_tools.aio_task_pool.core.mixins.queue_mixin.simpleq_mixin.SimpleQMixin.parser_message:1
+#: of
+msgid "Parser messages from queue."
+msgstr ""
+
+#: aio_parallel_tools.aio_task_pool.core.mixins.queue_mixin.lifoq_mixin.LifoQMixin.queue:1
+#: aio_parallel_tools.aio_task_pool.core.mixins.queue_mixin.priorityq_mixin.PriorityQMixin.queue:1
+#: aio_parallel_tools.aio_task_pool.core.mixins.queue_mixin.simpleq_mixin.SimpleQMixin.queue:1
+#: of
+msgid "Queue for sending and receiving tasks."
+msgstr ""
+
+#: aio_parallel_tools.aio_task_pool.core.mixins.queue_mixin.lifoq_mixin.LifoQMixin.waiting_tasks_number:1
+#: aio_parallel_tools.aio_task_pool.core.mixins.queue_mixin.priorityq_mixin.PriorityQMixin.waiting_tasks_number:1
+#: aio_parallel_tools.aio_task_pool.core.mixins.queue_mixin.simpleq_mixin.SimpleQMixin.waiting_tasks_number:1
+#: of
+msgid "Now number of the waiting tasks."
+msgstr ""
+
+#: aio_parallel_tools.aio_task_pool.core.mixins.queue_mixin.lifoq_mixin.LifoQMixin.waiting_tasks_number:3
+#: aio_parallel_tools.aio_task_pool.core.mixins.queue_mixin.priorityq_mixin.PriorityQMixin.waiting_tasks_number:3
+#: aio_parallel_tools.aio_task_pool.core.mixins.queue_mixin.simpleq_mixin.SimpleQMixin.waiting_tasks_number:3
+#: of
+msgid "The number of the waiting tasks."
+msgstr ""
+
+#: ../../document/aio_parallel_tools.aio_task_pool.core.mixins.queue_mixin.rst:13
+msgid "priorityq\\_mixin module"
+msgstr ""
+
+#: aio_parallel_tools.aio_task_pool.core.mixins.queue_mixin.priorityq_mixin:1
+#: aio_parallel_tools.aio_task_pool.core.mixins.queue_mixin.priorityq_mixin.PriorityQMixin:1
+#: of
+msgid "Submit tasks and Send Signals using Priority Q."
+msgstr ""
+
+#: aio_parallel_tools.aio_task_pool.core.mixins.queue_mixin.priorityq_mixin.PriorityQMixin:5
+#: of
+msgid "loop (Property): event loop."
+msgstr ""
+
+#: aio_parallel_tools.aio_task_pool.core.mixins.queue_mixin.priorityq_mixin.PriorityTask:1
+#: of
+msgid "Priority Task Message."
+msgstr ""
+
+#: ../../document/aio_parallel_tools.aio_task_pool.core.mixins.queue_mixin.rst:21
+msgid "simpleq\\_mixin module"
+msgstr ""
+
+#: aio_parallel_tools.aio_task_pool.core.mixins.queue_mixin.simpleq_mixin:1
+#: aio_parallel_tools.aio_task_pool.core.mixins.queue_mixin.simpleq_mixin.SimpleQMixin:1
+#: of
+msgid "Submit tasks and Send Signals using simple Q."
+msgstr ""
+

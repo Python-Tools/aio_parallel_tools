@@ -18,17 +18,21 @@ class PriorityQMixin:
     """Submit tasks and Send Signals using Priority Q.
 
     Requirement:
-        _loop (Attributes): event loop.
-        _make_task (Method): make_task before submit.
-        paused (Property): check if task pool is paused
 
-    Overload:
-        waiting_tasks_number (Property): Now number of the waiting tasks.
-        max_tasks_number (Property): Maximum number of the waiting tasks.
-        submit (Asynchronous Method): Submit task to the task pool.
-        submit_nowait (Method): Submit task to the task pool with no wait.
-        close_worker (Asynchronous Method): Send a close signal to a worker.
-        close_worker_nowait (Method): Send a close signal to a worker with no waiting.
+        loop (Property): event loop.
+        
+    Support:
+
+        queue(Property): Event loop.
+
+        waiting_tasks_number(Property): Task size in queue.
+
+        max_tasks_number(Property): Queue's max size.
+
+        make_message (Method): Make task to message.
+
+        make_close_signal (Method): Make worker colse signal.
+
         parser_message (Method): Parser messages from queue.
     """
 
@@ -45,7 +49,7 @@ class PriorityQMixin:
         if isinstance(queue, asyncio.PriorityQueue):
             self._queue = queue
         else:
-            self._queue = asyncio.PriorityQueue(maxsize=queue_maxsize, loop=self._loop)
+            self._queue = asyncio.PriorityQueue(maxsize=queue_maxsize, loop=self.loop)
 
     @property
     def queue(self):

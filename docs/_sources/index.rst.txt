@@ -8,7 +8,11 @@ Welcome to aio parallel tools's documentation!
 
 Last change: |today|
 
-:ZH: | :EN:
+Choose Locale:  :locale:`cn`  | :locale:`en`
+
+Document
+-----------------
+
 
 .. toctree::
    :maxdepth: 4
@@ -17,9 +21,3 @@ Last change: |today|
    aio_parallel_tools
 
 
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`

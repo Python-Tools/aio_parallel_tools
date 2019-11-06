@@ -90,8 +90,7 @@ html_theme_options = {
 locale_dirs = ['locale/']
 gettext_compact = False
 extlinks = {
-    "ZH":(f"{url_doc_root}/index.html","ZH"),
-    "EN":(f"{url_doc_root}en/index.html","EN")
+    "locale":(f"{url_doc_root}%s/index.html","")
 }
 
 def setup(app):

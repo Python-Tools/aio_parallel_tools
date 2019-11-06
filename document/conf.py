@@ -76,6 +76,8 @@ epub_exclude_files = ['search.html']
 todo_include_todos = True
 url_doc_root = project_info["url"]
 
+locale_dirs = ['locale/']
+gettext_compact = False
 
 def setup(app):
     app.add_config_value('recommonmark_config', {

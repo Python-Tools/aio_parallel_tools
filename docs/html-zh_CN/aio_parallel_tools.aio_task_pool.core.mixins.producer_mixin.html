@@ -1,0 +1,277 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh_CN">
+  <head>
+    <meta charset="utf-8" />
+    <title>ProducerMixin &#8212; aio_parallel_tools  文档</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    <script type="text/javascript" src="_static/translations.js"></script>
+    <link rel="index" title="索引" href="genindex.html" />
+    <link rel="search" title="搜索" href="search.html" />
+    <link rel="next" title="Queue Mixins" href="aio_parallel_tools.aio_task_pool.core.mixins.queue_mixin.html" />
+    <link rel="prev" title="Interface" href="aio_parallel_tools.aio_task_pool.core.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="producermixin">
+<h1>ProducerMixin<a class="headerlink" href="#producermixin" title="永久链接至标题">¶</a></h1>
+<div class="section" id="module-aio_parallel_tools.aio_task_pool.core.mixins.producer_mixin.simple_producer_mixin">
+<span id="simple-producer-mixin-module"></span><h2>simple_producer_mixin module<a class="headerlink" href="#module-aio_parallel_tools.aio_task_pool.core.mixins.producer_mixin.simple_producer_mixin" title="永久链接至标题">¶</a></h2>
+<p>The simplest mixin for creating and submiting tasks to task pool.</p>
+<dl class="class">
+<dt id="aio_parallel_tools.aio_task_pool.core.mixins.producer_mixin.simple_producer_mixin.SimpleProducerMixin">
+<em class="property">class </em><code class="sig-prename descclassname">aio_parallel_tools.aio_task_pool.core.mixins.producer_mixin.simple_producer_mixin.</code><code class="sig-name descname">SimpleProducerMixin</code><a class="reference internal" href="_modules/aio_parallel_tools/aio_task_pool/core/mixins/producer_mixin/simple_producer_mixin.html#SimpleProducerMixin"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#aio_parallel_tools.aio_task_pool.core.mixins.producer_mixin.simple_producer_mixin.SimpleProducerMixin" title="永久链接至目标">¶</a></dt>
+<dd><p>基类：<code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Simple Producer Mixin.</p>
+<p>Requirement:</p>
+<blockquote>
+<div><p>queue (Property): msg queue.</p>
+<p>loop (Property): event loop.</p>
+<p>size (Property): worker pool’s size.</p>
+<p>make_message (Method): make task to message</p>
+<p>close_workers (Asynchronous Method): Send worker pool size’s close signal to the queue.</p>
+<p>close_workers_nowait_soft (Method): Send worker pool size’s close signal to the queue with no wait.</p>
+<p>close_workers_hard (Method): Cancel worker hardlly.</p>
+</div></blockquote>
+<p>Support:</p>
+<blockquote>
+<div><p>paused (Property): Check if user can submit tasks.</p>
+<p>closed (Property): Check if the pool is closed.</p>
+<p>start_accept (Method): Start Accept tasks.</p>
+<p>pause (Method): Pause the task pool.</p>
+<p>submit (Asynchronous Method): Submit task to the task pool.</p>
+<p>submit_nowait (Method): Submit task to the task pool with no wait.</p>
+<p>close_pool (Asynchronous Method): Send close signal to all worker.</p>
+<p>close_pool_nowait (Method): Send close signal to all workers with no waiting.</p>
+</div></blockquote>
+<dl class="method">
+<dt id="aio_parallel_tools.aio_task_pool.core.mixins.producer_mixin.simple_producer_mixin.SimpleProducerMixin.close_pool">
+<em class="property">async </em><code class="sig-name descname">close_pool</code><span class="sig-paren">(</span><em class="sig-param">close_worker_timeout: Union[int</em>, <em class="sig-param">float</em>, <em class="sig-param">None] = None</em>, <em class="sig-param">close_pool_timeout: int = 3</em>, <em class="sig-param">safe: bool = True</em><span class="sig-paren">)</span> &#x2192; None<a class="reference internal" href="_modules/aio_parallel_tools/aio_task_pool/core/mixins/producer_mixin/simple_producer_mixin.html#SimpleProducerMixin.close_pool"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#aio_parallel_tools.aio_task_pool.core.mixins.producer_mixin.simple_producer_mixin.SimpleProducerMixin.close_pool" title="永久链接至目标">¶</a></dt>
+<dd><p>Close all workers and paused the task pool.</p>
+<dl class="field-list simple">
+<dt class="field-odd">参数</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>close_worker_timeout</strong> (<em>Union</em><em>[</em><em>int</em><em>, </em><em>float</em><em>, </em><em>None</em><em>]</em><em>, </em><em>optional</em>) – Timeout for closing all workers. Defaults to None.</p></li>
+<li><p><strong>close_pool_timeout</strong> (<em>int</em><em>, </em><em>optional</em>) – Timeout for join left tasks. Defaults to 3.</p></li>
+<li><p><strong>safe</strong> (<em>bool</em><em>, </em><em>optional</em>) – when getting  exceptions, raise it or warning it. Defaults to True.</p></li>
+</ul>
+</dd>
+<dt class="field-even">引发</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>te</strong> – close workers timeout.</p></li>
+<li><p><strong>e</strong> – unknown error when closing workers.</p></li>
+<li><p><strong>te</strong> – waiting for left tasks done timeout</p></li>
+<li><p><strong>e</strong> – unknown error when waiting for left tasks done</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="aio_parallel_tools.aio_task_pool.core.mixins.producer_mixin.simple_producer_mixin.SimpleProducerMixin.close_pool_nowait">
+<code class="sig-name descname">close_pool_nowait</code><span class="sig-paren">(</span><em class="sig-param">soft: bool = True</em><span class="sig-paren">)</span> &#x2192; None<a class="reference internal" href="_modules/aio_parallel_tools/aio_task_pool/core/mixins/producer_mixin/simple_producer_mixin.html#SimpleProducerMixin.close_pool_nowait"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#aio_parallel_tools.aio_task_pool.core.mixins.producer_mixin.simple_producer_mixin.SimpleProducerMixin.close_pool_nowait" title="永久链接至目标">¶</a></dt>
+<dd><p>Close all workers and paused the task pool without waiting.</p>
+<dl class="field-list simple">
+<dt class="field-odd">参数</dt>
+<dd class="field-odd"><p><strong>soft</strong> (<em>bool</em><em>, </em><em>optional</em>) – if True, this interface will send Signal to task pool to close workers;
+else all workers will be cancel. Defaults to True.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="aio_parallel_tools.aio_task_pool.core.mixins.producer_mixin.simple_producer_mixin.SimpleProducerMixin.closed">
+<em class="property">property </em><code class="sig-name descname">closed</code><a class="headerlink" href="#aio_parallel_tools.aio_task_pool.core.mixins.producer_mixin.simple_producer_mixin.SimpleProducerMixin.closed" title="永久链接至目标">¶</a></dt>
+<dd><p>Check if the pool is closed.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="aio_parallel_tools.aio_task_pool.core.mixins.producer_mixin.simple_producer_mixin.SimpleProducerMixin.pause">
+<code class="sig-name descname">pause</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; bool<a class="reference internal" href="_modules/aio_parallel_tools/aio_task_pool/core/mixins/producer_mixin/simple_producer_mixin.html#SimpleProducerMixin.pause"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#aio_parallel_tools.aio_task_pool.core.mixins.producer_mixin.simple_producer_mixin.SimpleProducerMixin.pause" title="永久链接至目标">¶</a></dt>
+<dd><p>Pause the task pool.</p>
+<dl class="field-list simple">
+<dt class="field-odd">返回</dt>
+<dd class="field-odd"><p>Check if The task pool is paused</p>
+</dd>
+<dt class="field-even">返回类型</dt>
+<dd class="field-even"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="aio_parallel_tools.aio_task_pool.core.mixins.producer_mixin.simple_producer_mixin.SimpleProducerMixin.paused">
+<em class="property">property </em><code class="sig-name descname">paused</code><a class="headerlink" href="#aio_parallel_tools.aio_task_pool.core.mixins.producer_mixin.simple_producer_mixin.SimpleProducerMixin.paused" title="永久链接至目标">¶</a></dt>
+<dd><p>Check if user can submit tasks.</p>
+<p>If the task pool can accept new tasks,the result is False; else it’s True.</p>
+<dl class="field-list simple">
+<dt class="field-odd">返回</dt>
+<dd class="field-odd"><p>can submit or not.</p>
+</dd>
+<dt class="field-even">返回类型</dt>
+<dd class="field-even"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="aio_parallel_tools.aio_task_pool.core.mixins.producer_mixin.simple_producer_mixin.SimpleProducerMixin.start_accept">
+<code class="sig-name descname">start_accept</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/aio_parallel_tools/aio_task_pool/core/mixins/producer_mixin/simple_producer_mixin.html#SimpleProducerMixin.start_accept"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#aio_parallel_tools.aio_task_pool.core.mixins.producer_mixin.simple_producer_mixin.SimpleProducerMixin.start_accept" title="永久链接至目标">¶</a></dt>
+<dd><p>Start Accept tasks.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="aio_parallel_tools.aio_task_pool.core.mixins.producer_mixin.simple_producer_mixin.SimpleProducerMixin.submit">
+<em class="property">async </em><code class="sig-name descname">submit</code><span class="sig-paren">(</span><em class="sig-param">task_func: Callable[[Any], Any], *, func_args: List[Any] = [], func_kwargs: Dict[str, Any] = {}, blocking: bool = True, **kwargs</em><span class="sig-paren">)</span> &#x2192; Union[_asyncio.Future, Any]<a class="reference internal" href="_modules/aio_parallel_tools/aio_task_pool/core/mixins/producer_mixin/simple_producer_mixin.html#SimpleProducerMixin.submit"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#aio_parallel_tools.aio_task_pool.core.mixins.producer_mixin.simple_producer_mixin.SimpleProducerMixin.submit" title="永久链接至目标">¶</a></dt>
+<dd><p>Submit task to the task pool.</p>
+<dl class="field-list simple">
+<dt class="field-odd">参数</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>task_func</strong> (<em>Callable</em><em>[</em><em>[</em><em>Any</em><em>]</em><em>, </em><em>Any</em><em>]</em>) – The task function which will be called by the workers.</p></li>
+<li><p><strong>func_args</strong> (<em>List</em><em>[</em><em>Any</em><em>]</em><em>, </em><em>optional</em>) – The positional parameters for the task function. Defaults to [].</p></li>
+<li><p><strong>func_kwargs</strong> (<em>Dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>]</em><em>, </em><em>optional</em>) – The keyword parameters for the task function. Defaults to {}.</p></li>
+<li><p><strong>blocking</strong> (<em>bool</em><em>, </em><em>optional</em>) – Set if waiting for the task’s result. Defaults to True.</p></li>
+</ul>
+</dd>
+<dt class="field-even">引发</dt>
+<dd class="field-even"><p><strong>NotAvailable</strong> – The task pool is paused</p>
+</dd>
+<dt class="field-odd">返回</dt>
+<dd class="field-odd"><p>if blocking is True, submit will return the result of the task;
+else it will return a future which you can await it to get the result.</p>
+</dd>
+<dt class="field-even">返回类型</dt>
+<dd class="field-even"><p>Union[asyncio.Future, Any]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="aio_parallel_tools.aio_task_pool.core.mixins.producer_mixin.simple_producer_mixin.SimpleProducerMixin.submit_nowait">
+<code class="sig-name descname">submit_nowait</code><span class="sig-paren">(</span><em class="sig-param">task_func: Callable[[Any], Any], *, func_args: List[Any] = [], func_kwargs: Dict[str, Any] = {}, **kwargs</em><span class="sig-paren">)</span> &#x2192; _asyncio.Future<a class="reference internal" href="_modules/aio_parallel_tools/aio_task_pool/core/mixins/producer_mixin/simple_producer_mixin.html#SimpleProducerMixin.submit_nowait"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#aio_parallel_tools.aio_task_pool.core.mixins.producer_mixin.simple_producer_mixin.SimpleProducerMixin.submit_nowait" title="永久链接至目标">¶</a></dt>
+<dd><p>Submit task to the task pool with no wait.</p>
+<dl class="field-list simple">
+<dt class="field-odd">参数</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>task_func</strong> (<em>Callable</em><em>[</em><em>[</em><em>Any</em><em>]</em><em>, </em><em>Any</em><em>]</em>) – The task function which will be called by the workers.</p></li>
+<li><p><strong>func_args</strong> (<em>List</em><em>[</em><em>Any</em><em>]</em><em>, </em><em>optional</em>) – The positional parameters for the task function. Defaults to [].</p></li>
+<li><p><strong>func_kwargs</strong> (<em>Dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>]</em><em>, </em><em>optional</em>) – The keyword parameters for the task function. Defaults to {}.</p></li>
+</ul>
+</dd>
+<dt class="field-even">引发</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>NotAvailable</strong> – The task pool is paused or</p></li>
+<li><p><strong>e</strong> – other exception</p></li>
+<li><p><strong>NotAvailable</strong> – task pool is full, can not put task any more</p></li>
+</ul>
+</dd>
+<dt class="field-odd">返回</dt>
+<dd class="field-odd"><p>a future which you can await it to get the result.</p>
+</dd>
+<dt class="field-even">返回类型</dt>
+<dd class="field-even"><p>asyncio.Future</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">aio_parallel_tools</a></h1>
+
+
+
+
+
+
+
+
+<h3>导航</h3>
+<p class="caption"><span class="caption-text">API:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="aio_parallel_tools.html">Modules</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  <li><a href="aio_parallel_tools.html">Modules</a><ul>
+  <li><a href="aio_parallel_tools.aio_task_pool.html">aio_parallel_tools.aio_task_pool package</a><ul>
+  <li><a href="aio_parallel_tools.aio_task_pool.core.html">Interface</a><ul>
+      <li>Previous: <a href="aio_parallel_tools.aio_task_pool.core.html" title="上一章">Interface</a></li>
+      <li>Next: <a href="aio_parallel_tools.aio_task_pool.core.mixins.queue_mixin.html" title="下一章">Queue Mixins</a></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">快速搜索</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="转向" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2019, huangsizhe.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.1.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/aio_parallel_tools.aio_task_pool.core.mixins.producer_mixin.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

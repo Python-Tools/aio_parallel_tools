@@ -18,22 +18,33 @@ class AutoScaleWorkerManagerMixin:
 
     Requirement:
         loop (Property): event loop.
+
         queue (Property): msg queue.
+
         make_close_signal (Method): Make close signal to send.
+
         parser_message (Method): Parser messages from queue.
+
         waiting_tasks_number (Property): Now number of the waiting tasks.
+
         paused (Property): Check if user can submit tasks.
 
 
     Support:
         size (Property): worker set's size.
+
         start_workers (Asynchronous Method): Initialize workers and open the task pool to accept tasks.
+
         scale  (Asynchronous Method): Scale the number of the task pool's worker.
+
         scale_nowait (Method): Scale the number of the task pool's worker without waiting.
 
         close_workers (Asynchronous Method): Send worker pool size's close signal to the queue.
+
         close_workers_nowait_soft (Method): Send worker pool size's close signal to the queue with no wait.
+        
         close_workers_hard (Method): Cancel worker hardlly.
+        
         close_auto_scale_worker (Method): Close auto scale worker.
     """
 

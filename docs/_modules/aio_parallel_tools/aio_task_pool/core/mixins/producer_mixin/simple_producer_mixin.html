@@ -1,0 +1,325 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>aio_parallel_tools.aio_task_pool.core.mixins.producer_mixin.simple_producer_mixin &#8212; aio_parallel_tools  documentation</title>
+    <link rel="stylesheet" href="../../../../../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../../../../../../" src="../../../../../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../../../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../../../../../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../../../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../../../search.html" />
+   
+  <link rel="stylesheet" href="../../../../../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <h1>Source code for aio_parallel_tools.aio_task_pool.core.mixins.producer_mixin.simple_producer_mixin</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;The simplest mixin for creating and submiting tasks to task pool.&quot;&quot;&quot;</span>
+<span class="kn">import</span> <span class="nn">copy</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
+<span class="kn">import</span> <span class="nn">asyncio</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="k">import</span> <span class="p">(</span><span class="n">Callable</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Any</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Union</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">aio_parallel_tools.aio_task_pool.core.exception</span> <span class="k">import</span> <span class="n">NotAvailable</span>
+<span class="kn">from</span> <span class="nn">aio_parallel_tools.aio_task_pool.core.task</span> <span class="k">import</span> <span class="n">Task</span>
+
+
+<div class="viewcode-block" id="SimpleProducerMixin"><a class="viewcode-back" href="../../../../../../aio_parallel_tools.aio_task_pool.core.mixins.producer_mixin.html#aio_parallel_tools.aio_task_pool.core.mixins.producer_mixin.simple_producer_mixin.SimpleProducerMixin">[docs]</a><span class="k">class</span> <span class="nc">SimpleProducerMixin</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Simple Producer Mixin.</span>
+
+<span class="sd">    Requirement: </span>
+
+<span class="sd">        queue (Property): msg queue.</span>
+
+<span class="sd">        loop (Property): event loop.</span>
+
+<span class="sd">        size (Property): worker pool&#39;s size.</span>
+
+<span class="sd">        make_message (Method): make task to message</span>
+
+<span class="sd">        close_workers (Asynchronous Method): Send worker pool size&#39;s close signal to the queue.</span>
+
+<span class="sd">        close_workers_nowait_soft (Method): Send worker pool size&#39;s close signal to the queue with no wait.</span>
+<span class="sd">        </span>
+<span class="sd">        close_workers_hard (Method): Cancel worker hardlly.</span>
+
+<span class="sd">    Support:</span>
+
+<span class="sd">        paused (Property): Check if user can submit tasks.</span>
+
+<span class="sd">        closed (Property): Check if the pool is closed.</span>
+
+<span class="sd">        start_accept (Method): Start Accept tasks.</span>
+
+<span class="sd">        pause (Method): Pause the task pool.</span>
+
+<span class="sd">        submit (Asynchronous Method): Submit task to the task pool.</span>
+
+<span class="sd">        submit_nowait (Method): Submit task to the task pool with no wait.</span>
+
+<span class="sd">        close_pool (Asynchronous Method): Send close signal to all worker.</span>
+<span class="sd">        </span>
+<span class="sd">        close_pool_nowait (Method): Send close signal to all workers with no waiting.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Initialize Simple Producer Mixin.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_paused</span> <span class="o">=</span> <span class="kc">True</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">paused</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Check if user can submit tasks.</span>
+
+<span class="sd">        If the task pool can accept new tasks,the result is False; else it&#39;s True.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            bool: can submit or not.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_paused</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">closed</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Check if the pool is closed.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">pause</span> <span class="ow">is</span> <span class="kc">True</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span> <span class="o">==</span> <span class="mi">0</span>
+
+<div class="viewcode-block" id="SimpleProducerMixin.start_accept"><a class="viewcode-back" href="../../../../../../aio_parallel_tools.aio_task_pool.core.mixins.producer_mixin.html#aio_parallel_tools.aio_task_pool.core.mixins.producer_mixin.simple_producer_mixin.SimpleProducerMixin.start_accept">[docs]</a>    <span class="k">def</span> <span class="nf">start_accept</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Start Accept tasks.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_paused</span> <span class="o">=</span> <span class="kc">False</span></div>
+
+<div class="viewcode-block" id="SimpleProducerMixin.pause"><a class="viewcode-back" href="../../../../../../aio_parallel_tools.aio_task_pool.core.mixins.producer_mixin.html#aio_parallel_tools.aio_task_pool.core.mixins.producer_mixin.simple_producer_mixin.SimpleProducerMixin.pause">[docs]</a>    <span class="k">def</span> <span class="nf">pause</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Pause the task pool.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            bool: Check if The task pool is paused</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_paused</span> <span class="o">=</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_paused</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">paused</span></div>
+
+    <span class="k">def</span> <span class="nf">_make_task</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+                   <span class="n">task_func</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">Any</span><span class="p">],</span> <span class="n">Any</span><span class="p">],</span>
+                   <span class="n">args</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="p">[],</span>
+                   <span class="n">kwargs</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="p">{})</span> <span class="o">-&gt;</span> <span class="n">Task</span><span class="p">:</span>
+        <span class="n">fut</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_loop</span><span class="o">.</span><span class="n">create_future</span><span class="p">()</span>
+        <span class="n">args</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">args</span><span class="p">)</span>
+        <span class="n">kwargs</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="n">task</span> <span class="o">=</span> <span class="n">Task</span><span class="p">(</span><span class="n">fut</span><span class="p">,</span> <span class="n">task_func</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">task</span>
+
+<div class="viewcode-block" id="SimpleProducerMixin.submit"><a class="viewcode-back" href="../../../../../../aio_parallel_tools.aio_task_pool.core.mixins.producer_mixin.html#aio_parallel_tools.aio_task_pool.core.mixins.producer_mixin.simple_producer_mixin.SimpleProducerMixin.submit">[docs]</a>    <span class="k">async</span> <span class="k">def</span> <span class="nf">submit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+                     <span class="n">task_func</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">Any</span><span class="p">],</span> <span class="n">Any</span><span class="p">],</span> <span class="o">*</span><span class="p">,</span>
+                     <span class="n">func_args</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="p">[],</span>
+                     <span class="n">func_kwargs</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="p">{},</span>
+                     <span class="n">blocking</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="n">asyncio</span><span class="o">.</span><span class="n">Future</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;Submit task to the task pool.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            task_func (Callable[[Any], Any]): The task function which will be called by the workers.</span>
+<span class="sd">            func_args (List[Any], optional): The positional parameters for the task function. Defaults to [].</span>
+<span class="sd">            func_kwargs (Dict[str, Any], optional): The keyword parameters for the task function. Defaults to {}.</span>
+<span class="sd">            blocking (bool, optional): Set if waiting for the task&#39;s result. Defaults to True.</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            NotAvailable: The task pool is paused</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Union[asyncio.Future, Any]: if blocking is True, submit will return the result of the task;</span>
+<span class="sd">            else it will return a future which you can await it to get the result.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">paused</span><span class="p">:</span>
+            <span class="n">task</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_task</span><span class="p">(</span><span class="n">task_func</span><span class="p">,</span> <span class="n">func_args</span><span class="p">,</span> <span class="n">func_kwargs</span><span class="p">)</span>
+            <span class="n">fut</span> <span class="o">=</span> <span class="n">task</span><span class="o">.</span><span class="n">fut</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">make_message</span><span class="p">(</span><span class="n">task</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">blocking</span><span class="p">:</span>
+                <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">queue</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+                <span class="k">return</span> <span class="k">await</span> <span class="n">fut</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">asyncio</span><span class="o">.</span><span class="n">create_task</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">queue</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="n">msg</span><span class="p">))</span>
+                <span class="k">return</span> <span class="n">fut</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">NotAvailable</span><span class="p">(</span><span class="s2">&quot;task pool is paused&quot;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="SimpleProducerMixin.submit_nowait"><a class="viewcode-back" href="../../../../../../aio_parallel_tools.aio_task_pool.core.mixins.producer_mixin.html#aio_parallel_tools.aio_task_pool.core.mixins.producer_mixin.simple_producer_mixin.SimpleProducerMixin.submit_nowait">[docs]</a>    <span class="k">def</span> <span class="nf">submit_nowait</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+                      <span class="n">task_func</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">Any</span><span class="p">],</span> <span class="n">Any</span><span class="p">],</span> <span class="o">*</span><span class="p">,</span>
+                      <span class="n">func_args</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="p">[],</span>
+                      <span class="n">func_kwargs</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="p">{},</span>
+                      <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">Future</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Submit task to the task pool with no wait.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            task_func (Callable[[Any], Any]): The task function which will be called by the workers.</span>
+<span class="sd">            func_args (List[Any], optional): The positional parameters for the task function. Defaults to [].</span>
+<span class="sd">            func_kwargs (Dict[str, Any], optional): The keyword parameters for the task function. Defaults to {}.</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            NotAvailable: The task pool is paused or</span>
+<span class="sd">            e: other exception</span>
+<span class="sd">            NotAvailable: task pool is full, can not put task any more</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            asyncio.Future: a future which you can await it to get the result.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">paused</span><span class="p">:</span>
+            <span class="n">task</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_task</span><span class="p">(</span><span class="n">task_func</span><span class="p">,</span> <span class="n">func_args</span><span class="p">,</span> <span class="n">func_kwargs</span><span class="p">)</span>
+            <span class="n">fut</span> <span class="o">=</span> <span class="n">task</span><span class="o">.</span><span class="n">fut</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">make_message</span><span class="p">(</span><span class="n">task</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">queue</span><span class="o">.</span><span class="n">put_nowait</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+            <span class="k">except</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">QueueFull</span> <span class="k">as</span> <span class="n">qfe</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="n">NotAvailable</span><span class="p">(</span><span class="s2">&quot;task pool can not put task any more&quot;</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="n">e</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">fut</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">NotAvailable</span><span class="p">(</span><span class="s2">&quot;task pool is paused&quot;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="SimpleProducerMixin.close_pool"><a class="viewcode-back" href="../../../../../../aio_parallel_tools.aio_task_pool.core.mixins.producer_mixin.html#aio_parallel_tools.aio_task_pool.core.mixins.producer_mixin.simple_producer_mixin.SimpleProducerMixin.close_pool">[docs]</a>    <span class="k">async</span> <span class="k">def</span> <span class="nf">close_pool</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+                         <span class="n">close_worker_timeout</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                         <span class="n">close_pool_timeout</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">3</span><span class="p">,</span>
+                         <span class="n">safe</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Close all workers and paused the task pool.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            close_worker_timeout (Union[int, float, None], optional): Timeout for closing all workers. Defaults to None.</span>
+<span class="sd">            close_pool_timeout (int, optional): Timeout for join left tasks. Defaults to 3.</span>
+<span class="sd">            safe (bool, optional): when getting  exceptions, raise it or warning it. Defaults to True.</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            te: close workers timeout.</span>
+<span class="sd">            e: unknown error when closing workers.</span>
+<span class="sd">            te: waiting for left tasks done timeout</span>
+<span class="sd">            e: unknown error when waiting for left tasks done</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_paused</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">close_worker_timeout</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">close_worker_timeout</span><span class="p">,</span> <span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">)):</span>
+                <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">wait_for</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">close_workers</span><span class="p">(),</span> <span class="n">timeout</span><span class="o">=</span><span class="n">close_worker_timeout</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">close_workers</span><span class="p">()</span>
+        <span class="k">except</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">TimeoutError</span> <span class="k">as</span> <span class="n">te</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">safe</span><span class="p">:</span>
+                <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">&quot;close workers timeout&quot;</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="n">te</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">safe</span><span class="p">:</span>
+                <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;unknown error </span><span class="si">{e}</span><span class="s2"> when closing workers&quot;</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="n">e</span>
+        <span class="k">finally</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">wait_for</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">queue</span><span class="o">.</span><span class="n">join</span><span class="p">(),</span> <span class="n">timeout</span><span class="o">=</span><span class="n">close_pool_timeout</span><span class="p">)</span>
+            <span class="k">except</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">TimeoutError</span> <span class="k">as</span> <span class="n">te</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">safe</span><span class="p">:</span>
+                    <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">&quot;waiting for left tasks done timeout&quot;</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="k">raise</span> <span class="n">te</span>
+            <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">safe</span><span class="p">:</span>
+                    <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;unknown error </span><span class="si">{e}</span><span class="s2"> when waiting for left tasks done&quot;</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="k">raise</span> <span class="n">e</span></div>
+
+<div class="viewcode-block" id="SimpleProducerMixin.close_pool_nowait"><a class="viewcode-back" href="../../../../../../aio_parallel_tools.aio_task_pool.core.mixins.producer_mixin.html#aio_parallel_tools.aio_task_pool.core.mixins.producer_mixin.simple_producer_mixin.SimpleProducerMixin.close_pool_nowait">[docs]</a>    <span class="k">def</span> <span class="nf">close_pool_nowait</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">soft</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Close all workers and paused the task pool without waiting.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            soft (bool, optional): if True, this interface will send Signal to task pool to close workers;</span>
+<span class="sd">             else all workers will be cancel. Defaults to True.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_paused</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="k">if</span> <span class="n">soft</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">close_workers_nowait_soft</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">close_workers_hard</span><span class="p">()</span></div></div>
+</pre></div>
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../../../../../index.html">aio_parallel_tools</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption"><span class="caption-text">API:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../aio_parallel_tools.html">Modules</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../../../../../index.html">Documentation overview</a><ul>
+  <li><a href="../../../../../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2019, huangsizhe.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.1.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

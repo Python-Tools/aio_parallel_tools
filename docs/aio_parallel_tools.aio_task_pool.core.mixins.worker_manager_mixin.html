@@ -1,0 +1,347 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Worker Manager Mixin &#8212; aio_parallel_tools  documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Queue Mixins" href="aio_parallel_tools.aio_task_pool.core.mixins.queue_mixin.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="worker-manager-mixin">
+<h1>Worker Manager Mixin<a class="headerlink" href="#worker-manager-mixin" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="module-aio_parallel_tools.aio_task_pool.core.mixins.worker_manager_mixin.autoscale_worker_manager_mixin">
+<span id="autoscale-worker-manager-mixin-module"></span><h2>autoscale_worker_manager_mixin module<a class="headerlink" href="#module-aio_parallel_tools.aio_task_pool.core.mixins.worker_manager_mixin.autoscale_worker_manager_mixin" title="Permalink to this headline">¶</a></h2>
+<p>Fixed Worker Manager Mixin.</p>
+<dl class="class">
+<dt id="aio_parallel_tools.aio_task_pool.core.mixins.worker_manager_mixin.autoscale_worker_manager_mixin.AutoScaleWorkerManagerMixin">
+<em class="property">class </em><code class="sig-prename descclassname">aio_parallel_tools.aio_task_pool.core.mixins.worker_manager_mixin.autoscale_worker_manager_mixin.</code><code class="sig-name descname">AutoScaleWorkerManagerMixin</code><span class="sig-paren">(</span><em class="sig-param">*</em>, <em class="sig-param">min_size: int = 3</em>, <em class="sig-param">max_size: Optional[int] = None</em>, <em class="sig-param">auto_scale_interval: int = 10</em>, <em class="sig-param">auto_scale_cache_len: int = 20</em>, <em class="sig-param">executor: concurrent.futures._base.Executor = None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aio_parallel_tools/aio_task_pool/core/mixins/worker_manager_mixin/autoscale_worker_manager_mixin.html#AutoScaleWorkerManagerMixin"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aio_parallel_tools.aio_task_pool.core.mixins.worker_manager_mixin.autoscale_worker_manager_mixin.AutoScaleWorkerManagerMixin" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Auto scale Worker Manager Mixin.</p>
+<dl>
+<dt>Requirement:</dt><dd><p>loop (Property): event loop.</p>
+<p>queue (Property): msg queue.</p>
+<p>make_close_signal (Method): Make close signal to send.</p>
+<p>parser_message (Method): Parser messages from queue.</p>
+<p>waiting_tasks_number (Property): Now number of the waiting tasks.</p>
+<p>paused (Property): Check if user can submit tasks.</p>
+</dd>
+<dt>Support:</dt><dd><p>size (Property): worker set’s size.</p>
+<p>start_workers (Asynchronous Method): Initialize workers and open the task pool to accept tasks.</p>
+<p>scale  (Asynchronous Method): Scale the number of the task pool’s worker.</p>
+<p>scale_nowait (Method): Scale the number of the task pool’s worker without waiting.</p>
+<p>close_workers (Asynchronous Method): Send worker pool size’s close signal to the queue.</p>
+<p>close_workers_nowait_soft (Method): Send worker pool size’s close signal to the queue with no wait.</p>
+<p>close_workers_hard (Method): Cancel worker hardlly.</p>
+<p>close_auto_scale_worker (Method): Close auto scale worker.</p>
+</dd>
+</dl>
+<dl class="method">
+<dt id="aio_parallel_tools.aio_task_pool.core.mixins.worker_manager_mixin.autoscale_worker_manager_mixin.AutoScaleWorkerManagerMixin.close_auto_scale_worker">
+<code class="sig-name descname">close_auto_scale_worker</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/aio_parallel_tools/aio_task_pool/core/mixins/worker_manager_mixin/autoscale_worker_manager_mixin.html#AutoScaleWorkerManagerMixin.close_auto_scale_worker"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aio_parallel_tools.aio_task_pool.core.mixins.worker_manager_mixin.autoscale_worker_manager_mixin.AutoScaleWorkerManagerMixin.close_auto_scale_worker" title="Permalink to this definition">¶</a></dt>
+<dd><p>Close _auto_scale_worker.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="aio_parallel_tools.aio_task_pool.core.mixins.worker_manager_mixin.autoscale_worker_manager_mixin.AutoScaleWorkerManagerMixin.close_workers">
+<em class="property">async </em><code class="sig-name descname">close_workers</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/aio_parallel_tools/aio_task_pool/core/mixins/worker_manager_mixin/autoscale_worker_manager_mixin.html#AutoScaleWorkerManagerMixin.close_workers"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aio_parallel_tools.aio_task_pool.core.mixins.worker_manager_mixin.autoscale_worker_manager_mixin.AutoScaleWorkerManagerMixin.close_workers" title="Permalink to this definition">¶</a></dt>
+<dd><p>Send worker pool size’s close signal to the queue.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="aio_parallel_tools.aio_task_pool.core.mixins.worker_manager_mixin.autoscale_worker_manager_mixin.AutoScaleWorkerManagerMixin.close_workers_hard">
+<code class="sig-name descname">close_workers_hard</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="reference internal" href="_modules/aio_parallel_tools/aio_task_pool/core/mixins/worker_manager_mixin/autoscale_worker_manager_mixin.html#AutoScaleWorkerManagerMixin.close_workers_hard"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aio_parallel_tools.aio_task_pool.core.mixins.worker_manager_mixin.autoscale_worker_manager_mixin.AutoScaleWorkerManagerMixin.close_workers_hard" title="Permalink to this definition">¶</a></dt>
+<dd><p>Cancel worker hardlly.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="aio_parallel_tools.aio_task_pool.core.mixins.worker_manager_mixin.autoscale_worker_manager_mixin.AutoScaleWorkerManagerMixin.close_workers_nowait_soft">
+<code class="sig-name descname">close_workers_nowait_soft</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="reference internal" href="_modules/aio_parallel_tools/aio_task_pool/core/mixins/worker_manager_mixin/autoscale_worker_manager_mixin.html#AutoScaleWorkerManagerMixin.close_workers_nowait_soft"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aio_parallel_tools.aio_task_pool.core.mixins.worker_manager_mixin.autoscale_worker_manager_mixin.AutoScaleWorkerManagerMixin.close_workers_nowait_soft" title="Permalink to this definition">¶</a></dt>
+<dd><p>Send worker pool size’s close signal to the queue with no wait.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="aio_parallel_tools.aio_task_pool.core.mixins.worker_manager_mixin.autoscale_worker_manager_mixin.AutoScaleWorkerManagerMixin.scale">
+<em class="property">async </em><code class="sig-name descname">scale</code><span class="sig-paren">(</span><em class="sig-param">num: int</em><span class="sig-paren">)</span> &#x2192; int<a class="reference internal" href="_modules/aio_parallel_tools/aio_task_pool/core/mixins/worker_manager_mixin/autoscale_worker_manager_mixin.html#AutoScaleWorkerManagerMixin.scale"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aio_parallel_tools.aio_task_pool.core.mixins.worker_manager_mixin.autoscale_worker_manager_mixin.AutoScaleWorkerManagerMixin.scale" title="Permalink to this definition">¶</a></dt>
+<dd><p>Scale the number of the task pool’s worker.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>num</strong> (<em>int</em>) – num to scale.positive will increase the worker,negative will decrease the worker.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>the number will scale to.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="aio_parallel_tools.aio_task_pool.core.mixins.worker_manager_mixin.autoscale_worker_manager_mixin.AutoScaleWorkerManagerMixin.scale_nowait">
+<code class="sig-name descname">scale_nowait</code><span class="sig-paren">(</span><em class="sig-param">num: int</em>, <em class="sig-param">soft=True</em><span class="sig-paren">)</span> &#x2192; int<a class="reference internal" href="_modules/aio_parallel_tools/aio_task_pool/core/mixins/worker_manager_mixin/autoscale_worker_manager_mixin.html#AutoScaleWorkerManagerMixin.scale_nowait"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aio_parallel_tools.aio_task_pool.core.mixins.worker_manager_mixin.autoscale_worker_manager_mixin.AutoScaleWorkerManagerMixin.scale_nowait" title="Permalink to this definition">¶</a></dt>
+<dd><p>Scale the number of the task pool’s worker without waiting.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>num</strong> (<em>int</em>) – num to scale.positive will increase the worker,negative will decrease the worker.</p></li>
+<li><p><strong>soft</strong> (<em>bool</em><em>, </em><em>optional</em>) – if True, this interface will send Signal to task pool to close workers;
+else number of random workers will be cancel. Defaults to True.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>the number will scale to.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="aio_parallel_tools.aio_task_pool.core.mixins.worker_manager_mixin.autoscale_worker_manager_mixin.AutoScaleWorkerManagerMixin.size">
+<em class="property">property </em><code class="sig-name descname">size</code><a class="headerlink" href="#aio_parallel_tools.aio_task_pool.core.mixins.worker_manager_mixin.autoscale_worker_manager_mixin.AutoScaleWorkerManagerMixin.size" title="Permalink to this definition">¶</a></dt>
+<dd><p>Pool’s size.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Pool’s size</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="aio_parallel_tools.aio_task_pool.core.mixins.worker_manager_mixin.autoscale_worker_manager_mixin.AutoScaleWorkerManagerMixin.start_auto_scale">
+<em class="property">async </em><code class="sig-name descname">start_auto_scale</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="reference internal" href="_modules/aio_parallel_tools/aio_task_pool/core/mixins/worker_manager_mixin/autoscale_worker_manager_mixin.html#AutoScaleWorkerManagerMixin.start_auto_scale"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aio_parallel_tools.aio_task_pool.core.mixins.worker_manager_mixin.autoscale_worker_manager_mixin.AutoScaleWorkerManagerMixin.start_auto_scale" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="aio_parallel_tools.aio_task_pool.core.mixins.worker_manager_mixin.autoscale_worker_manager_mixin.AutoScaleWorkerManagerMixin.start_workers">
+<em class="property">async </em><code class="sig-name descname">start_workers</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="reference internal" href="_modules/aio_parallel_tools/aio_task_pool/core/mixins/worker_manager_mixin/autoscale_worker_manager_mixin.html#AutoScaleWorkerManagerMixin.start_workers"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aio_parallel_tools.aio_task_pool.core.mixins.worker_manager_mixin.autoscale_worker_manager_mixin.AutoScaleWorkerManagerMixin.start_workers" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize workers and open the task pool to accept tasks.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-aio_parallel_tools.aio_task_pool.core.mixins.worker_manager_mixin.fix_worker_manager_mixin">
+<span id="fix-worker-manager-mixin-module"></span><h2>fix_worker_manager_mixin module<a class="headerlink" href="#module-aio_parallel_tools.aio_task_pool.core.mixins.worker_manager_mixin.fix_worker_manager_mixin" title="Permalink to this headline">¶</a></h2>
+<p>Fixed Worker Manager Mixin.</p>
+<dl class="class">
+<dt id="aio_parallel_tools.aio_task_pool.core.mixins.worker_manager_mixin.fix_worker_manager_mixin.FixedWorkerManagerMixin">
+<em class="property">class </em><code class="sig-prename descclassname">aio_parallel_tools.aio_task_pool.core.mixins.worker_manager_mixin.fix_worker_manager_mixin.</code><code class="sig-name descname">FixedWorkerManagerMixin</code><span class="sig-paren">(</span><em class="sig-param">init_size: int = 3</em>, <em class="sig-param">executor: concurrent.futures._base.Executor = None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aio_parallel_tools/aio_task_pool/core/mixins/worker_manager_mixin/fix_worker_manager_mixin.html#FixedWorkerManagerMixin"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aio_parallel_tools.aio_task_pool.core.mixins.worker_manager_mixin.fix_worker_manager_mixin.FixedWorkerManagerMixin" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Fixed Worker Manager Mixin.</p>
+<dl>
+<dt>Requirement:</dt><dd><p>loop (Property): event loop.</p>
+<p>queue (Property): msg queue.</p>
+<p>make_close_signal (Method): Make close signal to send.</p>
+<p>parser_message (Method): Parser messages from queue.</p>
+</dd>
+<dt>Support:</dt><dd><p>size (Property): worker set’s size.</p>
+<p>start_workers (Asynchronous Method): Initialize workers and open the task pool to accept tasks.</p>
+<p>scale  (Asynchronous Method): Scale the number of the task pool’s worker.</p>
+<p>scale_nowait (Method): Scale the number of the task pool’s worker without waiting.</p>
+<p>close_workers (Asynchronous Method): Send worker pool size’s close signal to the queue.</p>
+<p>close_workers_nowait_soft (Method): Send worker pool size’s close signal to the queue with no wait.</p>
+<p>close_workers_hard (Method): Cancel worker hardlly.</p>
+</dd>
+</dl>
+<dl class="method">
+<dt id="aio_parallel_tools.aio_task_pool.core.mixins.worker_manager_mixin.fix_worker_manager_mixin.FixedWorkerManagerMixin.close_workers">
+<em class="property">async </em><code class="sig-name descname">close_workers</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/aio_parallel_tools/aio_task_pool/core/mixins/worker_manager_mixin/fix_worker_manager_mixin.html#FixedWorkerManagerMixin.close_workers"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aio_parallel_tools.aio_task_pool.core.mixins.worker_manager_mixin.fix_worker_manager_mixin.FixedWorkerManagerMixin.close_workers" title="Permalink to this definition">¶</a></dt>
+<dd><p>Send worker pool size’s close signal to the queue.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="aio_parallel_tools.aio_task_pool.core.mixins.worker_manager_mixin.fix_worker_manager_mixin.FixedWorkerManagerMixin.close_workers_hard">
+<code class="sig-name descname">close_workers_hard</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="reference internal" href="_modules/aio_parallel_tools/aio_task_pool/core/mixins/worker_manager_mixin/fix_worker_manager_mixin.html#FixedWorkerManagerMixin.close_workers_hard"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aio_parallel_tools.aio_task_pool.core.mixins.worker_manager_mixin.fix_worker_manager_mixin.FixedWorkerManagerMixin.close_workers_hard" title="Permalink to this definition">¶</a></dt>
+<dd><p>Cancel worker hardlly.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="aio_parallel_tools.aio_task_pool.core.mixins.worker_manager_mixin.fix_worker_manager_mixin.FixedWorkerManagerMixin.close_workers_nowait_soft">
+<code class="sig-name descname">close_workers_nowait_soft</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="reference internal" href="_modules/aio_parallel_tools/aio_task_pool/core/mixins/worker_manager_mixin/fix_worker_manager_mixin.html#FixedWorkerManagerMixin.close_workers_nowait_soft"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aio_parallel_tools.aio_task_pool.core.mixins.worker_manager_mixin.fix_worker_manager_mixin.FixedWorkerManagerMixin.close_workers_nowait_soft" title="Permalink to this definition">¶</a></dt>
+<dd><p>Send worker pool size’s close signal to the queue with no wait.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="aio_parallel_tools.aio_task_pool.core.mixins.worker_manager_mixin.fix_worker_manager_mixin.FixedWorkerManagerMixin.scale">
+<em class="property">async </em><code class="sig-name descname">scale</code><span class="sig-paren">(</span><em class="sig-param">num: int</em><span class="sig-paren">)</span> &#x2192; int<a class="reference internal" href="_modules/aio_parallel_tools/aio_task_pool/core/mixins/worker_manager_mixin/fix_worker_manager_mixin.html#FixedWorkerManagerMixin.scale"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aio_parallel_tools.aio_task_pool.core.mixins.worker_manager_mixin.fix_worker_manager_mixin.FixedWorkerManagerMixin.scale" title="Permalink to this definition">¶</a></dt>
+<dd><p>Scale the number of the task pool’s worker.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>num</strong> (<em>int</em>) – num to scale.positive will increase the worker,negative will decrease the worker.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>the number will scale to.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="aio_parallel_tools.aio_task_pool.core.mixins.worker_manager_mixin.fix_worker_manager_mixin.FixedWorkerManagerMixin.scale_nowait">
+<code class="sig-name descname">scale_nowait</code><span class="sig-paren">(</span><em class="sig-param">num: int</em>, <em class="sig-param">soft=True</em><span class="sig-paren">)</span> &#x2192; int<a class="reference internal" href="_modules/aio_parallel_tools/aio_task_pool/core/mixins/worker_manager_mixin/fix_worker_manager_mixin.html#FixedWorkerManagerMixin.scale_nowait"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aio_parallel_tools.aio_task_pool.core.mixins.worker_manager_mixin.fix_worker_manager_mixin.FixedWorkerManagerMixin.scale_nowait" title="Permalink to this definition">¶</a></dt>
+<dd><p>Scale the number of the task pool’s worker without waiting.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>num</strong> (<em>int</em>) – num to scale.positive will increase the worker,negative will decrease the worker.</p></li>
+<li><p><strong>soft</strong> (<em>bool</em><em>, </em><em>optional</em>) – if True, this interface will send Signal to task pool to close workers;
+else number of random workers will be cancel. Defaults to True.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>the number will scale to.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="aio_parallel_tools.aio_task_pool.core.mixins.worker_manager_mixin.fix_worker_manager_mixin.FixedWorkerManagerMixin.size">
+<em class="property">property </em><code class="sig-name descname">size</code><a class="headerlink" href="#aio_parallel_tools.aio_task_pool.core.mixins.worker_manager_mixin.fix_worker_manager_mixin.FixedWorkerManagerMixin.size" title="Permalink to this definition">¶</a></dt>
+<dd><p>Pool’s size.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Pool’s size</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="aio_parallel_tools.aio_task_pool.core.mixins.worker_manager_mixin.fix_worker_manager_mixin.FixedWorkerManagerMixin.start_workers">
+<em class="property">async </em><code class="sig-name descname">start_workers</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="reference internal" href="_modules/aio_parallel_tools/aio_task_pool/core/mixins/worker_manager_mixin/fix_worker_manager_mixin.html#FixedWorkerManagerMixin.start_workers"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aio_parallel_tools.aio_task_pool.core.mixins.worker_manager_mixin.fix_worker_manager_mixin.FixedWorkerManagerMixin.start_workers" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize workers and open the task pool to accept tasks.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">aio_parallel_tools</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption"><span class="caption-text">API:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="aio_parallel_tools.html">Modules</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="aio_parallel_tools.aio_task_pool.html">aio_parallel_tools.aio_task_pool package</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="aio_parallel_tools.aio_task_pool.html#taskpools">TaskPools</a></li>
+<li class="toctree-l3"><a class="reference internal" href="aio_parallel_tools.aio_task_pool.html#module-aio_parallel_tools.aio_task_pool.aio_autoscale_task_pool_lifo">aio_autoscale_task_pool_lifo module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="aio_parallel_tools.aio_task_pool.html#module-aio_parallel_tools.aio_task_pool.aio_autoscale_task_pool_priority">aio_autoscale_task_pool_priority module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="aio_parallel_tools.aio_task_pool.html#module-aio_parallel_tools.aio_task_pool.aio_autoscale_task_pool_simple">aio_autoscale_task_pool_simple module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="aio_parallel_tools.aio_task_pool.html#module-aio_parallel_tools.aio_task_pool.aio_fixed_task_pool_lifo">aio_fixed_task_pool_lifo module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="aio_parallel_tools.aio_task_pool.html#module-aio_parallel_tools.aio_task_pool.aio_fixed_task_pool_priority">aio_fixed_task_pool_priority module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="aio_parallel_tools.aio_task_pool.html#module-aio_parallel_tools.aio_task_pool.aio_fixed_task_pool_simple">aio_fixed_task_pool_simple module</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="aio_parallel_tools.aio_task_pool.html#task-pool-core-api">Task Pool Core API</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="aio_parallel_tools.aio_task_pool.core.html">Interface</a></li>
+<li class="toctree-l4 current"><a class="reference internal" href="aio_parallel_tools.aio_task_pool.core.html#mixins">Mixins</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  <li><a href="aio_parallel_tools.html">Modules</a><ul>
+  <li><a href="aio_parallel_tools.aio_task_pool.html">aio_parallel_tools.aio_task_pool package</a><ul>
+  <li><a href="aio_parallel_tools.aio_task_pool.core.html">Interface</a><ul>
+      <li>Previous: <a href="aio_parallel_tools.aio_task_pool.core.mixins.queue_mixin.html" title="previous chapter">Queue Mixins</a></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2019, huangsizhe.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.1.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/aio_parallel_tools.aio_task_pool.core.mixins.worker_manager_mixin.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

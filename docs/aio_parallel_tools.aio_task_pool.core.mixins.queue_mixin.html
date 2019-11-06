@@ -1,0 +1,349 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Queue Mixins &#8212; aio_parallel_tools  documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Worker Manager Mixin" href="aio_parallel_tools.aio_task_pool.core.mixins.worker_manager_mixin.html" />
+    <link rel="prev" title="ProducerMixin" href="aio_parallel_tools.aio_task_pool.core.mixins.producer_mixin.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="queue-mixins">
+<h1>Queue Mixins<a class="headerlink" href="#queue-mixins" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="module-aio_parallel_tools.aio_task_pool.core.mixins.queue_mixin.lifoq_mixin">
+<span id="lifoq-mixin-module"></span><h2>lifoq_mixin module<a class="headerlink" href="#module-aio_parallel_tools.aio_task_pool.core.mixins.queue_mixin.lifoq_mixin" title="Permalink to this headline">¶</a></h2>
+<p>Submit tasks and Send Signals using Lifo Q.</p>
+<dl class="class">
+<dt id="aio_parallel_tools.aio_task_pool.core.mixins.queue_mixin.lifoq_mixin.LifoQMixin">
+<em class="property">class </em><code class="sig-prename descclassname">aio_parallel_tools.aio_task_pool.core.mixins.queue_mixin.lifoq_mixin.</code><code class="sig-name descname">LifoQMixin</code><span class="sig-paren">(</span><em class="sig-param">queue: Optional[asyncio.queues.Queue] = None</em>, <em class="sig-param">queue_maxsize: int = 0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aio_parallel_tools/aio_task_pool/core/mixins/queue_mixin/lifoq_mixin.html#LifoQMixin"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aio_parallel_tools.aio_task_pool.core.mixins.queue_mixin.lifoq_mixin.LifoQMixin" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Submit tasks and Send Signals using Lifo Q.</p>
+<p>Requirement:</p>
+<blockquote>
+<div><p>loop (Property): Event loop.</p>
+</div></blockquote>
+<p>Support:</p>
+<blockquote>
+<div><p>queue(Property): Event loop.</p>
+<p>waiting_tasks_number(Property): Task size in queue.</p>
+<p>max_tasks_number(Property): Queue’s max size.</p>
+<p>make_message (Method): Make task to message.</p>
+<p>make_close_signal (Method): Make worker colse signal.</p>
+<p>parser_message (Method): Parser messages from queue.</p>
+</div></blockquote>
+<dl class="method">
+<dt id="aio_parallel_tools.aio_task_pool.core.mixins.queue_mixin.lifoq_mixin.LifoQMixin.make_close_signal">
+<code class="sig-name descname">make_close_signal</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/aio_parallel_tools/aio_task_pool/core/mixins/queue_mixin/lifoq_mixin.html#LifoQMixin.make_close_signal"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aio_parallel_tools.aio_task_pool.core.mixins.queue_mixin.lifoq_mixin.LifoQMixin.make_close_signal" title="Permalink to this definition">¶</a></dt>
+<dd><p>Make close signal to send.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="aio_parallel_tools.aio_task_pool.core.mixins.queue_mixin.lifoq_mixin.LifoQMixin.make_message">
+<code class="sig-name descname">make_message</code><span class="sig-paren">(</span><em class="sig-param">task: aio_parallel_tools.aio_task_pool.core.task.Task</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aio_parallel_tools/aio_task_pool/core/mixins/queue_mixin/lifoq_mixin.html#LifoQMixin.make_message"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aio_parallel_tools.aio_task_pool.core.mixins.queue_mixin.lifoq_mixin.LifoQMixin.make_message" title="Permalink to this definition">¶</a></dt>
+<dd><p>Make task message to send.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="aio_parallel_tools.aio_task_pool.core.mixins.queue_mixin.lifoq_mixin.LifoQMixin.max_tasks_number">
+<em class="property">property </em><code class="sig-name descname">max_tasks_number</code><a class="headerlink" href="#aio_parallel_tools.aio_task_pool.core.mixins.queue_mixin.lifoq_mixin.LifoQMixin.max_tasks_number" title="Permalink to this definition">¶</a></dt>
+<dd><p>Maximum number of the waiting tasks.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The maximum number of the waiting tasks.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="aio_parallel_tools.aio_task_pool.core.mixins.queue_mixin.lifoq_mixin.LifoQMixin.parser_message">
+<code class="sig-name descname">parser_message</code><span class="sig-paren">(</span><em class="sig-param">message: Any</em><span class="sig-paren">)</span> &#x2192; Any<a class="reference internal" href="_modules/aio_parallel_tools/aio_task_pool/core/mixins/queue_mixin/lifoq_mixin.html#LifoQMixin.parser_message"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aio_parallel_tools.aio_task_pool.core.mixins.queue_mixin.lifoq_mixin.LifoQMixin.parser_message" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parser messages from queue.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="aio_parallel_tools.aio_task_pool.core.mixins.queue_mixin.lifoq_mixin.LifoQMixin.queue">
+<em class="property">property </em><code class="sig-name descname">queue</code><a class="headerlink" href="#aio_parallel_tools.aio_task_pool.core.mixins.queue_mixin.lifoq_mixin.LifoQMixin.queue" title="Permalink to this definition">¶</a></dt>
+<dd><p>Queue for sending and receiving tasks.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="aio_parallel_tools.aio_task_pool.core.mixins.queue_mixin.lifoq_mixin.LifoQMixin.waiting_tasks_number">
+<em class="property">property </em><code class="sig-name descname">waiting_tasks_number</code><a class="headerlink" href="#aio_parallel_tools.aio_task_pool.core.mixins.queue_mixin.lifoq_mixin.LifoQMixin.waiting_tasks_number" title="Permalink to this definition">¶</a></dt>
+<dd><p>Now number of the waiting tasks.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The number of the waiting tasks.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-aio_parallel_tools.aio_task_pool.core.mixins.queue_mixin.priorityq_mixin">
+<span id="priorityq-mixin-module"></span><h2>priorityq_mixin module<a class="headerlink" href="#module-aio_parallel_tools.aio_task_pool.core.mixins.queue_mixin.priorityq_mixin" title="Permalink to this headline">¶</a></h2>
+<p>Submit tasks and Send Signals using Priority Q.</p>
+<dl class="class">
+<dt id="aio_parallel_tools.aio_task_pool.core.mixins.queue_mixin.priorityq_mixin.PriorityQMixin">
+<em class="property">class </em><code class="sig-prename descclassname">aio_parallel_tools.aio_task_pool.core.mixins.queue_mixin.priorityq_mixin.</code><code class="sig-name descname">PriorityQMixin</code><span class="sig-paren">(</span><em class="sig-param">queue: Optional[asyncio.queues.Queue] = None</em>, <em class="sig-param">queue_maxsize: int = 0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aio_parallel_tools/aio_task_pool/core/mixins/queue_mixin/priorityq_mixin.html#PriorityQMixin"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aio_parallel_tools.aio_task_pool.core.mixins.queue_mixin.priorityq_mixin.PriorityQMixin" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Submit tasks and Send Signals using Priority Q.</p>
+<p>Requirement:</p>
+<blockquote>
+<div><p>loop (Property): event loop.</p>
+</div></blockquote>
+<p>Support:</p>
+<blockquote>
+<div><p>queue(Property): Event loop.</p>
+<p>waiting_tasks_number(Property): Task size in queue.</p>
+<p>max_tasks_number(Property): Queue’s max size.</p>
+<p>make_message (Method): Make task to message.</p>
+<p>make_close_signal (Method): Make worker colse signal.</p>
+<p>parser_message (Method): Parser messages from queue.</p>
+</div></blockquote>
+<dl class="method">
+<dt id="aio_parallel_tools.aio_task_pool.core.mixins.queue_mixin.priorityq_mixin.PriorityQMixin.make_close_signal">
+<code class="sig-name descname">make_close_signal</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/aio_parallel_tools/aio_task_pool/core/mixins/queue_mixin/priorityq_mixin.html#PriorityQMixin.make_close_signal"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aio_parallel_tools.aio_task_pool.core.mixins.queue_mixin.priorityq_mixin.PriorityQMixin.make_close_signal" title="Permalink to this definition">¶</a></dt>
+<dd><p>Make close signal to send.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="aio_parallel_tools.aio_task_pool.core.mixins.queue_mixin.priorityq_mixin.PriorityQMixin.make_message">
+<code class="sig-name descname">make_message</code><span class="sig-paren">(</span><em class="sig-param">task: aio_parallel_tools.aio_task_pool.core.task.Task</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aio_parallel_tools/aio_task_pool/core/mixins/queue_mixin/priorityq_mixin.html#PriorityQMixin.make_message"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aio_parallel_tools.aio_task_pool.core.mixins.queue_mixin.priorityq_mixin.PriorityQMixin.make_message" title="Permalink to this definition">¶</a></dt>
+<dd><p>Make task message to send.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="aio_parallel_tools.aio_task_pool.core.mixins.queue_mixin.priorityq_mixin.PriorityQMixin.max_tasks_number">
+<em class="property">property </em><code class="sig-name descname">max_tasks_number</code><a class="headerlink" href="#aio_parallel_tools.aio_task_pool.core.mixins.queue_mixin.priorityq_mixin.PriorityQMixin.max_tasks_number" title="Permalink to this definition">¶</a></dt>
+<dd><p>Maximum number of the waiting tasks.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The maximum number of the waiting tasks.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="aio_parallel_tools.aio_task_pool.core.mixins.queue_mixin.priorityq_mixin.PriorityQMixin.parser_message">
+<code class="sig-name descname">parser_message</code><span class="sig-paren">(</span><em class="sig-param">message: aio_parallel_tools.aio_task_pool.core.mixins.queue_mixin.priorityq_mixin.PriorityTask</em><span class="sig-paren">)</span> &#x2192; Any<a class="reference internal" href="_modules/aio_parallel_tools/aio_task_pool/core/mixins/queue_mixin/priorityq_mixin.html#PriorityQMixin.parser_message"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aio_parallel_tools.aio_task_pool.core.mixins.queue_mixin.priorityq_mixin.PriorityQMixin.parser_message" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parser messages from queue.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="aio_parallel_tools.aio_task_pool.core.mixins.queue_mixin.priorityq_mixin.PriorityQMixin.queue">
+<em class="property">property </em><code class="sig-name descname">queue</code><a class="headerlink" href="#aio_parallel_tools.aio_task_pool.core.mixins.queue_mixin.priorityq_mixin.PriorityQMixin.queue" title="Permalink to this definition">¶</a></dt>
+<dd><p>Queue for sending and receiving tasks.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="aio_parallel_tools.aio_task_pool.core.mixins.queue_mixin.priorityq_mixin.PriorityQMixin.waiting_tasks_number">
+<em class="property">property </em><code class="sig-name descname">waiting_tasks_number</code><a class="headerlink" href="#aio_parallel_tools.aio_task_pool.core.mixins.queue_mixin.priorityq_mixin.PriorityQMixin.waiting_tasks_number" title="Permalink to this definition">¶</a></dt>
+<dd><p>Now number of the waiting tasks.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The number of the waiting tasks.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="aio_parallel_tools.aio_task_pool.core.mixins.queue_mixin.priorityq_mixin.PriorityTask">
+<em class="property">class </em><code class="sig-prename descclassname">aio_parallel_tools.aio_task_pool.core.mixins.queue_mixin.priorityq_mixin.</code><code class="sig-name descname">PriorityTask</code><span class="sig-paren">(</span><em class="sig-param">weight: int</em>, <em class="sig-param">task: Any</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aio_parallel_tools/aio_task_pool/core/mixins/queue_mixin/priorityq_mixin.html#PriorityTask"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aio_parallel_tools.aio_task_pool.core.mixins.queue_mixin.priorityq_mixin.PriorityTask" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Priority Task Message.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-aio_parallel_tools.aio_task_pool.core.mixins.queue_mixin.simpleq_mixin">
+<span id="simpleq-mixin-module"></span><h2>simpleq_mixin module<a class="headerlink" href="#module-aio_parallel_tools.aio_task_pool.core.mixins.queue_mixin.simpleq_mixin" title="Permalink to this headline">¶</a></h2>
+<p>Submit tasks and Send Signals using simple Q.</p>
+<dl class="class">
+<dt id="aio_parallel_tools.aio_task_pool.core.mixins.queue_mixin.simpleq_mixin.SimpleQMixin">
+<em class="property">class </em><code class="sig-prename descclassname">aio_parallel_tools.aio_task_pool.core.mixins.queue_mixin.simpleq_mixin.</code><code class="sig-name descname">SimpleQMixin</code><span class="sig-paren">(</span><em class="sig-param">queue: Optional[asyncio.queues.Queue] = None</em>, <em class="sig-param">queue_maxsize: int = 0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aio_parallel_tools/aio_task_pool/core/mixins/queue_mixin/simpleq_mixin.html#SimpleQMixin"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aio_parallel_tools.aio_task_pool.core.mixins.queue_mixin.simpleq_mixin.SimpleQMixin" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Submit tasks and Send Signals using simple Q.</p>
+<p>Requirement:</p>
+<blockquote>
+<div><p>loop (Property): Event loop.</p>
+</div></blockquote>
+<p>Support:</p>
+<blockquote>
+<div><p>queue(Property): Event loop.</p>
+<p>waiting_tasks_number(Property): Task size in queue.</p>
+<p>max_tasks_number(Property): Queue’s max size.</p>
+<p>make_message (Method): Make task to message.</p>
+<p>make_close_signal (Method): Make worker colse signal.</p>
+<p>parser_message (Method): Parser messages from queue.</p>
+</div></blockquote>
+<dl class="method">
+<dt id="aio_parallel_tools.aio_task_pool.core.mixins.queue_mixin.simpleq_mixin.SimpleQMixin.make_close_signal">
+<code class="sig-name descname">make_close_signal</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/aio_parallel_tools/aio_task_pool/core/mixins/queue_mixin/simpleq_mixin.html#SimpleQMixin.make_close_signal"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aio_parallel_tools.aio_task_pool.core.mixins.queue_mixin.simpleq_mixin.SimpleQMixin.make_close_signal" title="Permalink to this definition">¶</a></dt>
+<dd><p>Make close signal to send.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="aio_parallel_tools.aio_task_pool.core.mixins.queue_mixin.simpleq_mixin.SimpleQMixin.make_message">
+<code class="sig-name descname">make_message</code><span class="sig-paren">(</span><em class="sig-param">task: aio_parallel_tools.aio_task_pool.core.task.Task</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aio_parallel_tools/aio_task_pool/core/mixins/queue_mixin/simpleq_mixin.html#SimpleQMixin.make_message"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aio_parallel_tools.aio_task_pool.core.mixins.queue_mixin.simpleq_mixin.SimpleQMixin.make_message" title="Permalink to this definition">¶</a></dt>
+<dd><p>Make task message to send.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="aio_parallel_tools.aio_task_pool.core.mixins.queue_mixin.simpleq_mixin.SimpleQMixin.max_tasks_number">
+<em class="property">property </em><code class="sig-name descname">max_tasks_number</code><a class="headerlink" href="#aio_parallel_tools.aio_task_pool.core.mixins.queue_mixin.simpleq_mixin.SimpleQMixin.max_tasks_number" title="Permalink to this definition">¶</a></dt>
+<dd><p>Maximum number of the waiting tasks.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The maximum number of the waiting tasks.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="aio_parallel_tools.aio_task_pool.core.mixins.queue_mixin.simpleq_mixin.SimpleQMixin.parser_message">
+<code class="sig-name descname">parser_message</code><span class="sig-paren">(</span><em class="sig-param">message: Any</em><span class="sig-paren">)</span> &#x2192; Any<a class="reference internal" href="_modules/aio_parallel_tools/aio_task_pool/core/mixins/queue_mixin/simpleq_mixin.html#SimpleQMixin.parser_message"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aio_parallel_tools.aio_task_pool.core.mixins.queue_mixin.simpleq_mixin.SimpleQMixin.parser_message" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parser messages from queue.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="aio_parallel_tools.aio_task_pool.core.mixins.queue_mixin.simpleq_mixin.SimpleQMixin.queue">
+<em class="property">property </em><code class="sig-name descname">queue</code><a class="headerlink" href="#aio_parallel_tools.aio_task_pool.core.mixins.queue_mixin.simpleq_mixin.SimpleQMixin.queue" title="Permalink to this definition">¶</a></dt>
+<dd><p>Queue for sending and receiving tasks.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="aio_parallel_tools.aio_task_pool.core.mixins.queue_mixin.simpleq_mixin.SimpleQMixin.waiting_tasks_number">
+<em class="property">property </em><code class="sig-name descname">waiting_tasks_number</code><a class="headerlink" href="#aio_parallel_tools.aio_task_pool.core.mixins.queue_mixin.simpleq_mixin.SimpleQMixin.waiting_tasks_number" title="Permalink to this definition">¶</a></dt>
+<dd><p>Now number of the waiting tasks.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The number of the waiting tasks.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">aio_parallel_tools</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption"><span class="caption-text">API:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="aio_parallel_tools.html">Modules</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  <li><a href="aio_parallel_tools.html">Modules</a><ul>
+  <li><a href="aio_parallel_tools.aio_task_pool.html">aio_parallel_tools.aio_task_pool package</a><ul>
+  <li><a href="aio_parallel_tools.aio_task_pool.core.html">Interface</a><ul>
+      <li>Previous: <a href="aio_parallel_tools.aio_task_pool.core.mixins.producer_mixin.html" title="previous chapter">ProducerMixin</a></li>
+      <li>Next: <a href="aio_parallel_tools.aio_task_pool.core.mixins.worker_manager_mixin.html" title="next chapter">Worker Manager Mixin</a></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2019, huangsizhe.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.1.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/aio_parallel_tools.aio_task_pool.core.mixins.queue_mixin.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

@@ -1,0 +1,295 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2019, huangsizhe
+# This file is distributed under the same license as the aio_parallel_tools
+# package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2019.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: aio_parallel_tools 0.0.1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-11-06 16:41+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.7.0\n"
+
+#: ../../document/aio_parallel_tools.aio_task_pool.core.rst:2
+msgid "Interface"
+msgstr ""
+
+#: ../../document/aio_parallel_tools.aio_task_pool.core.rst:5
+msgid "task\\_pool\\_abc module"
+msgstr ""
+
+#: aio_parallel_tools.aio_task_pool.core.task_pool_abc:1 of
+msgid "Asynchronous Task Pool Base Class."
+msgstr ""
+
+#: aio_parallel_tools.aio_task_pool.core.task_pool_abc.AioTaskPoolABC:1 of
+msgid "Bases: :class:`abc.ABC`"
+msgstr ""
+
+#: aio_parallel_tools.aio_task_pool.core.task_pool_abc.AioTaskPoolABC:1 of
+msgid "Asynchronous Task Pool Basic Class."
+msgstr ""
+
+#: aio_parallel_tools.aio_task_pool.core.task_pool_abc.AioTaskPoolABC:3 of
+msgid ""
+"this pool is used when you need to limit the max number of parallel tasks"
+" at one time. It's a derivative of `Producer Consumer model`. The pool "
+"instance will manage a number of consumer as worker. You can scale the "
+"worker's number as you wish with the `scale` interface. And you, as the "
+"Producer, can send your task with the `submit` interface. If you want to "
+"close submit interface, you can use `pause` interface."
+msgstr ""
+
+#: aio_parallel_tools.aio_task_pool.core.task_pool_abc.AioTaskPoolABC.close:1
+#: of
+msgid "Close all workers and paused the task pool."
+msgstr ""
+
+#: aio_parallel_tools.aio_task_pool.core.task_pool_abc.AioTaskPoolABC.close
+#: aio_parallel_tools.aio_task_pool.core.task_pool_abc.AioTaskPoolABC.scale
+#: aio_parallel_tools.aio_task_pool.core.task_pool_abc.AioTaskPoolABC.scale_nowait
+#: aio_parallel_tools.aio_task_pool.core.task_pool_abc.AioTaskPoolABC.submit
+#: aio_parallel_tools.aio_task_pool.core.task_pool_abc.AioTaskPoolABC.submit_nowait
+#: of
+msgid "Parameters"
+msgstr ""
+
+#: aio_parallel_tools.aio_task_pool.core.task_pool_abc.AioTaskPoolABC.close:3
+#: of
+msgid "Timeout for closing all workers. Defaults to None."
+msgstr ""
+
+#: aio_parallel_tools.aio_task_pool.core.task_pool_abc.AioTaskPoolABC.close:5
+#: of
+msgid "Timeout for join left tasks. Defaults to 3."
+msgstr ""
+
+#: aio_parallel_tools.aio_task_pool.core.task_pool_abc.AioTaskPoolABC.close:7
+#: of
+msgid "when getting  exceptions, raise it or warning it. Defaults to True."
+msgstr ""
+
+#: aio_parallel_tools.aio_task_pool.core.task_pool_abc.AioTaskPoolABC.close
+#: aio_parallel_tools.aio_task_pool.core.task_pool_abc.AioTaskPoolABC.submit
+#: aio_parallel_tools.aio_task_pool.core.task_pool_abc.AioTaskPoolABC.submit_nowait
+#: of
+msgid "Raises"
+msgstr ""
+
+#: aio_parallel_tools.aio_task_pool.core.task_pool_abc.AioTaskPoolABC.close:10
+#: of
+msgid "close workers timeout."
+msgstr ""
+
+#: aio_parallel_tools.aio_task_pool.core.task_pool_abc.AioTaskPoolABC.close:11
+#: of
+msgid "unknown error when closing workers."
+msgstr ""
+
+#: aio_parallel_tools.aio_task_pool.core.task_pool_abc.AioTaskPoolABC.close:12
+#: of
+msgid "waiting for left tasks done timeout"
+msgstr ""
+
+#: aio_parallel_tools.aio_task_pool.core.task_pool_abc.AioTaskPoolABC.close:13
+#: of
+msgid "unknown error when waiting for left tasks done"
+msgstr ""
+
+#: aio_parallel_tools.aio_task_pool.core.task_pool_abc.AioTaskPoolABC.closed:1
+#: of
+msgid "Check if the pool is closed."
+msgstr ""
+
+#: aio_parallel_tools.aio_task_pool.core.task_pool_abc.AioTaskPoolABC.max_tasks_number:1
+#: of
+msgid "Maximum number of the waiting tasks."
+msgstr ""
+
+#: aio_parallel_tools.aio_task_pool.core.task_pool_abc.AioTaskPoolABC.max_tasks_number
+#: aio_parallel_tools.aio_task_pool.core.task_pool_abc.AioTaskPoolABC.pause
+#: aio_parallel_tools.aio_task_pool.core.task_pool_abc.AioTaskPoolABC.paused
+#: aio_parallel_tools.aio_task_pool.core.task_pool_abc.AioTaskPoolABC.scale
+#: aio_parallel_tools.aio_task_pool.core.task_pool_abc.AioTaskPoolABC.scale_nowait
+#: aio_parallel_tools.aio_task_pool.core.task_pool_abc.AioTaskPoolABC.size
+#: aio_parallel_tools.aio_task_pool.core.task_pool_abc.AioTaskPoolABC.submit
+#: aio_parallel_tools.aio_task_pool.core.task_pool_abc.AioTaskPoolABC.submit_nowait
+#: aio_parallel_tools.aio_task_pool.core.task_pool_abc.AioTaskPoolABC.waiting_tasks_number
+#: of
+msgid "Returns"
+msgstr ""
+
+#: aio_parallel_tools.aio_task_pool.core.task_pool_abc.AioTaskPoolABC.max_tasks_number:3
+#: of
+msgid "The maximum number of the waiting tasks."
+msgstr ""
+
+#: aio_parallel_tools.aio_task_pool.core.task_pool_abc.AioTaskPoolABC.max_tasks_number
+#: aio_parallel_tools.aio_task_pool.core.task_pool_abc.AioTaskPoolABC.pause
+#: aio_parallel_tools.aio_task_pool.core.task_pool_abc.AioTaskPoolABC.paused
+#: aio_parallel_tools.aio_task_pool.core.task_pool_abc.AioTaskPoolABC.scale
+#: aio_parallel_tools.aio_task_pool.core.task_pool_abc.AioTaskPoolABC.scale_nowait
+#: aio_parallel_tools.aio_task_pool.core.task_pool_abc.AioTaskPoolABC.size
+#: aio_parallel_tools.aio_task_pool.core.task_pool_abc.AioTaskPoolABC.submit
+#: aio_parallel_tools.aio_task_pool.core.task_pool_abc.AioTaskPoolABC.submit_nowait
+#: aio_parallel_tools.aio_task_pool.core.task_pool_abc.AioTaskPoolABC.waiting_tasks_number
+#: of
+msgid "Return type"
+msgstr ""
+
+#: aio_parallel_tools.aio_task_pool.core.task_pool_abc.AioTaskPoolABC.pause:1
+#: of
+msgid "Pause the task pool."
+msgstr ""
+
+#: aio_parallel_tools.aio_task_pool.core.task_pool_abc.AioTaskPoolABC.pause:3
+#: of
+msgid "Check if The task pool is paused"
+msgstr ""
+
+#: aio_parallel_tools.aio_task_pool.core.task_pool_abc.AioTaskPoolABC.paused:1
+#: of
+msgid "Check if user can submit tasks."
+msgstr ""
+
+#: aio_parallel_tools.aio_task_pool.core.task_pool_abc.AioTaskPoolABC.paused:3
+#: of
+msgid "If the task pool can accept new tasks,the result is False; else it's True."
+msgstr ""
+
+#: aio_parallel_tools.aio_task_pool.core.task_pool_abc.AioTaskPoolABC.paused:5
+#: of
+msgid "can submit or not."
+msgstr ""
+
+#: aio_parallel_tools.aio_task_pool.core.task_pool_abc.AioTaskPoolABC.scale:1
+#: of
+msgid "Scale the number of the task pool's worker."
+msgstr ""
+
+#: aio_parallel_tools.aio_task_pool.core.task_pool_abc.AioTaskPoolABC.scale:3
+#: aio_parallel_tools.aio_task_pool.core.task_pool_abc.AioTaskPoolABC.scale_nowait:3
+#: of
+msgid ""
+"num to scale.positive will increase the worker,negative will decrease the"
+" worker."
+msgstr ""
+
+#: aio_parallel_tools.aio_task_pool.core.task_pool_abc.AioTaskPoolABC.scale:6
+#: aio_parallel_tools.aio_task_pool.core.task_pool_abc.AioTaskPoolABC.scale_nowait:9
+#: of
+msgid "the number will scale to."
+msgstr ""
+
+#: aio_parallel_tools.aio_task_pool.core.task_pool_abc.AioTaskPoolABC.scale_nowait:1
+#: of
+msgid "Scale the number of the task pool's worker without waiting."
+msgstr ""
+
+#: aio_parallel_tools.aio_task_pool.core.task_pool_abc.AioTaskPoolABC.scale_nowait:5
+#: of
+msgid ""
+"if True, this interface will send Signal to task pool to close workers; "
+"else number of random workers will be cancel. Defaults to True."
+msgstr ""
+
+#: aio_parallel_tools.aio_task_pool.core.task_pool_abc.AioTaskPoolABC.size:1 of
+msgid "Pool's size."
+msgstr ""
+
+#: aio_parallel_tools.aio_task_pool.core.task_pool_abc.AioTaskPoolABC.size:3 of
+msgid "Pool's size"
+msgstr ""
+
+#: aio_parallel_tools.aio_task_pool.core.task_pool_abc.AioTaskPoolABC.start:1
+#: of
+msgid "Initialize workers and open the task pool to accept tasks."
+msgstr ""
+
+#: aio_parallel_tools.aio_task_pool.core.task_pool_abc.AioTaskPoolABC.submit:1
+#: of
+msgid "Submit task to the task pool."
+msgstr ""
+
+#: aio_parallel_tools.aio_task_pool.core.task_pool_abc.AioTaskPoolABC.submit:3
+#: aio_parallel_tools.aio_task_pool.core.task_pool_abc.AioTaskPoolABC.submit_nowait:3
+#: of
+msgid "The task function which will be called by the workers."
+msgstr ""
+
+#: aio_parallel_tools.aio_task_pool.core.task_pool_abc.AioTaskPoolABC.submit:5
+#: aio_parallel_tools.aio_task_pool.core.task_pool_abc.AioTaskPoolABC.submit_nowait:5
+#: of
+msgid "The positional parameters for the task function. Defaults to []."
+msgstr ""
+
+#: aio_parallel_tools.aio_task_pool.core.task_pool_abc.AioTaskPoolABC.submit:7
+#: aio_parallel_tools.aio_task_pool.core.task_pool_abc.AioTaskPoolABC.submit_nowait:7
+#: of
+msgid "The keyword parameters for the task function. Defaults to {}."
+msgstr ""
+
+#: aio_parallel_tools.aio_task_pool.core.task_pool_abc.AioTaskPoolABC.submit:9
+#: of
+msgid "set if waiting for the task's result. Defaults to True."
+msgstr ""
+
+#: aio_parallel_tools.aio_task_pool.core.task_pool_abc.AioTaskPoolABC.submit:12
+#: of
+msgid "The task pool is paused"
+msgstr ""
+
+#: aio_parallel_tools.aio_task_pool.core.task_pool_abc.AioTaskPoolABC.submit:14
+#: of
+msgid ""
+"if blocking is True, submit will return the result of the task; else it "
+"will return a future which you can await it to get the result."
+msgstr ""
+
+#: aio_parallel_tools.aio_task_pool.core.task_pool_abc.AioTaskPoolABC.submit_nowait:1
+#: of
+msgid "Submit task to the task pool with no wait."
+msgstr ""
+
+#: aio_parallel_tools.aio_task_pool.core.task_pool_abc.AioTaskPoolABC.submit_nowait:10
+#: of
+msgid "The task pool is paused or"
+msgstr ""
+
+#: aio_parallel_tools.aio_task_pool.core.task_pool_abc.AioTaskPoolABC.submit_nowait:11
+#: of
+msgid "other exception"
+msgstr ""
+
+#: aio_parallel_tools.aio_task_pool.core.task_pool_abc.AioTaskPoolABC.submit_nowait:12
+#: of
+msgid "task pool is full, can not put task any more"
+msgstr ""
+
+#: aio_parallel_tools.aio_task_pool.core.task_pool_abc.AioTaskPoolABC.submit_nowait:14
+#: of
+msgid "a future which you can await it to get the result."
+msgstr ""
+
+#: aio_parallel_tools.aio_task_pool.core.task_pool_abc.AioTaskPoolABC.waiting_tasks_number:1
+#: of
+msgid "Now number of the waiting tasks."
+msgstr ""
+
+#: aio_parallel_tools.aio_task_pool.core.task_pool_abc.AioTaskPoolABC.waiting_tasks_number:3
+#: of
+msgid "The number of the waiting tasks."
+msgstr ""
+
+#: ../../document/aio_parallel_tools.aio_task_pool.core.rst:14
+msgid "Mixins"
+msgstr ""
+

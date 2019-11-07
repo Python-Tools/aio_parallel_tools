@@ -32,26 +32,41 @@ class TaskMixin:
             except asyncio.TimeoutError:
                 await self.handle_rev_timeout()
             else:
-                message = await self.before_deal_rev(message)
-                if message is ActorExit:
-                    warnings.warn("actor closed")
-                    self._running = False
-                    self.befor_actor_colse()
-                    asyncio.current_task().cancel()
-                elif isinstance(message, Exception):
-                    self._running = False
-                    self.befor_actor_colse()
-                    raise message
-                else:
-                    result = await self.receive(message)
-                    await self.after_deal_rev(result)
-            await self.after_every_loop()
+                try:
+                    message = await self.before_deal_rev(message)
+                    if message is ActorExit:
+                        warnings.warn("actor closed")
+                        self._running = False
+                        self.befor_actor_colse()
+                        asyncio.current_task().cancel()
+                    elif isinstance(message, Exception):
+                        self._running = False
+                        self.befor_actor_colse()
+                        raise message
+                    else:
+                        try:
+                            result = await self.receive(message)
+                        except Exception as e:
+                            warnings.warn(f"actor {self.__class__.__name__} receive error: {e}")
+                            try:
+                                await self.after_deal_rev(message, e)
+                            except Exception as e:
+                                warnings.warn(f"actor {self.__class__.__name__} after deal rev error: {e}")
+                        else:
+                            try:
+                                await self.after_deal_rev(message, result)
+                            except Exception as e:
+                                warnings.warn(f"actor {self.__class__.__name__} after deal rev error: {e}")
+                finally:
+                    self.inbox.task_done()
+            finally:
+                await self.after_every_loop()
 
     async def handle_rev_timeout(self):
         warnings.warn(f"actor {self.__class__.__name__} rev msg timeout", ActorTimeoutWarning)
 
     def start_task(self):
-        task = asyncio.create_task(self._run())
-        task.add_done_callback(self.after_actor_close)
-        self._task = task
-    
+        if not self.running:
+            task = asyncio.create_task(self._run())
+            task.add_done_callback(self.after_actor_close)
+            self._task = task

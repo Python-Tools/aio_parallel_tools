@@ -8,6 +8,10 @@ class ActorABC(abc.ABC):
         return NotImplemented
 
     @abc.abstractproperty
+    def paused(self):
+        return NotImplemented
+
+    @abc.abstractproperty
     def id(self):
         return NotImplemented
 

@@ -35,17 +35,21 @@ class Actor(InboxMixin, TaskMixin, HooksMixin, IdentifyMixin, LoopMixin, ActorAB
             return False
         if self.inbox.full():
             return False
+        if self.paused:
+            return False
         if self.inbox_maxsize > 3 and self.inbox_maxsize > self.inbox.qsize() >= int(self.inbox_maxsize * 0.8):
             warnings.warn(f"inbox {self.id} nearly full", InboxNearllyFullWarning)
         return True
 
     async def close(self, timeout=None):
         await self.send(ActorExit, timeout=timeout)
+        self.close_accept()
 
     def close_nowait(self):
         self.send_nowait(ActorExit)
 
     def start(self):
         self.before_actor_start()
+        self.start_accept()
         self.start_task()
         self.after_actor_start()

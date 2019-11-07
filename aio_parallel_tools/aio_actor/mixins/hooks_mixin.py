@@ -1,25 +1,30 @@
+"""Define all hooks."""
+
+
 class HooksMixin:
+    """Define all hooks."""
+
     def before_actor_start(self):
-        """actor启动前执行的钩子."""
+        """Execute before actor start."""
         pass
 
     def after_actor_start(self):
-        """actor启动后执行的钩子."""
+        """Execute after actor start."""
         pass
 
     def befor_actor_colse(self):
-        """actor关闭前执行的钩子."""
+        """Execute before actor close."""
         pass
 
     def after_actor_close(self, task):
-        """actor关闭后执行的钩子."""
+        """Execute after actor close."""
         pass
 
     async def before_deal_rev(self, msg):
         """每次处理收到的消息前执行的钩子."""
         return msg
 
-    async def after_deal_rev(self, result):
+    async def after_deal_rev(self, msg, result):
         """每次处理收到的消息后执行的钩子."""
         pass
 

@@ -11,3 +11,9 @@ class InboxNearllyFullWarning(Warning):
     """Inbox Nearlly Full Warning."""
     
     pass
+
+
+class ActorIsPaused(Exception):
+    """Actor is Paused."""
+
+    pass

@@ -1,0 +1,228 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh">
+  <head>
+    <meta charset="utf-8" />
+    <title>欢迎使用aio parallel tools! &#8212; aio_parallel_tools  文档</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    <link rel="index" title="索引" href="genindex.html" />
+    <link rel="search" title="搜索" href="search.html" />
+    <link rel="next" title="Task Pool" href="pages/task_pool.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="welcome-to-aio-parallel-tools-s-documentation">
+<h1>欢迎使用aio parallel tools!<a class="headerlink" href="#welcome-to-aio-parallel-tools-s-documentation" title="永久链接至标题">¶</a></h1>
+<p>最近修改: 2019 年 11 月 07 日</p>
+<p>选择语言:  <a class="reference external" href="https://python-tools.github.io/aio_parallel_tools/zh/index.html">zh</a>  | <a class="reference external" href="https://python-tools.github.io/aio_parallel_tools/en/index.html">en</a></p>
+<ul class="simple">
+<li><p>版本: 0.0.1</p></li>
+<li><p>状态: dev</p></li>
+<li><p>作者: huangsizhe</p></li>
+<li><p>email: <a class="reference external" href="mailto:hsz1273327&#37;&#52;&#48;gmail&#46;com">hsz1273327<span>&#64;</span>gmail<span>&#46;</span>com</a></p></li>
+</ul>
+<div class="section" id="desc">
+<h2>简介<a class="headerlink" href="#desc" title="永久链接至标题">¶</a></h2>
+<p>用于方便构建异步程序的工具集.</p>
+<p>keywords: tools,asyncio</p>
+</div>
+<div class="section" id="feature">
+<h2>特点<a class="headerlink" href="#feature" title="永久链接至标题">¶</a></h2>
+<ul class="simple">
+<li><p>任务池</p></li>
+<li><p>Actor和全局Actor管理器</p></li>
+</ul>
+<div class="section" id="example">
+<h3>例子<a class="headerlink" href="#example" title="永久链接至标题">¶</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">async</span> <span class="k">with</span> <span class="n">AioFixedTaskPoolSimple</span><span class="p">()</span> <span class="k">as</span> <span class="n">task_pool</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;test pool size {task_pool.size}&quot;</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="s2">&quot;test 4 task with pool size 3&quot;</span><span class="p">)</span>
+    <span class="n">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">gather</span><span class="p">(</span>
+        <span class="n">task_pool</span><span class="o">.</span><span class="n">submit</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="n">func_args</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;c&quot;</span><span class="p">]),</span>
+        <span class="n">task_pool</span><span class="o">.</span><span class="n">submit</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="n">func_args</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;b&quot;</span><span class="p">]),</span>
+        <span class="n">task_pool</span><span class="o">.</span><span class="n">submit</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="n">func_args</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;a&quot;</span><span class="p">]),</span>
+        <span class="n">task_pool</span><span class="o">.</span><span class="n">submit</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="n">func_args</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;d&quot;</span><span class="p">])</span>
+    <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="install">
+<h2>安装<a class="headerlink" href="#install" title="永久链接至标题">¶</a></h2>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">-m</span> <span class="pre">pip</span> <span class="pre">install</span> <span class="pre">aio_parallel_tools</span></code></p></li>
+</ul>
+</div>
+<div class="section" id="task-pool">
+<h2>任务池<a class="headerlink" href="#task-pool" title="永久链接至标题">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="pages/task_pool.html">Task Pool</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="pages/task_pool.html#kinds-of-task-pool">Kinds of task pool</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pages/task_pool.html#how-to-use">How to use</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="api">
+<h2>API<a class="headerlink" href="#api" title="永久链接至标题">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="aio_parallel_tools.html">Modules</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="aio_parallel_tools.aio_task_pool.html">aio_parallel_tools.aio_task_pool package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="aio_parallel_tools.aio_task_pool.html#taskpools">TaskPools</a></li>
+<li class="toctree-l3"><a class="reference internal" href="aio_parallel_tools.aio_task_pool.html#module-aio_parallel_tools.aio_task_pool.aio_autoscale_task_pool_lifo">aio_autoscale_task_pool_lifo module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="aio_parallel_tools.aio_task_pool.html#module-aio_parallel_tools.aio_task_pool.aio_autoscale_task_pool_priority">aio_autoscale_task_pool_priority module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="aio_parallel_tools.aio_task_pool.html#module-aio_parallel_tools.aio_task_pool.aio_autoscale_task_pool_simple">aio_autoscale_task_pool_simple module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="aio_parallel_tools.aio_task_pool.html#module-aio_parallel_tools.aio_task_pool.aio_fixed_task_pool_lifo">aio_fixed_task_pool_lifo module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="aio_parallel_tools.aio_task_pool.html#module-aio_parallel_tools.aio_task_pool.aio_fixed_task_pool_priority">aio_fixed_task_pool_priority module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="aio_parallel_tools.aio_task_pool.html#module-aio_parallel_tools.aio_task_pool.aio_fixed_task_pool_simple">aio_fixed_task_pool_simple module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="aio_parallel_tools.aio_task_pool.html#task-pool-core-api">Task Pool Core API</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="aio_parallel_tools.aio_task_pool.core.html">Interface</a></li>
+<li class="toctree-l4"><a class="reference internal" href="aio_parallel_tools.aio_task_pool.core.html#mixins">Mixins</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="change-log">
+<h2>版本更迭记录<a class="headerlink" href="#change-log" title="永久链接至标题">¶</a></h2>
+<div class="section" id="version-0-0-1">
+<h3>version 0.0.1<a class="headerlink" href="#version-0-0-1" title="永久链接至标题">¶</a></h3>
+<ul class="simple">
+<li><p>创建了项目</p></li>
+</ul>
+</div>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="#">aio_parallel_tools</a></h1>
+
+
+
+<p class="blurb">Tools for develope asynchronous script easily.</p>
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=Python-Tools&repo=aio_parallel_tools&type=watch&count=true&size=large&v=2"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+
+
+
+<h3>导航</h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="pages/task_pool.html">Task Pool</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="pages/task_pool.html#kinds-of-task-pool">Kinds of task pool</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pages/task_pool.html#how-to-use">How to use</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="aio_parallel_tools.html">Modules</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="aio_parallel_tools.aio_task_pool.html">aio_parallel_tools.aio_task_pool package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="aio_parallel_tools.aio_task_pool.html#taskpools">TaskPools</a></li>
+<li class="toctree-l3"><a class="reference internal" href="aio_parallel_tools.aio_task_pool.html#module-aio_parallel_tools.aio_task_pool.aio_autoscale_task_pool_lifo">aio_autoscale_task_pool_lifo module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="aio_parallel_tools.aio_task_pool.html#module-aio_parallel_tools.aio_task_pool.aio_autoscale_task_pool_priority">aio_autoscale_task_pool_priority module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="aio_parallel_tools.aio_task_pool.html#module-aio_parallel_tools.aio_task_pool.aio_autoscale_task_pool_simple">aio_autoscale_task_pool_simple module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="aio_parallel_tools.aio_task_pool.html#module-aio_parallel_tools.aio_task_pool.aio_fixed_task_pool_lifo">aio_fixed_task_pool_lifo module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="aio_parallel_tools.aio_task_pool.html#module-aio_parallel_tools.aio_task_pool.aio_fixed_task_pool_priority">aio_fixed_task_pool_priority module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="aio_parallel_tools.aio_task_pool.html#module-aio_parallel_tools.aio_task_pool.aio_fixed_task_pool_simple">aio_fixed_task_pool_simple module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="aio_parallel_tools.aio_task_pool.html#task-pool-core-api">Task Pool Core API</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="aio_parallel_tools.aio_task_pool.core.html">Interface</a></li>
+<li class="toctree-l4"><a class="reference internal" href="aio_parallel_tools.aio_task_pool.core.html#mixins">Mixins</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="#">Documentation overview</a><ul>
+      <li>Next: <a href="pages/task_pool.html" title="下一章">Task Pool</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">快速搜索</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="转向" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2019, huangsizhe.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.2.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/index.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+    <a href="https://github.com/Python-Tools/aio_parallel_tools" class="github">
+        <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"  class="github"/>
+    </a>
+    
+
+    
+  </body>
+</html>

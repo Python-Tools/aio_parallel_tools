@@ -14,7 +14,7 @@
     <script type="text/javascript" src="_static/language_data.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Modules" href="aio_parallel_tools.html" />
+    <link rel="next" title="Task Pool" href="pages/task_pool.html" />
    
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
   
@@ -33,9 +33,62 @@
             
   <div class="section" id="welcome-to-aio-parallel-tools-s-documentation">
 <h1>Welcome to aio parallel tools’s documentation!<a class="headerlink" href="#welcome-to-aio-parallel-tools-s-documentation" title="Permalink to this headline">¶</a></h1>
-<p>Last change: Nov 06, 2019</p>
+<p>Last change: Nov 07, 2019</p>
+<p>Choose Locale:  <a class="reference external" href="https://python-tools.github.io/aio_parallel_tools/zh/index.html">zh</a>  | <a class="reference external" href="https://python-tools.github.io/aio_parallel_tools/en/index.html">en</a></p>
+<ul class="simple">
+<li><p>version: 0.0.1</p></li>
+<li><p>status: dev</p></li>
+<li><p>author: huangsizhe</p></li>
+<li><p>email: <a class="reference external" href="mailto:hsz1273327&#37;&#52;&#48;gmail&#46;com">hsz1273327<span>&#64;</span>gmail<span>&#46;</span>com</a></p></li>
+</ul>
+<div class="section" id="desc">
+<h2>Desc<a class="headerlink" href="#desc" title="Permalink to this headline">¶</a></h2>
+<p>Tools for creating asynchronous scripts easily.</p>
+<p>keywords: tools,asyncio</p>
+</div>
+<div class="section" id="feature">
+<h2>Feature<a class="headerlink" href="#feature" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Task pool</p></li>
+<li><p>Actor and Actor Manager</p></li>
+</ul>
+<div class="section" id="example">
+<h3>Example<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">async</span> <span class="k">with</span> <span class="n">AioFixedTaskPoolSimple</span><span class="p">()</span> <span class="k">as</span> <span class="n">task_pool</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;test pool size {task_pool.size}&quot;</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="s2">&quot;test 4 task with pool size 3&quot;</span><span class="p">)</span>
+    <span class="n">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">gather</span><span class="p">(</span>
+        <span class="n">task_pool</span><span class="o">.</span><span class="n">submit</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="n">func_args</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;c&quot;</span><span class="p">]),</span>
+        <span class="n">task_pool</span><span class="o">.</span><span class="n">submit</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="n">func_args</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;b&quot;</span><span class="p">]),</span>
+        <span class="n">task_pool</span><span class="o">.</span><span class="n">submit</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="n">func_args</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;a&quot;</span><span class="p">]),</span>
+        <span class="n">task_pool</span><span class="o">.</span><span class="n">submit</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="n">func_args</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;d&quot;</span><span class="p">])</span>
+    <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="install">
+<h2>Install<a class="headerlink" href="#install" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">-m</span> <span class="pre">pip</span> <span class="pre">install</span> <span class="pre">aio_parallel_tools</span></code></p></li>
+</ul>
+</div>
+<div class="section" id="task-pool">
+<h2>Task pool<a class="headerlink" href="#task-pool" title="Permalink to this headline">¶</a></h2>
 <div class="toctree-wrapper compound">
-<p class="caption"><span class="caption-text">API:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="pages/task_pool.html">Task Pool</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="pages/task_pool.html#kinds-of-task-pool">Kinds of task pool</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pages/task_pool.html#how-to-use">How to use</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pages/task_pool.html#operations">Operations</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="api">
+<h2>API<a class="headerlink" href="#api" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="aio_parallel_tools.html">Modules</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="aio_parallel_tools.aio_task_pool.html">aio_parallel_tools.aio_task_pool package</a><ul>
@@ -58,13 +111,15 @@
 </ul>
 </div>
 </div>
-<div class="section" id="indices-and-tables">
-<h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="change-log">
+<h2>Change Log<a class="headerlink" href="#change-log" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="version-0-0-1">
+<h3>version 0.0.1<a class="headerlink" href="#version-0-0-1" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li><p><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></p></li>
-<li><p><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></p></li>
-<li><p><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></p></li>
+<li><p>created this project</p></li>
 </ul>
+</div>
+</div>
 </div>
 
 
@@ -93,7 +148,14 @@
 
 
 <h3>Navigation</h3>
-<p class="caption"><span class="caption-text">API:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="pages/task_pool.html">Task Pool</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="pages/task_pool.html#kinds-of-task-pool">Kinds of task pool</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pages/task_pool.html#how-to-use">How to use</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pages/task_pool.html#operations">Operations</a></li>
+</ul>
+</li>
+</ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="aio_parallel_tools.html">Modules</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="aio_parallel_tools.aio_task_pool.html">aio_parallel_tools.aio_task_pool package</a><ul>
@@ -119,7 +181,7 @@
 <h3>Related Topics</h3>
 <ul>
   <li><a href="#">Documentation overview</a><ul>
-      <li>Next: <a href="aio_parallel_tools.html" title="next chapter">Modules</a></li>
+      <li>Next: <a href="pages/task_pool.html" title="next chapter">Task Pool</a></li>
   </ul></li>
 </ul>
 </div>
@@ -149,7 +211,7 @@
       &copy;2019, huangsizhe.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.1.2</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.2.1</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
       |

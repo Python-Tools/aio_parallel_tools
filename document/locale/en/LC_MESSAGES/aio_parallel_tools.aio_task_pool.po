@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: aio_parallel_tools 0.0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-11-06 16:41+0800\n"
+"POT-Creation-Date: 2019-11-07 10:13+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -43,8 +43,7 @@ msgstr ""
 #: aio_parallel_tools.aio_task_pool.aio_autoscale_task_pool_lifo.AioAutoScaleTaskPoolLifo:1
 #: of
 msgid ""
-"Bases: "
-":class:`aio_parallel_tools.aio_task_pool.core.mixins.producer_mixin.simple_producer_mixin.SimpleProducerMixin`,"
+"基类：:class:`aio_parallel_tools.aio_task_pool.core.mixins.producer_mixin.simple_producer_mixin.SimpleProducerMixin`,"
 " "
 ":class:`aio_parallel_tools.aio_task_pool.core.mixins.worker_manager_mixin.autoscale_worker_manager_mixin.AutoScaleWorkerManagerMixin`,"
 " "
@@ -267,7 +266,7 @@ msgstr ""
 #: aio_parallel_tools.aio_task_pool.aio_fixed_task_pool_priority.AioFixedTaskPoolPriority.submit
 #: aio_parallel_tools.aio_task_pool.aio_fixed_task_pool_priority.AioFixedTaskPoolPriority.submit_nowait
 #: of
-msgid "Parameters"
+msgid "参数"
 msgstr ""
 
 #: aio_parallel_tools.aio_task_pool.aio_autoscale_task_pool_lifo.AioAutoScaleTaskPoolLifo.close:3
@@ -297,7 +296,7 @@ msgstr ""
 #: aio_parallel_tools.aio_task_pool.aio_fixed_task_pool_priority.AioFixedTaskPoolPriority.submit
 #: aio_parallel_tools.aio_task_pool.aio_fixed_task_pool_priority.AioFixedTaskPoolPriority.submit_nowait
 #: of
-msgid "Raises"
+msgid "引发"
 msgstr ""
 
 #: aio_parallel_tools.aio_task_pool.aio_autoscale_task_pool_lifo.AioAutoScaleTaskPoolLifo.close:10
@@ -335,8 +334,7 @@ msgstr ""
 #: aio_parallel_tools.aio_task_pool.aio_autoscale_task_pool_priority.AioAutoScaleTaskPoolPriority:1
 #: of
 msgid ""
-"Bases: "
-":class:`aio_parallel_tools.aio_task_pool.core.mixins.producer_mixin.simple_producer_mixin.SimpleProducerMixin`,"
+"基类：:class:`aio_parallel_tools.aio_task_pool.core.mixins.producer_mixin.simple_producer_mixin.SimpleProducerMixin`,"
 " "
 ":class:`aio_parallel_tools.aio_task_pool.core.mixins.worker_manager_mixin.autoscale_worker_manager_mixin.AutoScaleWorkerManagerMixin`,"
 " "
@@ -352,8 +350,7 @@ msgstr ""
 #: aio_parallel_tools.aio_task_pool.aio_autoscale_task_pool_simple.AioAutoScaleTaskPoolSimple:1
 #: of
 msgid ""
-"Bases: "
-":class:`aio_parallel_tools.aio_task_pool.core.mixins.producer_mixin.simple_producer_mixin.SimpleProducerMixin`,"
+"基类：:class:`aio_parallel_tools.aio_task_pool.core.mixins.producer_mixin.simple_producer_mixin.SimpleProducerMixin`,"
 " "
 ":class:`aio_parallel_tools.aio_task_pool.core.mixins.worker_manager_mixin.autoscale_worker_manager_mixin.AutoScaleWorkerManagerMixin`,"
 " "
@@ -369,8 +366,7 @@ msgstr ""
 #: aio_parallel_tools.aio_task_pool.aio_fixed_task_pool_lifo.AioFixedTaskPoolLifo:1
 #: of
 msgid ""
-"Bases: "
-":class:`aio_parallel_tools.aio_task_pool.core.mixins.producer_mixin.simple_producer_mixin.SimpleProducerMixin`,"
+"基类：:class:`aio_parallel_tools.aio_task_pool.core.mixins.producer_mixin.simple_producer_mixin.SimpleProducerMixin`,"
 " "
 ":class:`aio_parallel_tools.aio_task_pool.core.mixins.worker_manager_mixin.fix_worker_manager_mixin.FixedWorkerManagerMixin`,"
 " "
@@ -391,8 +387,7 @@ msgstr ""
 #: aio_parallel_tools.aio_task_pool.aio_fixed_task_pool_priority.AioFixedTaskPoolPriority:1
 #: of
 msgid ""
-"Bases: "
-":class:`aio_parallel_tools.aio_task_pool.core.mixins.producer_mixin.simple_producer_mixin.SimpleProducerMixin`,"
+"基类：:class:`aio_parallel_tools.aio_task_pool.core.mixins.producer_mixin.simple_producer_mixin.SimpleProducerMixin`,"
 " "
 ":class:`aio_parallel_tools.aio_task_pool.core.mixins.worker_manager_mixin.fix_worker_manager_mixin.FixedWorkerManagerMixin`,"
 " "
@@ -443,7 +438,7 @@ msgstr ""
 #: aio_parallel_tools.aio_task_pool.aio_fixed_task_pool_priority.AioFixedTaskPoolPriority.submit
 #: aio_parallel_tools.aio_task_pool.aio_fixed_task_pool_priority.AioFixedTaskPoolPriority.submit_nowait
 #: of
-msgid "Returns"
+msgid "返回"
 msgstr ""
 
 #: aio_parallel_tools.aio_task_pool.aio_fixed_task_pool_priority.AioFixedTaskPoolPriority.submit:16
@@ -456,7 +451,7 @@ msgstr ""
 #: aio_parallel_tools.aio_task_pool.aio_fixed_task_pool_priority.AioFixedTaskPoolPriority.submit
 #: aio_parallel_tools.aio_task_pool.aio_fixed_task_pool_priority.AioFixedTaskPoolPriority.submit_nowait
 #: of
-msgid "Return type"
+msgid "返回类型"
 msgstr ""
 
 #: aio_parallel_tools.aio_task_pool.aio_fixed_task_pool_priority.AioFixedTaskPoolPriority.submit_nowait:1
@@ -491,8 +486,7 @@ msgstr ""
 #: aio_parallel_tools.aio_task_pool.aio_fixed_task_pool_simple.AioFixedTaskPoolSimple:1
 #: of
 msgid ""
-"Bases: "
-":class:`aio_parallel_tools.aio_task_pool.core.mixins.producer_mixin.simple_producer_mixin.SimpleProducerMixin`,"
+"基类：:class:`aio_parallel_tools.aio_task_pool.core.mixins.producer_mixin.simple_producer_mixin.SimpleProducerMixin`,"
 " "
 ":class:`aio_parallel_tools.aio_task_pool.core.mixins.worker_manager_mixin.fix_worker_manager_mixin.FixedWorkerManagerMixin`,"
 " "
@@ -509,4 +503,82 @@ msgstr ""
 #: ../../document/aio_parallel_tools.aio_task_pool.rst:58
 msgid "Task Pool Core API"
 msgstr ""
+
+#~ msgid ""
+#~ "Bases: "
+#~ ":class:`aio_parallel_tools.aio_task_pool.core.mixins.producer_mixin.simple_producer_mixin.SimpleProducerMixin`,"
+#~ " "
+#~ ":class:`aio_parallel_tools.aio_task_pool.core.mixins.worker_manager_mixin.autoscale_worker_manager_mixin.AutoScaleWorkerManagerMixin`,"
+#~ " "
+#~ ":class:`aio_parallel_tools.aio_task_pool.core.mixins.queue_mixin.lifoq_mixin.LifoQMixin`,"
+#~ " "
+#~ ":class:`aio_parallel_tools.aio_task_pool.core.task_pool_base.AioTaskPoolBase`"
+#~ msgstr ""
+
+#~ msgid "Parameters"
+#~ msgstr ""
+
+#~ msgid "Raises"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "Bases: "
+#~ ":class:`aio_parallel_tools.aio_task_pool.core.mixins.producer_mixin.simple_producer_mixin.SimpleProducerMixin`,"
+#~ " "
+#~ ":class:`aio_parallel_tools.aio_task_pool.core.mixins.worker_manager_mixin.autoscale_worker_manager_mixin.AutoScaleWorkerManagerMixin`,"
+#~ " "
+#~ ":class:`aio_parallel_tools.aio_task_pool.core.mixins.queue_mixin.priorityq_mixin.PriorityQMixin`,"
+#~ " "
+#~ ":class:`aio_parallel_tools.aio_task_pool.core.task_pool_base.AioTaskPoolBase`"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "Bases: "
+#~ ":class:`aio_parallel_tools.aio_task_pool.core.mixins.producer_mixin.simple_producer_mixin.SimpleProducerMixin`,"
+#~ " "
+#~ ":class:`aio_parallel_tools.aio_task_pool.core.mixins.worker_manager_mixin.autoscale_worker_manager_mixin.AutoScaleWorkerManagerMixin`,"
+#~ " "
+#~ ":class:`aio_parallel_tools.aio_task_pool.core.mixins.queue_mixin.simpleq_mixin.SimpleQMixin`,"
+#~ " "
+#~ ":class:`aio_parallel_tools.aio_task_pool.core.task_pool_base.AioTaskPoolBase`"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "Bases: "
+#~ ":class:`aio_parallel_tools.aio_task_pool.core.mixins.producer_mixin.simple_producer_mixin.SimpleProducerMixin`,"
+#~ " "
+#~ ":class:`aio_parallel_tools.aio_task_pool.core.mixins.worker_manager_mixin.fix_worker_manager_mixin.FixedWorkerManagerMixin`,"
+#~ " "
+#~ ":class:`aio_parallel_tools.aio_task_pool.core.mixins.queue_mixin.lifoq_mixin.LifoQMixin`,"
+#~ " "
+#~ ":class:`aio_parallel_tools.aio_task_pool.core.task_pool_base.AioTaskPoolBase`"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "Bases: "
+#~ ":class:`aio_parallel_tools.aio_task_pool.core.mixins.producer_mixin.simple_producer_mixin.SimpleProducerMixin`,"
+#~ " "
+#~ ":class:`aio_parallel_tools.aio_task_pool.core.mixins.worker_manager_mixin.fix_worker_manager_mixin.FixedWorkerManagerMixin`,"
+#~ " "
+#~ ":class:`aio_parallel_tools.aio_task_pool.core.mixins.queue_mixin.priorityq_mixin.PriorityQMixin`,"
+#~ " "
+#~ ":class:`aio_parallel_tools.aio_task_pool.core.task_pool_base.AioTaskPoolBase`"
+#~ msgstr ""
+
+#~ msgid "Returns"
+#~ msgstr ""
+
+#~ msgid "Return type"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "Bases: "
+#~ ":class:`aio_parallel_tools.aio_task_pool.core.mixins.producer_mixin.simple_producer_mixin.SimpleProducerMixin`,"
+#~ " "
+#~ ":class:`aio_parallel_tools.aio_task_pool.core.mixins.worker_manager_mixin.fix_worker_manager_mixin.FixedWorkerManagerMixin`,"
+#~ " "
+#~ ":class:`aio_parallel_tools.aio_task_pool.core.mixins.queue_mixin.simpleq_mixin.SimpleQMixin`,"
+#~ " "
+#~ ":class:`aio_parallel_tools.aio_task_pool.core.task_pool_base.AioTaskPoolBase`"
+#~ msgstr ""
 

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: aio_parallel_tools 0.0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-11-06 16:41+0800\n"
+"POT-Creation-Date: 2019-11-07 10:13+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -36,7 +36,7 @@ msgstr ""
 #: aio_parallel_tools.aio_actor.mixins.loop_mixin.LoopMixin:1
 #: aio_parallel_tools.aio_actor.mixins.manage_mixin.ManageMixin:1
 #: aio_parallel_tools.aio_actor.mixins.task_mixin.TaskMixin:1 of
-msgid "Bases: :class:`object`"
+msgid "基类：:class:`object`"
 msgstr ""
 
 #: aio_parallel_tools.aio_actor.mixins.hooks_mixin.HooksMixin.after_actor_close:1
@@ -110,4 +110,7 @@ msgstr ""
 #: ../../document/aio_parallel_tools.aio_actor.mixins.rst:57
 msgid "Module contents"
 msgstr ""
+
+#~ msgid "Bases: :class:`object`"
+#~ msgstr ""
 

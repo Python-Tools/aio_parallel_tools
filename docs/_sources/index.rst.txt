@@ -8,16 +8,72 @@ Welcome to aio parallel tools's documentation!
 
 Last change: |today|
 
-Choose Locale:  :locale:`cn`  | :locale:`en`
+Choose Locale:  :locale:`zh`  | :locale:`en`
 
-Document
------------------
+* version: 0.0.1
+* status: dev
+* author: huangsizhe
+* email: hsz1273327@gmail.com
 
+
+Desc
+--------------------------------
+
+Tools for creating asynchronous scripts easily.
+
+keywords: tools,asyncio
+
+
+Feature
+----------------------
+* Task pool 
+* Actor and Actor Manager
+
+
+Example
+^^^^^^^^^^^^^^^^^^^
+
+.. code:: python
+
+    async with AioFixedTaskPoolSimple() as task_pool:
+        print(f"test pool size {task_pool.size}")
+        print("test 4 task with pool size 3")
+        await asyncio.gather(
+            task_pool.submit(test, func_args=["c"]),
+            task_pool.submit(test, func_args=["b"]),
+            task_pool.submit(test, func_args=["a"]),
+            task_pool.submit(test, func_args=["d"])
+        )
+
+
+
+Install
+--------------------------------
+- ``python -m pip install aio_parallel_tools``
+
+
+Task pool
+-------------------
+
+.. toctree::
+   :maxdepth: 2
+
+   pages/task_pool
+
+
+API
+-------------------
 
 .. toctree::
    :maxdepth: 4
-   :caption: API:
 
    aio_parallel_tools
 
 
+Change Log
+------------------
+
+version 0.0.1
+^^^^^^^^^^^^^^^^^^^
+
+* created this project

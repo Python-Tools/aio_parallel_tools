@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: aio_parallel_tools 0.0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-11-06 16:41+0800\n"
+"POT-Creation-Date: 2019-11-07 10:13+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -24,7 +24,7 @@ msgstr ""
 
 #: ../../document/aio_parallel_tools.aio_task_pool.rst:7
 msgid "TaskPools"
-msgstr ""
+msgstr "任务池"
 
 #: ../../document/aio_parallel_tools.aio_task_pool.rst:10
 msgid "aio\\_autoscale\\_task\\_pool\\_lifo module"
@@ -38,13 +38,12 @@ msgstr ""
 #: aio_parallel_tools.aio_task_pool.aio_fixed_task_pool_priority.AioFixedTaskPoolPriority:1
 #: aio_parallel_tools.aio_task_pool.aio_fixed_task_pool_simple:1 of
 msgid "Asynchronous Task Pool Class."
-msgstr ""
+msgstr "异步任务池类"
 
 #: aio_parallel_tools.aio_task_pool.aio_autoscale_task_pool_lifo.AioAutoScaleTaskPoolLifo:1
 #: of
 msgid ""
-"Bases: "
-":class:`aio_parallel_tools.aio_task_pool.core.mixins.producer_mixin.simple_producer_mixin.SimpleProducerMixin`,"
+"基类：:class:`aio_parallel_tools.aio_task_pool.core.mixins.producer_mixin.simple_producer_mixin.SimpleProducerMixin`,"
 " "
 ":class:`aio_parallel_tools.aio_task_pool.core.mixins.worker_manager_mixin.autoscale_worker_manager_mixin.AutoScaleWorkerManagerMixin`,"
 " "
@@ -94,7 +93,7 @@ msgstr ""
 #: aio_parallel_tools.aio_task_pool.aio_fixed_task_pool_simple.AioFixedTaskPoolSimple:12
 #: of
 msgid "loop (asyncio.events.AbstractEventLoop):Event loop running on."
-msgstr ""
+msgstr "loop (asyncio.events.AbstractEventLoop): 任务执行所在的事件循环."
 
 #: aio_parallel_tools.aio_task_pool.aio_autoscale_task_pool_lifo.AioAutoScaleTaskPoolLifo:14
 #: aio_parallel_tools.aio_task_pool.aio_autoscale_task_pool_priority.AioAutoScaleTaskPoolPriority:14
@@ -104,7 +103,7 @@ msgstr ""
 #: aio_parallel_tools.aio_task_pool.aio_fixed_task_pool_simple.AioFixedTaskPoolSimple:14
 #: of
 msgid "size (int): The worker pool's size."
-msgstr ""
+msgstr "size (int): 当前并行度."
 
 #: aio_parallel_tools.aio_task_pool.aio_autoscale_task_pool_lifo.AioAutoScaleTaskPoolLifo:16
 #: aio_parallel_tools.aio_task_pool.aio_autoscale_task_pool_priority.AioAutoScaleTaskPoolPriority:16
@@ -116,7 +115,7 @@ msgstr ""
 msgid ""
 "closed (bool): Check if the worker pool's size is 0 and the worker pool "
 "is paused"
-msgstr ""
+msgstr "closed (bool): 检查任务池是否已经被关闭了."
 
 #: aio_parallel_tools.aio_task_pool.aio_autoscale_task_pool_lifo.AioAutoScaleTaskPoolLifo:18
 #: aio_parallel_tools.aio_task_pool.aio_autoscale_task_pool_priority.AioAutoScaleTaskPoolPriority:18
@@ -128,7 +127,7 @@ msgstr ""
 msgid ""
 "paused (bool): Check if the worker pool is paused. If can accept new "
 "tasks,the result is False; else it's True."
-msgstr ""
+msgstr "paused (bool): 检查任务池是否已经被暂停."
 
 #: aio_parallel_tools.aio_task_pool.aio_autoscale_task_pool_lifo.AioAutoScaleTaskPoolLifo:20
 #: aio_parallel_tools.aio_task_pool.aio_autoscale_task_pool_priority.AioAutoScaleTaskPoolPriority:20
@@ -138,7 +137,7 @@ msgstr ""
 #: aio_parallel_tools.aio_task_pool.aio_fixed_task_pool_simple.AioFixedTaskPoolSimple:20
 #: of
 msgid "waiting_tasks_number (int): The number of the waiting tasks."
-msgstr ""
+msgstr "waiting_tasks_number (int): 还在等待执行的任务数目."
 
 #: aio_parallel_tools.aio_task_pool.aio_autoscale_task_pool_lifo.AioAutoScaleTaskPoolLifo:22
 #: aio_parallel_tools.aio_task_pool.aio_autoscale_task_pool_priority.AioAutoScaleTaskPoolPriority:22
@@ -148,7 +147,7 @@ msgstr ""
 #: aio_parallel_tools.aio_task_pool.aio_fixed_task_pool_simple.AioFixedTaskPoolSimple:22
 #: of
 msgid "max_tasks_number (int): The maximum number of the waiting tasks."
-msgstr ""
+msgstr "max_tasks_number (int): 最大可容纳的等待执行的任务数目."
 
 #: aio_parallel_tools.aio_task_pool.aio_autoscale_task_pool_lifo.AioAutoScaleTaskPoolLifo:24
 #: aio_parallel_tools.aio_task_pool.aio_autoscale_task_pool_priority.AioAutoScaleTaskPoolPriority:24
@@ -168,7 +167,7 @@ msgstr ""
 #: aio_parallel_tools.aio_task_pool.aio_fixed_task_pool_simple.AioFixedTaskPoolSimple:26
 #: of
 msgid "pause (function): Pause the task pool."
-msgstr ""
+msgstr "pause (function): 暂停任务池,不再接收任务."
 
 #: aio_parallel_tools.aio_task_pool.aio_autoscale_task_pool_lifo.AioAutoScaleTaskPoolLifo:28
 #: aio_parallel_tools.aio_task_pool.aio_autoscale_task_pool_priority.AioAutoScaleTaskPoolPriority:28
@@ -180,7 +179,7 @@ msgstr ""
 msgid ""
 "scale_nowait (function): Scale the number of the task pool's worker "
 "without waiting."
-msgstr ""
+msgstr "scale_nowait (function): 同步的伸缩任务池的并行度.注意减小并不是立即生效"
 
 #: aio_parallel_tools.aio_task_pool.aio_autoscale_task_pool_lifo.AioAutoScaleTaskPoolLifo:30
 #: aio_parallel_tools.aio_task_pool.aio_autoscale_task_pool_priority.AioAutoScaleTaskPoolPriority:30
@@ -190,7 +189,7 @@ msgstr ""
 #: aio_parallel_tools.aio_task_pool.aio_fixed_task_pool_simple.AioFixedTaskPoolSimple:30
 #: of
 msgid "submit_nowait (function): Submit task to the task pool with no wait."
-msgstr ""
+msgstr "submit_nowait (function): 同步的提交任务到任务池,注意并不都会阻塞地等待返回结果,而是会返回一个期物对象."
 
 #: aio_parallel_tools.aio_task_pool.aio_autoscale_task_pool_lifo.AioAutoScaleTaskPoolLifo:32
 #: aio_parallel_tools.aio_task_pool.aio_autoscale_task_pool_priority.AioAutoScaleTaskPoolPriority:32
@@ -212,7 +211,7 @@ msgstr ""
 msgid ""
 "start (function): Initialize workers and open the task pool to accept "
 "tasks."
-msgstr ""
+msgstr "start (function): 初始化并启动任务池"
 
 #: aio_parallel_tools.aio_task_pool.aio_autoscale_task_pool_lifo.AioAutoScaleTaskPoolLifo:36
 #: aio_parallel_tools.aio_task_pool.aio_autoscale_task_pool_priority.AioAutoScaleTaskPoolPriority:36
@@ -222,7 +221,7 @@ msgstr ""
 #: aio_parallel_tools.aio_task_pool.aio_fixed_task_pool_simple.AioFixedTaskPoolSimple:36
 #: of
 msgid "close (function): Close all workers and paused the task pool."
-msgstr ""
+msgstr "close (function): 关闭任务池."
 
 #: aio_parallel_tools.aio_task_pool.aio_autoscale_task_pool_lifo.AioAutoScaleTaskPoolLifo:38
 #: aio_parallel_tools.aio_task_pool.aio_autoscale_task_pool_priority.AioAutoScaleTaskPoolPriority:38
@@ -232,7 +231,7 @@ msgstr ""
 #: aio_parallel_tools.aio_task_pool.aio_fixed_task_pool_simple.AioFixedTaskPoolSimple:38
 #: of
 msgid "scale (function): Scale the number of the task pool's worker."
-msgstr ""
+msgstr "scale (function): 伸缩任务池."
 
 #: aio_parallel_tools.aio_task_pool.aio_autoscale_task_pool_lifo.AioAutoScaleTaskPoolLifo:40
 #: aio_parallel_tools.aio_task_pool.aio_autoscale_task_pool_priority.AioAutoScaleTaskPoolPriority:40
@@ -242,7 +241,7 @@ msgstr ""
 #: aio_parallel_tools.aio_task_pool.aio_fixed_task_pool_simple.AioFixedTaskPoolSimple:40
 #: of
 msgid "submit (function): Submit task to the task pool."
-msgstr ""
+msgstr "submit (function): 提交任务到任务池"
 
 #: aio_parallel_tools.aio_task_pool.aio_autoscale_task_pool_lifo.AioAutoScaleTaskPoolLifo:42
 #: aio_parallel_tools.aio_task_pool.aio_autoscale_task_pool_priority.AioAutoScaleTaskPoolPriority:42
@@ -252,14 +251,14 @@ msgstr ""
 #: aio_parallel_tools.aio_task_pool.aio_fixed_task_pool_simple.AioFixedTaskPoolSimple:42
 #: of
 msgid "Example:"
-msgstr ""
+msgstr "例子:"
 
 #: aio_parallel_tools.aio_task_pool.aio_autoscale_task_pool_lifo.AioAutoScaleTaskPoolLifo.close:1
 #: aio_parallel_tools.aio_task_pool.aio_autoscale_task_pool_priority.AioAutoScaleTaskPoolPriority.close:1
 #: aio_parallel_tools.aio_task_pool.aio_autoscale_task_pool_simple.AioAutoScaleTaskPoolSimple.close:1
 #: of
 msgid "Close all workers and paused the task pool."
-msgstr ""
+msgstr "关闭所有执行器并暂停任务提交."
 
 #: aio_parallel_tools.aio_task_pool.aio_autoscale_task_pool_lifo.AioAutoScaleTaskPoolLifo.close
 #: aio_parallel_tools.aio_task_pool.aio_autoscale_task_pool_priority.AioAutoScaleTaskPoolPriority.close
@@ -267,7 +266,7 @@ msgstr ""
 #: aio_parallel_tools.aio_task_pool.aio_fixed_task_pool_priority.AioFixedTaskPoolPriority.submit
 #: aio_parallel_tools.aio_task_pool.aio_fixed_task_pool_priority.AioFixedTaskPoolPriority.submit_nowait
 #: of
-msgid "Parameters"
+msgid "参数"
 msgstr ""
 
 #: aio_parallel_tools.aio_task_pool.aio_autoscale_task_pool_lifo.AioAutoScaleTaskPoolLifo.close:3
@@ -275,21 +274,21 @@ msgstr ""
 #: aio_parallel_tools.aio_task_pool.aio_autoscale_task_pool_simple.AioAutoScaleTaskPoolSimple.close:3
 #: of
 msgid "Timeout for closing all workers. Defaults to None."
-msgstr ""
+msgstr "关闭所有worker的过期时间,也会等待任务全部执行完,默认为`None`"
 
 #: aio_parallel_tools.aio_task_pool.aio_autoscale_task_pool_lifo.AioAutoScaleTaskPoolLifo.close:5
 #: aio_parallel_tools.aio_task_pool.aio_autoscale_task_pool_priority.AioAutoScaleTaskPoolPriority.close:5
 #: aio_parallel_tools.aio_task_pool.aio_autoscale_task_pool_simple.AioAutoScaleTaskPoolSimple.close:5
 #: of
 msgid "Timeout for join left tasks. Defaults to 3."
-msgstr ""
+msgstr "等待队列同步的过期时间,默认3s"
 
 #: aio_parallel_tools.aio_task_pool.aio_autoscale_task_pool_lifo.AioAutoScaleTaskPoolLifo.close:7
 #: aio_parallel_tools.aio_task_pool.aio_autoscale_task_pool_priority.AioAutoScaleTaskPoolPriority.close:7
 #: aio_parallel_tools.aio_task_pool.aio_autoscale_task_pool_simple.AioAutoScaleTaskPoolSimple.close:7
 #: of
 msgid "when getting  exceptions, raise it or warning it. Defaults to True."
-msgstr ""
+msgstr "当关闭抛出异常时抛出警告替代,默认为`True`"
 
 #: aio_parallel_tools.aio_task_pool.aio_autoscale_task_pool_lifo.AioAutoScaleTaskPoolLifo.close
 #: aio_parallel_tools.aio_task_pool.aio_autoscale_task_pool_priority.AioAutoScaleTaskPoolPriority.close
@@ -297,7 +296,7 @@ msgstr ""
 #: aio_parallel_tools.aio_task_pool.aio_fixed_task_pool_priority.AioFixedTaskPoolPriority.submit
 #: aio_parallel_tools.aio_task_pool.aio_fixed_task_pool_priority.AioFixedTaskPoolPriority.submit_nowait
 #: of
-msgid "Raises"
+msgid "引发"
 msgstr ""
 
 #: aio_parallel_tools.aio_task_pool.aio_autoscale_task_pool_lifo.AioAutoScaleTaskPoolLifo.close:10
@@ -305,28 +304,28 @@ msgstr ""
 #: aio_parallel_tools.aio_task_pool.aio_autoscale_task_pool_simple.AioAutoScaleTaskPoolSimple.close:10
 #: of
 msgid "close workers timeout."
-msgstr ""
+msgstr "关闭执行器超时"
 
 #: aio_parallel_tools.aio_task_pool.aio_autoscale_task_pool_lifo.AioAutoScaleTaskPoolLifo.close:11
 #: aio_parallel_tools.aio_task_pool.aio_autoscale_task_pool_priority.AioAutoScaleTaskPoolPriority.close:11
 #: aio_parallel_tools.aio_task_pool.aio_autoscale_task_pool_simple.AioAutoScaleTaskPoolSimple.close:11
 #: of
 msgid "unknown error when closing workers."
-msgstr ""
+msgstr "关闭执行器时抛出未知错误."
 
 #: aio_parallel_tools.aio_task_pool.aio_autoscale_task_pool_lifo.AioAutoScaleTaskPoolLifo.close:12
 #: aio_parallel_tools.aio_task_pool.aio_autoscale_task_pool_priority.AioAutoScaleTaskPoolPriority.close:12
 #: aio_parallel_tools.aio_task_pool.aio_autoscale_task_pool_simple.AioAutoScaleTaskPoolSimple.close:12
 #: of
 msgid "waiting for left tasks done timeout"
-msgstr ""
+msgstr "等待队列同步超时."
 
 #: aio_parallel_tools.aio_task_pool.aio_autoscale_task_pool_lifo.AioAutoScaleTaskPoolLifo.close:13
 #: aio_parallel_tools.aio_task_pool.aio_autoscale_task_pool_priority.AioAutoScaleTaskPoolPriority.close:13
 #: aio_parallel_tools.aio_task_pool.aio_autoscale_task_pool_simple.AioAutoScaleTaskPoolSimple.close:13
 #: of
 msgid "unknown error when waiting for left tasks done"
-msgstr ""
+msgstr "等待队列同步时抛出未知异常."
 
 #: ../../document/aio_parallel_tools.aio_task_pool.rst:18
 msgid "aio\\_autoscale\\_task\\_pool\\_priority module"
@@ -335,8 +334,7 @@ msgstr ""
 #: aio_parallel_tools.aio_task_pool.aio_autoscale_task_pool_priority.AioAutoScaleTaskPoolPriority:1
 #: of
 msgid ""
-"Bases: "
-":class:`aio_parallel_tools.aio_task_pool.core.mixins.producer_mixin.simple_producer_mixin.SimpleProducerMixin`,"
+"基类：:class:`aio_parallel_tools.aio_task_pool.core.mixins.producer_mixin.simple_producer_mixin.SimpleProducerMixin`,"
 " "
 ":class:`aio_parallel_tools.aio_task_pool.core.mixins.worker_manager_mixin.autoscale_worker_manager_mixin.AutoScaleWorkerManagerMixin`,"
 " "
@@ -352,8 +350,7 @@ msgstr ""
 #: aio_parallel_tools.aio_task_pool.aio_autoscale_task_pool_simple.AioAutoScaleTaskPoolSimple:1
 #: of
 msgid ""
-"Bases: "
-":class:`aio_parallel_tools.aio_task_pool.core.mixins.producer_mixin.simple_producer_mixin.SimpleProducerMixin`,"
+"基类：:class:`aio_parallel_tools.aio_task_pool.core.mixins.producer_mixin.simple_producer_mixin.SimpleProducerMixin`,"
 " "
 ":class:`aio_parallel_tools.aio_task_pool.core.mixins.worker_manager_mixin.autoscale_worker_manager_mixin.AutoScaleWorkerManagerMixin`,"
 " "
@@ -369,8 +366,7 @@ msgstr ""
 #: aio_parallel_tools.aio_task_pool.aio_fixed_task_pool_lifo.AioFixedTaskPoolLifo:1
 #: of
 msgid ""
-"Bases: "
-":class:`aio_parallel_tools.aio_task_pool.core.mixins.producer_mixin.simple_producer_mixin.SimpleProducerMixin`,"
+"基类：:class:`aio_parallel_tools.aio_task_pool.core.mixins.producer_mixin.simple_producer_mixin.SimpleProducerMixin`,"
 " "
 ":class:`aio_parallel_tools.aio_task_pool.core.mixins.worker_manager_mixin.fix_worker_manager_mixin.FixedWorkerManagerMixin`,"
 " "
@@ -391,8 +387,7 @@ msgstr ""
 #: aio_parallel_tools.aio_task_pool.aio_fixed_task_pool_priority.AioFixedTaskPoolPriority:1
 #: of
 msgid ""
-"Bases: "
-":class:`aio_parallel_tools.aio_task_pool.core.mixins.producer_mixin.simple_producer_mixin.SimpleProducerMixin`,"
+"基类：:class:`aio_parallel_tools.aio_task_pool.core.mixins.producer_mixin.simple_producer_mixin.SimpleProducerMixin`,"
 " "
 ":class:`aio_parallel_tools.aio_task_pool.core.mixins.worker_manager_mixin.fix_worker_manager_mixin.FixedWorkerManagerMixin`,"
 " "
@@ -404,46 +399,46 @@ msgstr ""
 #: aio_parallel_tools.aio_task_pool.aio_fixed_task_pool_priority.AioFixedTaskPoolPriority.submit:1
 #: of
 msgid "Submit task to the task pool."
-msgstr ""
+msgstr "提交任务到任务池"
 
 #: aio_parallel_tools.aio_task_pool.aio_fixed_task_pool_priority.AioFixedTaskPoolPriority.submit:3
 #: aio_parallel_tools.aio_task_pool.aio_fixed_task_pool_priority.AioFixedTaskPoolPriority.submit_nowait:3
 #: of
 msgid "The task function which will be called by the workers."
-msgstr ""
+msgstr "将被执行器执行的任务函数"
 
 #: aio_parallel_tools.aio_task_pool.aio_fixed_task_pool_priority.AioFixedTaskPoolPriority.submit:5
 #: aio_parallel_tools.aio_task_pool.aio_fixed_task_pool_priority.AioFixedTaskPoolPriority.submit_nowait:5
 #: of
 msgid "The positional parameters for the task function. Defaults to []."
-msgstr ""
+msgstr "任务函数的位置参数.默认为[]"
 
 #: aio_parallel_tools.aio_task_pool.aio_fixed_task_pool_priority.AioFixedTaskPoolPriority.submit:7
 #: aio_parallel_tools.aio_task_pool.aio_fixed_task_pool_priority.AioFixedTaskPoolPriority.submit_nowait:7
 #: of
 msgid "The keyword parameters for the task function. Defaults to {}."
-msgstr ""
+msgstr "任务函数的关键字参数.默认为{}"
 
 #: aio_parallel_tools.aio_task_pool.aio_fixed_task_pool_priority.AioFixedTaskPoolPriority.submit:9
 #: aio_parallel_tools.aio_task_pool.aio_fixed_task_pool_priority.AioFixedTaskPoolPriority.submit_nowait:9
 #: of
 msgid "Task's weight.  Defaults to 4."
-msgstr ""
+msgstr "任务的优先级,默认为4"
 
 #: aio_parallel_tools.aio_task_pool.aio_fixed_task_pool_priority.AioFixedTaskPoolPriority.submit:11
 #: of
 msgid "set if waiting for the task's result. Defaults to True."
-msgstr ""
+msgstr "设置是否要等待任务完成获取结果,否的话返回一个期物对象.默认为`True`"
 
 #: aio_parallel_tools.aio_task_pool.aio_fixed_task_pool_priority.AioFixedTaskPoolPriority.submit:14
 #: of
 msgid "The task pool is paused"
-msgstr ""
+msgstr "任务池被暂停了"
 
 #: aio_parallel_tools.aio_task_pool.aio_fixed_task_pool_priority.AioFixedTaskPoolPriority.submit
 #: aio_parallel_tools.aio_task_pool.aio_fixed_task_pool_priority.AioFixedTaskPoolPriority.submit_nowait
 #: of
-msgid "Returns"
+msgid "返回"
 msgstr ""
 
 #: aio_parallel_tools.aio_task_pool.aio_fixed_task_pool_priority.AioFixedTaskPoolPriority.submit:16
@@ -451,38 +446,38 @@ msgstr ""
 msgid ""
 "if blocking is True, submit will return the result of the task; else it "
 "will return a future which you can await it to get the result."
-msgstr ""
+msgstr "如果`blocking`被设置为`True`,那么将返回任务的结果,否则返回一个可以`await`任务结果的期物对象."
 
 #: aio_parallel_tools.aio_task_pool.aio_fixed_task_pool_priority.AioFixedTaskPoolPriority.submit
 #: aio_parallel_tools.aio_task_pool.aio_fixed_task_pool_priority.AioFixedTaskPoolPriority.submit_nowait
 #: of
-msgid "Return type"
+msgid "返回类型"
 msgstr ""
 
 #: aio_parallel_tools.aio_task_pool.aio_fixed_task_pool_priority.AioFixedTaskPoolPriority.submit_nowait:1
 #: of
 msgid "Submit task to the task pool with no wait."
-msgstr ""
+msgstr "同步的提交任务到任务池"
 
 #: aio_parallel_tools.aio_task_pool.aio_fixed_task_pool_priority.AioFixedTaskPoolPriority.submit_nowait:12
 #: of
 msgid "The task pool is paused or"
-msgstr ""
+msgstr "任务池被暂停了或者"
 
 #: aio_parallel_tools.aio_task_pool.aio_fixed_task_pool_priority.AioFixedTaskPoolPriority.submit_nowait:13
 #: of
 msgid "other exception"
-msgstr ""
+msgstr "抛出了别的异常"
 
 #: aio_parallel_tools.aio_task_pool.aio_fixed_task_pool_priority.AioFixedTaskPoolPriority.submit_nowait:14
 #: of
 msgid "task pool is full, can not put task any more"
-msgstr ""
+msgstr "任务池队列满了,无法再接收更多任务."
 
 #: aio_parallel_tools.aio_task_pool.aio_fixed_task_pool_priority.AioFixedTaskPoolPriority.submit_nowait:16
 #: of
 msgid "a future which you can await it to get the result."
-msgstr ""
+msgstr "一个可以被`await`获得任务结果的期物对象."
 
 #: ../../document/aio_parallel_tools.aio_task_pool.rst:50
 msgid "aio\\_fixed\\_task\\_pool\\_simple module"
@@ -491,8 +486,7 @@ msgstr ""
 #: aio_parallel_tools.aio_task_pool.aio_fixed_task_pool_simple.AioFixedTaskPoolSimple:1
 #: of
 msgid ""
-"Bases: "
-":class:`aio_parallel_tools.aio_task_pool.core.mixins.producer_mixin.simple_producer_mixin.SimpleProducerMixin`,"
+"基类：:class:`aio_parallel_tools.aio_task_pool.core.mixins.producer_mixin.simple_producer_mixin.SimpleProducerMixin`,"
 " "
 ":class:`aio_parallel_tools.aio_task_pool.core.mixins.worker_manager_mixin.fix_worker_manager_mixin.FixedWorkerManagerMixin`,"
 " "
@@ -509,4 +503,82 @@ msgstr ""
 #: ../../document/aio_parallel_tools.aio_task_pool.rst:58
 msgid "Task Pool Core API"
 msgstr ""
+
+#~ msgid ""
+#~ "Bases: "
+#~ ":class:`aio_parallel_tools.aio_task_pool.core.mixins.producer_mixin.simple_producer_mixin.SimpleProducerMixin`,"
+#~ " "
+#~ ":class:`aio_parallel_tools.aio_task_pool.core.mixins.worker_manager_mixin.autoscale_worker_manager_mixin.AutoScaleWorkerManagerMixin`,"
+#~ " "
+#~ ":class:`aio_parallel_tools.aio_task_pool.core.mixins.queue_mixin.lifoq_mixin.LifoQMixin`,"
+#~ " "
+#~ ":class:`aio_parallel_tools.aio_task_pool.core.task_pool_base.AioTaskPoolBase`"
+#~ msgstr ""
+
+#~ msgid "Parameters"
+#~ msgstr ""
+
+#~ msgid "Raises"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "Bases: "
+#~ ":class:`aio_parallel_tools.aio_task_pool.core.mixins.producer_mixin.simple_producer_mixin.SimpleProducerMixin`,"
+#~ " "
+#~ ":class:`aio_parallel_tools.aio_task_pool.core.mixins.worker_manager_mixin.autoscale_worker_manager_mixin.AutoScaleWorkerManagerMixin`,"
+#~ " "
+#~ ":class:`aio_parallel_tools.aio_task_pool.core.mixins.queue_mixin.priorityq_mixin.PriorityQMixin`,"
+#~ " "
+#~ ":class:`aio_parallel_tools.aio_task_pool.core.task_pool_base.AioTaskPoolBase`"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "Bases: "
+#~ ":class:`aio_parallel_tools.aio_task_pool.core.mixins.producer_mixin.simple_producer_mixin.SimpleProducerMixin`,"
+#~ " "
+#~ ":class:`aio_parallel_tools.aio_task_pool.core.mixins.worker_manager_mixin.autoscale_worker_manager_mixin.AutoScaleWorkerManagerMixin`,"
+#~ " "
+#~ ":class:`aio_parallel_tools.aio_task_pool.core.mixins.queue_mixin.simpleq_mixin.SimpleQMixin`,"
+#~ " "
+#~ ":class:`aio_parallel_tools.aio_task_pool.core.task_pool_base.AioTaskPoolBase`"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "Bases: "
+#~ ":class:`aio_parallel_tools.aio_task_pool.core.mixins.producer_mixin.simple_producer_mixin.SimpleProducerMixin`,"
+#~ " "
+#~ ":class:`aio_parallel_tools.aio_task_pool.core.mixins.worker_manager_mixin.fix_worker_manager_mixin.FixedWorkerManagerMixin`,"
+#~ " "
+#~ ":class:`aio_parallel_tools.aio_task_pool.core.mixins.queue_mixin.lifoq_mixin.LifoQMixin`,"
+#~ " "
+#~ ":class:`aio_parallel_tools.aio_task_pool.core.task_pool_base.AioTaskPoolBase`"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "Bases: "
+#~ ":class:`aio_parallel_tools.aio_task_pool.core.mixins.producer_mixin.simple_producer_mixin.SimpleProducerMixin`,"
+#~ " "
+#~ ":class:`aio_parallel_tools.aio_task_pool.core.mixins.worker_manager_mixin.fix_worker_manager_mixin.FixedWorkerManagerMixin`,"
+#~ " "
+#~ ":class:`aio_parallel_tools.aio_task_pool.core.mixins.queue_mixin.priorityq_mixin.PriorityQMixin`,"
+#~ " "
+#~ ":class:`aio_parallel_tools.aio_task_pool.core.task_pool_base.AioTaskPoolBase`"
+#~ msgstr ""
+
+#~ msgid "Returns"
+#~ msgstr ""
+
+#~ msgid "Return type"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "Bases: "
+#~ ":class:`aio_parallel_tools.aio_task_pool.core.mixins.producer_mixin.simple_producer_mixin.SimpleProducerMixin`,"
+#~ " "
+#~ ":class:`aio_parallel_tools.aio_task_pool.core.mixins.worker_manager_mixin.fix_worker_manager_mixin.FixedWorkerManagerMixin`,"
+#~ " "
+#~ ":class:`aio_parallel_tools.aio_task_pool.core.mixins.queue_mixin.simpleq_mixin.SimpleQMixin`,"
+#~ " "
+#~ ":class:`aio_parallel_tools.aio_task_pool.core.task_pool_base.AioTaskPoolBase`"
+#~ msgstr ""
 

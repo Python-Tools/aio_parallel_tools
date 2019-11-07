@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: aio_parallel_tools 0.0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-11-06 16:41+0800\n"
+"POT-Creation-Date: 2019-11-07 11:43+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,27 +18,85 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.7.0\n"
 
-#: ../../document/index.rst:9
-msgid "API:"
-msgstr ""
-
 #: ../../document/index.rst:7
 msgid "Welcome to aio parallel tools's documentation!"
-msgstr "欢迎!!!"
+msgstr "欢迎使用aio parallel tools!"
 
-#: ../../document/index.rst:17
-msgid "Indices and tables"
-msgstr ""
+#: ../../document/index.rst:9
+msgid "Last change: |today|"
+msgstr "最近修改: |today|"
 
-#: ../../document/index.rst:19
-msgid ":ref:`genindex`"
+#: ../../document/index.rst:11
+msgid "Choose Locale:  :locale:`zh`  | :locale:`en`"
+msgstr "选择语言:  :locale:`zh`  | :locale:`en`"
+
+#: ../../document/index.rst:13
+msgid "version: 0.0.1"
+msgstr "版本: 0.0.1"
+
+#: ../../document/index.rst:14
+msgid "status: dev"
+msgstr "状态: dev"
+
+#: ../../document/index.rst:15
+msgid "author: huangsizhe"
+msgstr "作者: huangsizhe"
+
+#: ../../document/index.rst:16
+msgid "email: hsz1273327@gmail.com"
 msgstr ""
 
 #: ../../document/index.rst:20
-msgid ":ref:`modindex`"
+msgid "Desc"
+msgstr "简介"
+
+#: ../../document/index.rst:22
+msgid "Tools for creating asynchronous scripts easily."
+msgstr "用于方便构建异步程序的工具集."
+
+#: ../../document/index.rst:24
+msgid "keywords: tools,asyncio"
 msgstr ""
 
-#: ../../document/index.rst:21
-msgid ":ref:`search`"
+#: ../../document/index.rst:28
+msgid "Feature"
+msgstr "特点"
+
+#: ../../document/index.rst:29 ../../document/index.rst:44
+msgid "Task pool"
+msgstr "任务池"
+
+#: ../../document/index.rst:30
+msgid "Actor and Actor Manager"
+msgstr "Actor和全局Actor管理器"
+
+#: ../../document/index.rst:34
+msgid "Example"
+msgstr "例子"
+
+#: ../../document/index.rst:39
+msgid "Install"
+msgstr "安装"
+
+#: ../../document/index.rst:40
+msgid "``python -m pip install aio_parallel_tools``"
 msgstr ""
+
+#: ../../document/index.rst:54
+msgid "API"
+msgstr ""
+
+#: ../../document/index.rst:63
+msgid "Change Log"
+msgstr "版本更迭记录"
+
+#: ../../document/index.rst:66
+msgid "version 0.0.1"
+msgstr ""
+
+#: ../../document/index.rst:68
+msgid "created this project"
+msgstr "创建了项目"
+
+
 

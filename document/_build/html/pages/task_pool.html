@@ -1,0 +1,256 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh">
+  <head>
+    <meta charset="utf-8" />
+    <title>Task Pool &#8212; aio_parallel_tools  文档</title>
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/language_data.js"></script>
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="搜索" href="../search.html" />
+    <link rel="next" title="Modules" href="../aio_parallel_tools.html" />
+    <link rel="prev" title="欢迎使用aio parallel tools!" href="../index.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="task-pool">
+<h1>Task Pool<a class="headerlink" href="#task-pool" title="永久链接至标题">¶</a></h1>
+<p>We use task pool to limit the parallelism of asynchronous tasks.
+Generally, asynchronous io tasks is easy to hit a bottleneck of server.
+And connection pool usualy can only tell you that connection pool is full.
+So we need a task pool to limit the parallelism of asynchronous tasks so that server's io limit will not so easy to reach.</p>
+<div class="section" id="kinds-of-task-pool">
+<h2>Kinds of task pool<a class="headerlink" href="#kinds-of-task-pool" title="永久链接至标题">¶</a></h2>
+<p>Now there are 6 kinds of task pool:</p>
+<ul class="simple">
+<li><p>worker number fixed task pool</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">AioFixedTaskPoolSimple</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">AioFixedTaskPoolLifo</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">AioFixedTaskPoolPriority</span></code></p></li>
+</ul>
+</li>
+<li><p>worker number auto scale task pool</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">AioAutoScaleTaskPoolSimple</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">AioAutoScaleTaskPoolLifo</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">AioAutoScaleTaskPoolPriority</span></code></p></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="how-to-use">
+<h2>How to use<a class="headerlink" href="#how-to-use" title="永久链接至标题">¶</a></h2>
+<p>All of them can use as asynchronous context manager.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">async</span> <span class="k">def</span> <span class="nf">test</span><span class="p">(</span><span class="n">name</span><span class="p">):</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;{name} start&quot;</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">):</span>
+        <span class="n">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">f</span><span class="s2">&quot;{name} done&quot;</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+    <span class="k">return</span> <span class="s2">&quot;ok:&quot;</span><span class="o">+</span> <span class="n">result</span>
+<span class="n">async</span> <span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="n">async</span> <span class="k">with</span> <span class="n">AioFixedTaskPoolSimple</span><span class="p">()</span> <span class="k">as</span> <span class="n">task_pool</span><span class="p">:</span>
+        <span class="k">print</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;test pool size {task_pool.size}&quot;</span><span class="p">)</span>
+        <span class="k">print</span><span class="p">(</span><span class="s2">&quot;test 4 task with pool size 3&quot;</span><span class="p">)</span>
+        <span class="k">print</span><span class="p">(</span><span class="s2">&quot;test await blocking submit&quot;</span><span class="p">)</span>
+        <span class="n">r</span> <span class="o">=</span> <span class="n">await</span> <span class="n">task_pool</span><span class="o">.</span><span class="n">submit</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="n">func_args</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;e&quot;</span><span class="p">])</span>
+        <span class="k">assert</span> <span class="n">r</span> <span class="o">==</span> <span class="s2">&quot;ok:e done&quot;</span>
+        <span class="k">print</span><span class="p">(</span><span class="s2">&quot;test await blocking submit&quot;</span><span class="p">)</span>
+        <span class="k">print</span><span class="p">(</span><span class="s2">&quot;scale 3&quot;</span><span class="p">)</span>
+        <span class="n">await</span> <span class="n">task_pool</span><span class="o">.</span><span class="n">scale</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+        <span class="k">print</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;test pool size {task_pool.size}&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Task pools can also deal with a normal function, but it will be run in a <code class="docutils literal notranslate"><span class="pre">concurrent.futures.Executor</span></code></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">test</span><span class="p">(</span><span class="n">name</span><span class="p">):</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;{name} start&quot;</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">):</span>
+        <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">f</span><span class="s2">&quot;{name} done&quot;</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+    <span class="k">return</span> <span class="s2">&quot;ok:&quot;</span> <span class="o">+</span> <span class="n">result</span>
+<span class="n">async</span> <span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="n">executor</span> <span class="o">=</span> <span class="n">concurrent</span><span class="o">.</span><span class="n">futures</span><span class="o">.</span><span class="n">ProcessPoolExecutor</span><span class="p">()</span>
+    <span class="n">async</span> <span class="k">with</span> <span class="n">AioFixedTaskPoolSimple</span><span class="p">(</span><span class="n">executor</span><span class="o">=</span><span class="n">executor</span><span class="p">)</span> <span class="k">as</span> <span class="n">task_pool</span><span class="p">:</span>
+        <span class="n">async</span> <span class="k">with</span> <span class="n">AioFixedTaskPoolSimple</span><span class="p">()</span> <span class="k">as</span> <span class="n">task_pool</span><span class="p">:</span>
+        <span class="k">print</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;test pool size {task_pool.size}&quot;</span><span class="p">)</span>
+        <span class="k">print</span><span class="p">(</span><span class="s2">&quot;test 4 task with pool size 3&quot;</span><span class="p">)</span>
+        <span class="n">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">gather</span><span class="p">(</span>
+            <span class="n">task_pool</span><span class="o">.</span><span class="n">submit</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="n">func_args</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;c&quot;</span><span class="p">]),</span>
+            <span class="n">task_pool</span><span class="o">.</span><span class="n">submit</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="n">func_args</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;b&quot;</span><span class="p">]),</span>
+            <span class="n">task_pool</span><span class="o">.</span><span class="n">submit</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="n">func_args</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;a&quot;</span><span class="p">]),</span>
+            <span class="n">task_pool</span><span class="o">.</span><span class="n">submit</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="n">func_args</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;d&quot;</span><span class="p">])</span>
+        <span class="p">)</span>
+</pre></div>
+</div>
+<p>Of course you can just use <code class="docutils literal notranslate"><span class="pre">start</span></code> and <code class="docutils literal notranslate"><span class="pre">close</span></code> to manage the task pool's Life Cycle.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">async</span> <span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="n">task_pool</span> <span class="o">=</span> <span class="n">AioFixedTaskPoolSimple</span><span class="p">()</span>
+    <span class="n">await</span> <span class="n">task_pool</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;test pool size {task_pool.size}&quot;</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="s2">&quot;test 4 task with pool size 3&quot;</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="s2">&quot;test await blocking submit&quot;</span><span class="p">)</span>
+    <span class="n">r</span> <span class="o">=</span> <span class="n">await</span> <span class="n">task_pool</span><span class="o">.</span><span class="n">submit</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="n">func_args</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;e&quot;</span><span class="p">])</span>
+    <span class="k">assert</span> <span class="n">r</span> <span class="o">==</span> <span class="s2">&quot;ok:e done&quot;</span>
+    <span class="k">print</span><span class="p">(</span><span class="s2">&quot;test await blocking submit&quot;</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="s2">&quot;scale 3&quot;</span><span class="p">)</span>
+    <span class="n">await</span> <span class="n">task_pool</span><span class="o">.</span><span class="n">scale</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;test pool size {task_pool.size}&quot;</span><span class="p">)</span>
+    <span class="n">await</span> <span class="n">task_pool</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="section" id="oprations">
+<h3>Oprations<a class="headerlink" href="#oprations" title="永久链接至标题">¶</a></h3>
+<p>There are only 3 Oprations:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">submit</span></code> Submit a task to the task pool.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">result</span> <span class="o">=</span> <span class="n">await</span> <span class="n">task_pool</span><span class="o">.</span><span class="n">submit</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="n">func_args</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;e&quot;</span><span class="p">])</span>
+</pre></div>
+</div>
+<p>If you use a Priority task pool, you can submit with a int param <code class="docutils literal notranslate"><span class="pre">weight</span></code>, the more small the more fast to be execut.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">result</span> <span class="o">=</span> <span class="n">await</span> <span class="n">priority_task_pool</span><span class="o">.</span><span class="n">submit</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="n">func_args</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;e&quot;</span><span class="p">],</span><span class="n">weight</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">scale</span></code> Scale the worker's number to increase/decrease the parallelism.number must be a int,if it's negative,task pool will decrease the parallelism.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">await</span> <span class="n">task_pool</span><span class="o">.</span><span class="n">scale</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">pause</span></code> Pause/unpause the task pool to manange if user can submit task.You can use <code class="docutils literal notranslate"><span class="pre">paused</span></code> to check if you can submit tasks.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">await</span> <span class="n">task_pool</span><span class="o">.</span><span class="n">pause</span><span class="p">()</span>
+<span class="k">print</span><span class="p">(</span><span class="n">task_pool</span><span class="o">.</span><span class="n">paused</span><span class="p">)</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">aio_parallel_tools</a></h1>
+
+
+
+<p class="blurb">Tools for develope asynchronous script easily.</p>
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=Python-Tools&repo=aio_parallel_tools&type=watch&count=true&size=large&v=2"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+
+
+
+<h3>导航</h3>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Task Pool</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#kinds-of-task-pool">Kinds of task pool</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#how-to-use">How to use</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../aio_parallel_tools.html">Modules</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../aio_parallel_tools.aio_task_pool.html">aio_parallel_tools.aio_task_pool package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../aio_parallel_tools.aio_task_pool.html#taskpools">TaskPools</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../aio_parallel_tools.aio_task_pool.html#module-aio_parallel_tools.aio_task_pool.aio_autoscale_task_pool_lifo">aio_autoscale_task_pool_lifo module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../aio_parallel_tools.aio_task_pool.html#module-aio_parallel_tools.aio_task_pool.aio_autoscale_task_pool_priority">aio_autoscale_task_pool_priority module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../aio_parallel_tools.aio_task_pool.html#module-aio_parallel_tools.aio_task_pool.aio_autoscale_task_pool_simple">aio_autoscale_task_pool_simple module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../aio_parallel_tools.aio_task_pool.html#module-aio_parallel_tools.aio_task_pool.aio_fixed_task_pool_lifo">aio_fixed_task_pool_lifo module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../aio_parallel_tools.aio_task_pool.html#module-aio_parallel_tools.aio_task_pool.aio_fixed_task_pool_priority">aio_fixed_task_pool_priority module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../aio_parallel_tools.aio_task_pool.html#module-aio_parallel_tools.aio_task_pool.aio_fixed_task_pool_simple">aio_fixed_task_pool_simple module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../aio_parallel_tools.aio_task_pool.html#task-pool-core-api">Task Pool Core API</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../aio_parallel_tools.aio_task_pool.core.html">Interface</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../aio_parallel_tools.aio_task_pool.core.html#mixins">Mixins</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="../index.html" title="上一章">欢迎使用aio parallel tools!</a></li>
+      <li>Next: <a href="../aio_parallel_tools.html" title="下一章">Modules</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">快速搜索</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="转向" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2019, huangsizhe.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.2.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="../_sources/pages/task_pool.md.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+    <a href="https://github.com/Python-Tools/aio_parallel_tools" class="github">
+        <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"  class="github"/>
+    </a>
+    
+
+    
+  </body>
+</html>

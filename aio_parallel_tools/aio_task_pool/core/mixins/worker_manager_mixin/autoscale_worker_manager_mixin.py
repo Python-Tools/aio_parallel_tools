@@ -229,20 +229,21 @@ class AutoScaleWorkerManagerMixin:
     async def _worker(self) -> None:
         while True:
             msg = await self.queue.get()
-            message = self.parser_message(msg)
-            if message is WorkerCloseSignal:
-                break
-            else:
-                task = message
-                fut = task.fut
-                try:
-                    result = await self._task_handdler(task)
-                except Exception as e:
-                    fut.set_exception(e)
+            try:
+                message = self.parser_message(msg)
+                if message is WorkerCloseSignal:
+                    break
                 else:
-                    fut.set_result(result)
-                finally:
-                    self.queue.task_done()
+                    task = message
+                    fut = task.fut
+                    try:
+                        result = await self._task_handdler(task)
+                    except Exception as e:
+                        fut.set_exception(e)
+                    else:
+                        fut.set_result(result)
+            finally:
+                self.queue.task_done()
 
     def _make_worker(self, number: int = 1) -> None:
         for _ in range(number):

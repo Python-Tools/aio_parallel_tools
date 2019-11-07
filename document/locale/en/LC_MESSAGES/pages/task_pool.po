@@ -1,0 +1,130 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2019, huangsizhe
+# This file is distributed under the same license as the aio_parallel_tools
+# package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2019.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: aio_parallel_tools 0.0.1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-11-07 14:18+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.7.0\n"
+
+#: ../../document/pages/task_pool.md:1
+msgid "Task Pool"
+msgstr ""
+
+#: ../../document/pages/task_pool.md:3
+msgid ""
+"We use task pool to limit the parallelism of asynchronous tasks. "
+"Generally, asynchronous io tasks is easy to hit a bottleneck of server. "
+"And connection pool usualy can only tell you that connection pool is "
+"full. So we need a task pool to limit the parallelism of asynchronous "
+"tasks so that server's io limit will not so easy to reach."
+msgstr ""
+
+#: ../../document/pages/task_pool.md:9
+msgid "Kinds of task pool"
+msgstr ""
+
+#: ../../document/pages/task_pool.md:11
+msgid "Now there are 6 kinds of task pool:"
+msgstr ""
+
+#: ../../document/pages/task_pool.md:13
+msgid "worker number fixed task pool"
+msgstr ""
+
+#: ../../document/pages/task_pool.md:15
+msgid "AioFixedTaskPoolSimple"
+msgstr ""
+
+#: ../../document/pages/task_pool.md:16
+msgid "AioFixedTaskPoolLifo"
+msgstr ""
+
+#: ../../document/pages/task_pool.md:17
+msgid "AioFixedTaskPoolPriority"
+msgstr ""
+
+#: ../../document/pages/task_pool.md:20
+msgid "worker number auto scale task pool"
+msgstr ""
+
+#: ../../document/pages/task_pool.md:22
+msgid "AioAutoScaleTaskPoolSimple"
+msgstr ""
+
+#: ../../document/pages/task_pool.md:23
+msgid "AioAutoScaleTaskPoolLifo"
+msgstr ""
+
+#: ../../document/pages/task_pool.md:24
+msgid "AioAutoScaleTaskPoolPriority"
+msgstr ""
+
+#: ../../document/pages/task_pool.md:27
+msgid "How to use"
+msgstr ""
+
+#: ../../document/pages/task_pool.md:29
+msgid "All of them can use as asynchronous context manager."
+msgstr ""
+
+#: ../../document/pages/task_pool.md:52
+msgid ""
+"Task pools can also deal with a normal function, but it will be run in a "
+"concurrent.futures.Executor"
+msgstr ""
+
+#: ../../document/pages/task_pool.md:76
+msgid ""
+"Of course you can just use start and close to manage the task pool's Life"
+" Cycle."
+msgstr ""
+
+#: ../../document/pages/task_pool.md:94
+msgid "Operations"
+msgstr ""
+
+#: ../../document/pages/task_pool.md:96
+msgid "There are only 3 Operations:"
+msgstr ""
+
+#: ../../document/pages/task_pool.md:98
+msgid "submit Submit a task to the task pool."
+msgstr ""
+
+#: ../../document/pages/task_pool.md:104
+msgid ""
+"If you use a Priority task pool, you can submit with a int param weight, "
+"the more small the more fast to be execut."
+msgstr ""
+
+#: ../../document/pages/task_pool.md:110
+msgid ""
+"scale Scale the worker's number to increase/decrease the "
+"parallelism.number must be a int,if it's negative,task pool will decrease"
+" the parallelism."
+msgstr ""
+
+#: ../../document/pages/task_pool.md:116
+msgid ""
+"pause Pause/unpause the task pool to manange if user can submit task.You "
+"can use paused to check if you can submit tasks."
+msgstr ""
+
+#~ msgid "Oprations"
+#~ msgstr ""
+
+#~ msgid "There are only 3 Oprations:"
+#~ msgstr ""
+

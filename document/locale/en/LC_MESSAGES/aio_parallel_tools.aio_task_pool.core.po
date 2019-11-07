@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: aio_parallel_tools 0.0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-11-06 16:41+0800\n"
+"POT-Creation-Date: 2019-11-07 14:52+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -31,11 +31,11 @@ msgid "Asynchronous Task Pool Base Class."
 msgstr ""
 
 #: aio_parallel_tools.aio_task_pool.core.task_pool_abc.AioTaskPoolABC:1 of
-msgid "Bases: :class:`abc.ABC`"
+msgid "基类：:class:`abc.ABC`"
 msgstr ""
 
 #: aio_parallel_tools.aio_task_pool.core.task_pool_abc.AioTaskPoolABC:1 of
-msgid "Asynchronous Task Pool Basic Class."
+msgid "Asynchronous Task Pool Abstract Base Class."
 msgstr ""
 
 #: aio_parallel_tools.aio_task_pool.core.task_pool_abc.AioTaskPoolABC:3 of
@@ -59,7 +59,7 @@ msgstr ""
 #: aio_parallel_tools.aio_task_pool.core.task_pool_abc.AioTaskPoolABC.submit
 #: aio_parallel_tools.aio_task_pool.core.task_pool_abc.AioTaskPoolABC.submit_nowait
 #: of
-msgid "Parameters"
+msgid "参数"
 msgstr ""
 
 #: aio_parallel_tools.aio_task_pool.core.task_pool_abc.AioTaskPoolABC.close:3
@@ -81,7 +81,7 @@ msgstr ""
 #: aio_parallel_tools.aio_task_pool.core.task_pool_abc.AioTaskPoolABC.submit
 #: aio_parallel_tools.aio_task_pool.core.task_pool_abc.AioTaskPoolABC.submit_nowait
 #: of
-msgid "Raises"
+msgid "引发"
 msgstr ""
 
 #: aio_parallel_tools.aio_task_pool.core.task_pool_abc.AioTaskPoolABC.close:10
@@ -124,7 +124,7 @@ msgstr ""
 #: aio_parallel_tools.aio_task_pool.core.task_pool_abc.AioTaskPoolABC.submit_nowait
 #: aio_parallel_tools.aio_task_pool.core.task_pool_abc.AioTaskPoolABC.waiting_tasks_number
 #: of
-msgid "Returns"
+msgid "返回"
 msgstr ""
 
 #: aio_parallel_tools.aio_task_pool.core.task_pool_abc.AioTaskPoolABC.max_tasks_number:3
@@ -142,7 +142,7 @@ msgstr ""
 #: aio_parallel_tools.aio_task_pool.core.task_pool_abc.AioTaskPoolABC.submit_nowait
 #: aio_parallel_tools.aio_task_pool.core.task_pool_abc.AioTaskPoolABC.waiting_tasks_number
 #: of
-msgid "Return type"
+msgid "返回类型"
 msgstr ""
 
 #: aio_parallel_tools.aio_task_pool.core.task_pool_abc.AioTaskPoolABC.pause:1
@@ -292,4 +292,22 @@ msgstr ""
 #: ../../document/aio_parallel_tools.aio_task_pool.core.rst:14
 msgid "Mixins"
 msgstr ""
+
+#~ msgid "Bases: :class:`abc.ABC`"
+#~ msgstr ""
+
+#~ msgid "Parameters"
+#~ msgstr ""
+
+#~ msgid "Raises"
+#~ msgstr ""
+
+#~ msgid "Returns"
+#~ msgstr ""
+
+#~ msgid "Return type"
+#~ msgstr ""
+
+#~ msgid "Asynchronous Task Pool Basic Class."
+#~ msgstr ""
 

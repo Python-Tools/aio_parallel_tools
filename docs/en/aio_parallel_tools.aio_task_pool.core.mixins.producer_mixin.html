@@ -47,6 +47,7 @@
 <div><p>queue (Property): msg queue.</p>
 <p>loop (Property): event loop.</p>
 <p>size (Property): worker pool’s size.</p>
+<p>waiting_tasks_number (Property): Waiting task size in queue.</p>
 <p>make_message (Method): make task to message</p>
 <p>close_workers (Asynchronous Method): Send worker pool size’s close signal to the queue.</p>
 <p>close_workers_nowait_soft (Method): Send worker pool size’s close signal to the queue with no wait.</p>
@@ -224,7 +225,14 @@ else it will return a future which you can await it to get the result.</p>
 
 
 <h3>Navigation</h3>
-<p class="caption"><span class="caption-text">API:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="pages/task_pool.html">Task Pool</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="pages/task_pool.html#kinds-of-task-pool">Kinds of task pool</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pages/task_pool.html#how-to-use">How to use</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pages/task_pool.html#operations">Operations</a></li>
+</ul>
+</li>
+</ul>
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="aio_parallel_tools.html">Modules</a><ul class="current">
 <li class="toctree-l2 current"><a class="reference internal" href="aio_parallel_tools.aio_task_pool.html">aio_parallel_tools.aio_task_pool package</a><ul class="current">
@@ -287,7 +295,7 @@ else it will return a future which you can await it to get the result.</p>
       &copy;2019, huangsizhe.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.1.2</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.2.1</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
       |

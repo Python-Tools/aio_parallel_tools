@@ -24,13 +24,13 @@ msgstr ""
 
 #: ../../document/aio_parallel_tools.aio_task_pool.core.mixins.rst:5
 msgid "Subpackages"
-msgstr ""
+msgstr "子模块"
 
 #: ../../document/aio_parallel_tools.aio_task_pool.core.mixins.rst:13
 msgid "Module contents"
-msgstr ""
+msgstr "模块内容"
 
 #: aio_parallel_tools.aio_task_pool.core.mixins:1 of
 msgid "All Mixins for Task Pool."
-msgstr ""
+msgstr "任务池所有的混入类"
 

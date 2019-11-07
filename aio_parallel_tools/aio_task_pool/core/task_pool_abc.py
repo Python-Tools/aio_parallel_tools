@@ -13,7 +13,7 @@ from .exception import UnknownTaskType
 
 
 class AioTaskPoolABC(abc.ABC):
-    """Asynchronous Task Pool Basic Class.
+    """Asynchronous Task Pool Abstract Base Class.
 
     this pool is used when you need to limit the max number of parallel tasks at one time.
     It's a derivative of `Producer Consumer model`.

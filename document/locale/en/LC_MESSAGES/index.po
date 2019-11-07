@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: aio_parallel_tools 0.0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-11-06 16:41+0800\n"
+"POT-Creation-Date: 2019-11-07 11:43+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,27 +18,119 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.7.0\n"
 
-#: ../../document/index.rst:9
-msgid "API:"
-msgstr ""
-
 #: ../../document/index.rst:7
 msgid "Welcome to aio parallel tools's documentation!"
 msgstr ""
 
-#: ../../document/index.rst:17
-msgid "Indices and tables"
+#: ../../document/index.rst:9
+msgid "Last change: |today|"
 msgstr ""
 
-#: ../../document/index.rst:19
-msgid ":ref:`genindex`"
+#: ../../document/index.rst:11
+msgid "Choose Locale:  :locale:`zh`  | :locale:`en`"
+msgstr ""
+
+#: ../../document/index.rst:13
+msgid "version: 0.0.1"
+msgstr ""
+
+#: ../../document/index.rst:14
+msgid "status: dev"
+msgstr ""
+
+#: ../../document/index.rst:15
+msgid "author: huangsizhe"
+msgstr ""
+
+#: ../../document/index.rst:16
+msgid "email: hsz1273327@gmail.com"
 msgstr ""
 
 #: ../../document/index.rst:20
-msgid ":ref:`modindex`"
+msgid "Desc"
 msgstr ""
 
-#: ../../document/index.rst:21
-msgid ":ref:`search`"
+#: ../../document/index.rst:22
+msgid "Tools for creating asynchronous scripts easily."
 msgstr ""
+
+#: ../../document/index.rst:24
+msgid "keywords: tools,asyncio"
+msgstr ""
+
+#: ../../document/index.rst:28
+msgid "Feature"
+msgstr ""
+
+#: ../../document/index.rst:29 ../../document/index.rst:44
+msgid "Task pool"
+msgstr ""
+
+#: ../../document/index.rst:30
+msgid "Actor and Actor Manager"
+msgstr ""
+
+#: ../../document/index.rst:34
+msgid "Example"
+msgstr ""
+
+#: ../../document/index.rst:39
+msgid "Install"
+msgstr ""
+
+#: ../../document/index.rst:40
+msgid "``python -m pip install aio_parallel_tools``"
+msgstr ""
+
+#: ../../document/index.rst:54
+msgid "API"
+msgstr ""
+
+#: ../../document/index.rst:63
+msgid "Change Log"
+msgstr ""
+
+#: ../../document/index.rst:66
+msgid "version 0.0.1"
+msgstr ""
+
+#: ../../document/index.rst:68
+msgid "created this project"
+msgstr ""
+
+#~ msgid "Indices and tables"
+#~ msgstr ""
+
+#~ msgid ":ref:`genindex`"
+#~ msgstr ""
+
+#~ msgid ":ref:`modindex`"
+#~ msgstr ""
+
+#~ msgid ":ref:`search`"
+#~ msgstr ""
+
+#~ msgid "API:"
+#~ msgstr ""
+
+#~ msgid "Document"
+#~ msgstr ""
+
+#~ msgid "TODO"
+#~ msgstr ""
+
+#~ msgid "todo"
+#~ msgstr ""
+
+#~ msgid "Limitations"
+#~ msgstr ""
+
+#~ msgid "limit"
+#~ msgstr ""
+
+#~ msgid "创建了项目"
+#~ msgstr ""
+
+#~ msgid "keywords:['tools','asyncio']"
+#~ msgstr ""
 

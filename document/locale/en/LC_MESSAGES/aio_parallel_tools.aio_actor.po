@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: aio_parallel_tools 0.0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-11-06 16:41+0800\n"
+"POT-Creation-Date: 2019-11-07 10:13+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -35,7 +35,7 @@ msgid "aio\\_parallel\\_tools.aio\\_actor.actor\\_abc module"
 msgstr ""
 
 #: aio_parallel_tools.aio_actor.actor_abc.ActorABC:1 of
-msgid "Bases: :class:`abc.ABC`"
+msgid "基类：:class:`abc.ABC`"
 msgstr ""
 
 #: aio_parallel_tools.aio_actor.actor_abc.ActorABC.receive:1
@@ -62,7 +62,7 @@ msgid "aio\\_parallel\\_tools.aio\\_actor.actor\\_basic\\_copy module"
 msgstr ""
 
 #: aio_parallel_tools.aio_actor.actor_basic_copy.Actor:1 of
-msgid "Bases: :class:`object`"
+msgid "基类：:class:`object`"
 msgstr ""
 
 #: aio_parallel_tools.aio_actor.actor_basic_copy.Actor.after_actor_close:1 of
@@ -99,7 +99,7 @@ msgstr ""
 
 #: aio_parallel_tools.aio_actor.actor_basic_copy.ActorExit:1
 #: aio_parallel_tools.aio_actor.signal.ActorExit:1 of
-msgid "Bases: :class:`Exception`"
+msgid "基类：:class:`Exception`"
 msgstr ""
 
 #: aio_parallel_tools.aio_actor.actor_basic_copy.ActorTimeoutWarning:1
@@ -107,7 +107,7 @@ msgstr ""
 #: aio_parallel_tools.aio_actor.exception_and_warning.ActorTimeoutWarning:1
 #: aio_parallel_tools.aio_actor.exception_and_warning.InboxNearllyFullWarning:1
 #: of
-msgid "Bases: :class:`Warning`"
+msgid "基类：:class:`Warning`"
 msgstr ""
 
 #: ../../document/aio_parallel_tools.aio_actor.rst:39
@@ -115,7 +115,7 @@ msgid "aio\\_parallel\\_tools.aio\\_actor.actor\\_manager module"
 msgstr ""
 
 #: aio_parallel_tools.aio_actor.actor_manager.ActorManagerRegister:1 of
-msgid "Bases: :class:`type`"
+msgid "基类：:class:`type`"
 msgstr ""
 
 #: ../../document/aio_parallel_tools.aio_actor.rst:47
@@ -150,4 +150,19 @@ msgstr ""
 #: ../../document/aio_parallel_tools.aio_actor.rst:64
 msgid "Module contents"
 msgstr ""
+
+#~ msgid "Bases: :class:`abc.ABC`"
+#~ msgstr ""
+
+#~ msgid "Bases: :class:`object`"
+#~ msgstr ""
+
+#~ msgid "Bases: :class:`Exception`"
+#~ msgstr ""
+
+#~ msgid "Bases: :class:`Warning`"
+#~ msgstr ""
+
+#~ msgid "Bases: :class:`type`"
+#~ msgstr ""
 

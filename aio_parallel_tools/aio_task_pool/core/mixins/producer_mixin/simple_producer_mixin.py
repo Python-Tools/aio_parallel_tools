@@ -18,12 +18,15 @@ class SimpleProducerMixin:
 
         size (Property): worker pool's size.
 
+        waiting_tasks_number (Property): Waiting task size in queue.
+
         make_message (Method): make task to message
+
 
         close_workers (Asynchronous Method): Send worker pool size's close signal to the queue.
 
         close_workers_nowait_soft (Method): Send worker pool size's close signal to the queue with no wait.
-        
+
         close_workers_hard (Method): Cancel worker hardlly.
 
     Support:
@@ -41,7 +44,7 @@ class SimpleProducerMixin:
         submit_nowait (Method): Submit task to the task pool with no wait.
 
         close_pool (Asynchronous Method): Send close signal to all worker.
-        
+
         close_pool_nowait (Method): Send close signal to all workers with no waiting.
 
     """
@@ -161,6 +164,10 @@ class SimpleProducerMixin:
         else:
             raise NotAvailable("task pool is paused")
 
+    async def _waiting_all_task_done(self):
+        while self.waiting_tasks_number > 0:
+            await asyncio.sleep(0.1)
+
     async def close_pool(self,
                          close_worker_timeout: Union[int, float, None] = None,
                          close_pool_timeout: int = 3,
@@ -180,11 +187,12 @@ class SimpleProducerMixin:
 
         """
         self._paused = True
+        if close_worker_timeout and isinstance(close_worker_timeout, (int, float)):
+            await asyncio.wait_for(self._waiting_all_task_done(), timeout=close_worker_timeout)
+        else:
+            await self._waiting_all_task_done()
         try:
-            if close_worker_timeout and isinstance(close_worker_timeout, (int, float)):
-                await asyncio.wait_for(self.close_workers(), timeout=close_worker_timeout)
-            else:
-                await self.close_workers()
+            await self.close_workers()
         except asyncio.TimeoutError as te:
             if safe:
                 warnings.warn("close workers timeout")
@@ -200,7 +208,7 @@ class SimpleProducerMixin:
                 await asyncio.wait_for(self.queue.join(), timeout=close_pool_timeout)
             except asyncio.TimeoutError as te:
                 if safe:
-                    warnings.warn("waiting for left tasks done timeout")
+                    warnings.warn(f"waiting for left tasks done timeout, {self.waiting_tasks_number}")
                 else:
                     raise te
             except Exception as e:

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: aio_parallel_tools 0.0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-11-06 16:41+0800\n"
+"POT-Creation-Date: 2019-11-07 11:36+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -29,11 +29,11 @@ msgstr ""
 #: aio_parallel_tools.aio_task_pool.core.mixins.producer_mixin.simple_producer_mixin:1
 #: of
 msgid "The simplest mixin for creating and submiting tasks to task pool."
-msgstr ""
+msgstr "创建和提交任务的最简单混入类"
 
 #: aio_parallel_tools.aio_task_pool.core.mixins.producer_mixin.simple_producer_mixin.SimpleProducerMixin:1
 #: of
-msgid "Bases: :class:`object`"
+msgid "基类：:class:`object`"
 msgstr ""
 
 #: aio_parallel_tools.aio_task_pool.core.mixins.producer_mixin.simple_producer_mixin.SimpleProducerMixin:1
@@ -44,7 +44,7 @@ msgstr ""
 #: aio_parallel_tools.aio_task_pool.core.mixins.producer_mixin.simple_producer_mixin.SimpleProducerMixin:3
 #: of
 msgid "Requirement:"
-msgstr ""
+msgstr "依赖"
 
 #: aio_parallel_tools.aio_task_pool.core.mixins.producer_mixin.simple_producer_mixin.SimpleProducerMixin:5
 #: of
@@ -63,69 +63,74 @@ msgstr ""
 
 #: aio_parallel_tools.aio_task_pool.core.mixins.producer_mixin.simple_producer_mixin.SimpleProducerMixin:11
 #: of
-msgid "make_message (Method): make task to message"
+msgid "waiting_tasks_number (Property): Waiting task size in queue."
 msgstr ""
 
 #: aio_parallel_tools.aio_task_pool.core.mixins.producer_mixin.simple_producer_mixin.SimpleProducerMixin:13
+#: of
+msgid "make_message (Method): make task to message"
+msgstr ""
+
+#: aio_parallel_tools.aio_task_pool.core.mixins.producer_mixin.simple_producer_mixin.SimpleProducerMixin:16
 #: of
 msgid ""
 "close_workers (Asynchronous Method): Send worker pool size's close signal"
 " to the queue."
 msgstr ""
 
-#: aio_parallel_tools.aio_task_pool.core.mixins.producer_mixin.simple_producer_mixin.SimpleProducerMixin:15
+#: aio_parallel_tools.aio_task_pool.core.mixins.producer_mixin.simple_producer_mixin.SimpleProducerMixin:18
 #: of
 msgid ""
 "close_workers_nowait_soft (Method): Send worker pool size's close signal "
 "to the queue with no wait."
 msgstr ""
 
-#: aio_parallel_tools.aio_task_pool.core.mixins.producer_mixin.simple_producer_mixin.SimpleProducerMixin:17
+#: aio_parallel_tools.aio_task_pool.core.mixins.producer_mixin.simple_producer_mixin.SimpleProducerMixin:20
 #: of
 msgid "close_workers_hard (Method): Cancel worker hardlly."
 msgstr ""
 
-#: aio_parallel_tools.aio_task_pool.core.mixins.producer_mixin.simple_producer_mixin.SimpleProducerMixin:19
+#: aio_parallel_tools.aio_task_pool.core.mixins.producer_mixin.simple_producer_mixin.SimpleProducerMixin:22
 #: of
 msgid "Support:"
-msgstr ""
+msgstr "提供:"
 
-#: aio_parallel_tools.aio_task_pool.core.mixins.producer_mixin.simple_producer_mixin.SimpleProducerMixin:21
+#: aio_parallel_tools.aio_task_pool.core.mixins.producer_mixin.simple_producer_mixin.SimpleProducerMixin:24
 #: of
 msgid "paused (Property): Check if user can submit tasks."
 msgstr ""
 
-#: aio_parallel_tools.aio_task_pool.core.mixins.producer_mixin.simple_producer_mixin.SimpleProducerMixin:23
+#: aio_parallel_tools.aio_task_pool.core.mixins.producer_mixin.simple_producer_mixin.SimpleProducerMixin:26
 #: of
 msgid "closed (Property): Check if the pool is closed."
 msgstr ""
 
-#: aio_parallel_tools.aio_task_pool.core.mixins.producer_mixin.simple_producer_mixin.SimpleProducerMixin:25
+#: aio_parallel_tools.aio_task_pool.core.mixins.producer_mixin.simple_producer_mixin.SimpleProducerMixin:28
 #: of
 msgid "start_accept (Method): Start Accept tasks."
 msgstr ""
 
-#: aio_parallel_tools.aio_task_pool.core.mixins.producer_mixin.simple_producer_mixin.SimpleProducerMixin:27
+#: aio_parallel_tools.aio_task_pool.core.mixins.producer_mixin.simple_producer_mixin.SimpleProducerMixin:30
 #: of
 msgid "pause (Method): Pause the task pool."
 msgstr ""
 
-#: aio_parallel_tools.aio_task_pool.core.mixins.producer_mixin.simple_producer_mixin.SimpleProducerMixin:29
+#: aio_parallel_tools.aio_task_pool.core.mixins.producer_mixin.simple_producer_mixin.SimpleProducerMixin:32
 #: of
 msgid "submit (Asynchronous Method): Submit task to the task pool."
 msgstr ""
 
-#: aio_parallel_tools.aio_task_pool.core.mixins.producer_mixin.simple_producer_mixin.SimpleProducerMixin:31
+#: aio_parallel_tools.aio_task_pool.core.mixins.producer_mixin.simple_producer_mixin.SimpleProducerMixin:34
 #: of
 msgid "submit_nowait (Method): Submit task to the task pool with no wait."
 msgstr ""
 
-#: aio_parallel_tools.aio_task_pool.core.mixins.producer_mixin.simple_producer_mixin.SimpleProducerMixin:33
+#: aio_parallel_tools.aio_task_pool.core.mixins.producer_mixin.simple_producer_mixin.SimpleProducerMixin:36
 #: of
 msgid "close_pool (Asynchronous Method): Send close signal to all worker."
 msgstr ""
 
-#: aio_parallel_tools.aio_task_pool.core.mixins.producer_mixin.simple_producer_mixin.SimpleProducerMixin:35
+#: aio_parallel_tools.aio_task_pool.core.mixins.producer_mixin.simple_producer_mixin.SimpleProducerMixin:38
 #: of
 msgid ""
 "close_pool_nowait (Method): Send close signal to all workers with no "
@@ -142,7 +147,7 @@ msgstr ""
 #: aio_parallel_tools.aio_task_pool.core.mixins.producer_mixin.simple_producer_mixin.SimpleProducerMixin.submit
 #: aio_parallel_tools.aio_task_pool.core.mixins.producer_mixin.simple_producer_mixin.SimpleProducerMixin.submit_nowait
 #: of
-msgid "Parameters"
+msgid "参数"
 msgstr ""
 
 #: aio_parallel_tools.aio_task_pool.core.mixins.producer_mixin.simple_producer_mixin.SimpleProducerMixin.close_pool:3
@@ -164,7 +169,7 @@ msgstr ""
 #: aio_parallel_tools.aio_task_pool.core.mixins.producer_mixin.simple_producer_mixin.SimpleProducerMixin.submit
 #: aio_parallel_tools.aio_task_pool.core.mixins.producer_mixin.simple_producer_mixin.SimpleProducerMixin.submit_nowait
 #: of
-msgid "Raises"
+msgid "引发"
 msgstr ""
 
 #: aio_parallel_tools.aio_task_pool.core.mixins.producer_mixin.simple_producer_mixin.SimpleProducerMixin.close_pool:10
@@ -214,7 +219,7 @@ msgstr ""
 #: aio_parallel_tools.aio_task_pool.core.mixins.producer_mixin.simple_producer_mixin.SimpleProducerMixin.submit
 #: aio_parallel_tools.aio_task_pool.core.mixins.producer_mixin.simple_producer_mixin.SimpleProducerMixin.submit_nowait
 #: of
-msgid "Returns"
+msgid "返回"
 msgstr ""
 
 #: aio_parallel_tools.aio_task_pool.core.mixins.producer_mixin.simple_producer_mixin.SimpleProducerMixin.pause:3
@@ -227,7 +232,7 @@ msgstr ""
 #: aio_parallel_tools.aio_task_pool.core.mixins.producer_mixin.simple_producer_mixin.SimpleProducerMixin.submit
 #: aio_parallel_tools.aio_task_pool.core.mixins.producer_mixin.simple_producer_mixin.SimpleProducerMixin.submit_nowait
 #: of
-msgid "Return type"
+msgid "返回类型"
 msgstr ""
 
 #: aio_parallel_tools.aio_task_pool.core.mixins.producer_mixin.simple_producer_mixin.SimpleProducerMixin.paused:1
@@ -314,4 +319,19 @@ msgstr ""
 #: of
 msgid "a future which you can await it to get the result."
 msgstr ""
+
+#~ msgid "Bases: :class:`object`"
+#~ msgstr ""
+
+#~ msgid "Parameters"
+#~ msgstr ""
+
+#~ msgid "Raises"
+#~ msgstr ""
+
+#~ msgid "Returns"
+#~ msgstr ""
+
+#~ msgid "Return type"
+#~ msgstr ""
 

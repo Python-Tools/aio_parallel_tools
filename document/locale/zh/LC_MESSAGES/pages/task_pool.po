@@ -1,0 +1,124 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2019, huangsizhe
+# This file is distributed under the same license as the aio_parallel_tools
+# package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2019.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: aio_parallel_tools 0.0.1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-11-07 14:18+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.7.0\n"
+
+#: ../../document/pages/task_pool.md:1
+msgid "Task Pool"
+msgstr "任务池模型"
+
+#: ../../document/pages/task_pool.md:3
+msgid ""
+"We use task pool to limit the parallelism of asynchronous tasks. "
+"Generally, asynchronous io tasks is easy to hit a bottleneck of server. "
+"And connection pool usualy can only tell you that connection pool is "
+"full. So we need a task pool to limit the parallelism of asynchronous "
+"tasks so that server's io limit will not so easy to reach."
+msgstr "任务池本质上是一个生产者消费者模型,我们用它来限制异步任务的并行度.通常异步的IO任务很容易就达到服务端的连接数上限.为了限制连接数,一个常见的方法是使用连接池,但连接池只会在连接都用完后抛出异常,后续的任务并没有办法得到执行.这个任务池模型在限制了并行度的同时会缓存任务,如果并行度不够它会在队列中等待,直到被消耗执行为止.同时由于限制了并行度,这也就有效的降低了服务端的压力."
+
+#: ../../document/pages/task_pool.md:9
+msgid "Kinds of task pool"
+msgstr "任务池的种类"
+
+#: ../../document/pages/task_pool.md:11
+msgid "Now there are 6 kinds of task pool:"
+msgstr "当前版本有六种任务池类"
+
+#: ../../document/pages/task_pool.md:13
+msgid "worker number fixed task pool"
+msgstr "固定执行器数量的任务池"
+
+#: ../../document/pages/task_pool.md:15
+msgid "AioFixedTaskPoolSimple"
+msgstr ""
+
+#: ../../document/pages/task_pool.md:16
+msgid "AioFixedTaskPoolLifo"
+msgstr ""
+
+#: ../../document/pages/task_pool.md:17
+msgid "AioFixedTaskPoolPriority"
+msgstr ""
+
+#: ../../document/pages/task_pool.md:20
+msgid "worker number auto scale task pool"
+msgstr "执行器数量会自动扩张收缩的任务池"
+
+#: ../../document/pages/task_pool.md:22
+msgid "AioAutoScaleTaskPoolSimple"
+msgstr ""
+
+#: ../../document/pages/task_pool.md:23
+msgid "AioAutoScaleTaskPoolLifo"
+msgstr ""
+
+#: ../../document/pages/task_pool.md:24
+msgid "AioAutoScaleTaskPoolPriority"
+msgstr ""
+
+#: ../../document/pages/task_pool.md:27
+msgid "How to use"
+msgstr "如何使用"
+
+#: ../../document/pages/task_pool.md:29
+msgid "All of them can use as asynchronous context manager."
+msgstr "所有的任务池类型对象都支持python的异步上下文管理器协议."
+
+#: ../../document/pages/task_pool.md:52
+msgid ""
+"Task pools can also deal with a normal function, but it will be run in a "
+"concurrent.futures.Executor"
+msgstr "任务池也可以处理常规的python任务,只不过需要借助`concurrent.futures.Executor`的实例."
+
+#: ../../document/pages/task_pool.md:76
+msgid ""
+"Of course you can just use start and close to manage the task pool's Life"
+" Cycle."
+msgstr "当然你也可以使用接口`start`和`close`来管理任务池对象的生命周期."
+
+#: ../../document/pages/task_pool.md:94
+msgid "Operations"
+msgstr "操作"
+
+#: ../../document/pages/task_pool.md:96
+msgid "There are only 3 Operations:"
+msgstr "只有3种操作"
+
+#: ../../document/pages/task_pool.md:98
+msgid "submit Submit a task to the task pool."
+msgstr "`submit` 提交一个任务到任务池"
+
+#: ../../document/pages/task_pool.md:104
+msgid ""
+"If you use a Priority task pool, you can submit with a int param weight, "
+"the more small the more fast to be execut."
+msgstr "如果你使用的是优先级任务池,你可以加入一个额外的参数`weight`,这个参数越小就越优先."
+
+#: ../../document/pages/task_pool.md:110
+msgid ""
+"scale Scale the worker's number to increase/decrease the "
+"parallelism.number must be a int,if it's negative,task pool will decrease"
+" the parallelism."
+msgstr "`scale` 伸缩任务池的并行度.可以接受一个负数作为参数,意味降低并行度"
+
+#: ../../document/pages/task_pool.md:116
+msgid ""
+"pause Pause/unpause the task pool to manange if user can submit task.You "
+"can use paused to check if you can submit tasks."
+msgstr "`pause` 任务池暂停/取消暂停提交任务.我们也可以使用`paused`来查看是否是暂停状态."
+

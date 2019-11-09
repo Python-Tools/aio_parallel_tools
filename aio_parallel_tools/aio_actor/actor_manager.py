@@ -11,10 +11,9 @@ class ActorManagerRegister(type):
         return cls
 
 
-def actor_size(class_name: str):
-    actor_type = _registry_class.get(class_name).Len()
-    return len(actor_type)
+def has_actor():
+    return list(_registry_class.keys())
 
 
-def get_one_actor(class_name):
-    pass
+def get_actor(class_name):
+    return _registry_class.get(class_name)

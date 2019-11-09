@@ -59,7 +59,7 @@ msgstr ""
 #: aio_parallel_tools.aio_task_pool.core.mixins.worker_manager_mixin.autoscale_worker_manager_mixin.AutoScaleWorkerManagerMixin:6
 #: aio_parallel_tools.aio_task_pool.core.mixins.worker_manager_mixin.fix_worker_manager_mixin.FixedWorkerManagerMixin:6
 #: of
-msgid "queue (Property): msg queue."
+msgid "queue (Property): message queue."
 msgstr ""
 
 #: aio_parallel_tools.aio_task_pool.core.mixins.worker_manager_mixin.autoscale_worker_manager_mixin.AutoScaleWorkerManagerMixin:8

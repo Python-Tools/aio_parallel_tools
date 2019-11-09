@@ -20,11 +20,11 @@ class HooksMixin:
         """Execute after actor close."""
         pass
 
-    async def before_deal_rev(self, msg):
+    async def before_deal_rev(self, message):
         """每次处理收到的消息前执行的钩子."""
-        return msg
+        return message
 
-    async def after_deal_rev(self, msg, result):
+    async def after_deal_rev(self, message, result):
         """每次处理收到的消息后执行的钩子."""
         pass
 

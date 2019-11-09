@@ -102,13 +102,13 @@
 
 <dl class="method">
 <dt id="aio_parallel_tools.aio_actor.actor_abc.ActorABC.send">
-<em class="property">abstract async </em><code class="sig-name descname">send</code><span class="sig-paren">(</span><em class="sig-param">msg</em>, <em class="sig-param">timeout=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aio_parallel_tools/aio_actor/actor_abc.html#ActorABC.send"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#aio_parallel_tools.aio_actor.actor_abc.ActorABC.send" title="永久链接至目标">¶</a></dt>
+<em class="property">abstract async </em><code class="sig-name descname">send</code><span class="sig-paren">(</span><em class="sig-param">message</em>, <em class="sig-param">timeout=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aio_parallel_tools/aio_actor/actor_abc.html#ActorABC.send"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#aio_parallel_tools.aio_actor.actor_abc.ActorABC.send" title="永久链接至目标">¶</a></dt>
 <dd><p>Send a message to the actor.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="aio_parallel_tools.aio_actor.actor_abc.ActorABC.send_nowait">
-<em class="property">abstract </em><code class="sig-name descname">send_nowait</code><span class="sig-paren">(</span><em class="sig-param">msg</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aio_parallel_tools/aio_actor/actor_abc.html#ActorABC.send_nowait"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#aio_parallel_tools.aio_actor.actor_abc.ActorABC.send_nowait" title="永久链接至目标">¶</a></dt>
+<em class="property">abstract </em><code class="sig-name descname">send_nowait</code><span class="sig-paren">(</span><em class="sig-param">message</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aio_parallel_tools/aio_actor/actor_abc.html#ActorABC.send_nowait"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#aio_parallel_tools.aio_actor.actor_abc.ActorABC.send_nowait" title="永久链接至目标">¶</a></dt>
 <dd><p>Send a message to the actor</p>
 </dd></dl>
 
@@ -177,7 +177,7 @@
 
 <dl class="method">
 <dt id="aio_parallel_tools.aio_actor.actor_basic_copy.Actor.before_deal_rev">
-<em class="property">async </em><code class="sig-name descname">before_deal_rev</code><span class="sig-paren">(</span><em class="sig-param">msg</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aio_parallel_tools/aio_actor/actor_basic_copy.html#Actor.before_deal_rev"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#aio_parallel_tools.aio_actor.actor_basic_copy.Actor.before_deal_rev" title="永久链接至目标">¶</a></dt>
+<em class="property">async </em><code class="sig-name descname">before_deal_rev</code><span class="sig-paren">(</span><em class="sig-param">message</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aio_parallel_tools/aio_actor/actor_basic_copy.html#Actor.before_deal_rev"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#aio_parallel_tools.aio_actor.actor_basic_copy.Actor.before_deal_rev" title="永久链接至目标">¶</a></dt>
 <dd><p>每次处理收到的消息前执行的钩子.</p>
 </dd></dl>
 
@@ -204,7 +204,7 @@
 
 <dl class="method">
 <dt id="aio_parallel_tools.aio_actor.actor_basic_copy.Actor.handle_send_timeout">
-<em class="property">async </em><code class="sig-name descname">handle_send_timeout</code><span class="sig-paren">(</span><em class="sig-param">msg</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aio_parallel_tools/aio_actor/actor_basic_copy.html#Actor.handle_send_timeout"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#aio_parallel_tools.aio_actor.actor_basic_copy.Actor.handle_send_timeout" title="永久链接至目标">¶</a></dt>
+<em class="property">async </em><code class="sig-name descname">handle_send_timeout</code><span class="sig-paren">(</span><em class="sig-param">message</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aio_parallel_tools/aio_actor/actor_basic_copy.html#Actor.handle_send_timeout"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#aio_parallel_tools.aio_actor.actor_basic_copy.Actor.handle_send_timeout" title="永久链接至目标">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -215,13 +215,13 @@
 
 <dl class="method">
 <dt id="aio_parallel_tools.aio_actor.actor_basic_copy.Actor.send">
-<em class="property">async </em><code class="sig-name descname">send</code><span class="sig-paren">(</span><em class="sig-param">msg</em>, <em class="sig-param">timeout=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aio_parallel_tools/aio_actor/actor_basic_copy.html#Actor.send"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#aio_parallel_tools.aio_actor.actor_basic_copy.Actor.send" title="永久链接至目标">¶</a></dt>
+<em class="property">async </em><code class="sig-name descname">send</code><span class="sig-paren">(</span><em class="sig-param">message</em>, <em class="sig-param">timeout=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aio_parallel_tools/aio_actor/actor_basic_copy.html#Actor.send"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#aio_parallel_tools.aio_actor.actor_basic_copy.Actor.send" title="永久链接至目标">¶</a></dt>
 <dd><p>Send a message to the actor</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="aio_parallel_tools.aio_actor.actor_basic_copy.Actor.send_nowait">
-<code class="sig-name descname">send_nowait</code><span class="sig-paren">(</span><em class="sig-param">msg</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aio_parallel_tools/aio_actor/actor_basic_copy.html#Actor.send_nowait"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#aio_parallel_tools.aio_actor.actor_basic_copy.Actor.send_nowait" title="永久链接至目标">¶</a></dt>
+<code class="sig-name descname">send_nowait</code><span class="sig-paren">(</span><em class="sig-param">message</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aio_parallel_tools/aio_actor/actor_basic_copy.html#Actor.send_nowait"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#aio_parallel_tools.aio_actor.actor_basic_copy.Actor.send_nowait" title="永久链接至目标">¶</a></dt>
 <dd><p>Send a message to the actor</p>
 </dd></dl>
 

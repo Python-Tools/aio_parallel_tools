@@ -66,7 +66,7 @@ class TaskMixin:
                 await self.after_every_loop()
 
     async def handle_rev_timeout(self):
-        warnings.warn(f"actor {self.__class__.__name__} rev msg timeout", ActorTimeoutWarning)
+        warnings.warn(f"actor {self.__class__.__name__} rev message timeout", ActorTimeoutWarning)
 
     def task_done_callback(self, fut):
         try:

@@ -4,8 +4,8 @@ import random
 
 async def worker(q):
     while True:
-        msg = await q.get()
-        print(msg)
+        message = await q.get()
+        print(message)
         await asyncio.sleep(1)
 
 

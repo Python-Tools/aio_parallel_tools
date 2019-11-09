@@ -48,9 +48,9 @@
         <span class="sd">&quot;&quot;&quot;actor关闭后执行的钩子.&quot;&quot;&quot;</span>
         <span class="k">pass</span></div>
 
-<div class="viewcode-block" id="HooksMixin.before_deal_rev"><a class="viewcode-back" href="../../../../aio_parallel_tools.aio_actor.mixins.html#aio_parallel_tools.aio_actor.mixins.hooks_mixin.HooksMixin.before_deal_rev">[docs]</a>    <span class="k">async</span> <span class="k">def</span> <span class="nf">before_deal_rev</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">msg</span><span class="p">):</span>
+<div class="viewcode-block" id="HooksMixin.before_deal_rev"><a class="viewcode-back" href="../../../../aio_parallel_tools.aio_actor.mixins.html#aio_parallel_tools.aio_actor.mixins.hooks_mixin.HooksMixin.before_deal_rev">[docs]</a>    <span class="k">async</span> <span class="k">def</span> <span class="nf">before_deal_rev</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;每次处理收到的消息前执行的钩子.&quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="n">msg</span></div>
+        <span class="k">return</span> <span class="n">message</span></div>
 
 <div class="viewcode-block" id="HooksMixin.after_deal_rev"><a class="viewcode-back" href="../../../../aio_parallel_tools.aio_actor.mixins.html#aio_parallel_tools.aio_actor.mixins.hooks_mixin.HooksMixin.after_deal_rev">[docs]</a>    <span class="k">async</span> <span class="k">def</span> <span class="nf">after_deal_rev</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">result</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;每次处理收到的消息后执行的钩子.&quot;&quot;&quot;</span>

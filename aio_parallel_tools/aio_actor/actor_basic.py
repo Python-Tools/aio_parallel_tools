@@ -1,3 +1,4 @@
+"""Async Actor Tool."""
 import warnings
 import uuid
 import asyncio
@@ -15,10 +16,13 @@ from aio_parallel_tools.aio_actor.exception_and_warning import InboxNearllyFullW
 from aio_parallel_tools.aio_actor.signal import ActorExit
 
 
-class AioActor(ManageMixin, InboxMixin, TaskMixin, HooksMixin, IdentifyMixin, LoopMixin, ActorABC):
+class AioActor(ManageMixin, InboxMixin, TaskMixin, HooksMixin, IdentifyMixin, LoopMixin, ActorABC, metaclass=ActorManagerRegister):
+    """[summary]
+    
+
+    """
 
     def __init__(self, inbox_maxsize=0, loop=None, rev_timeout=None):
-        
         ActorABC.__init__(self)
         LoopMixin.__init__(self, loop=loop)
         ManageMixin.__init__(self)
@@ -26,7 +30,6 @@ class AioActor(ManageMixin, InboxMixin, TaskMixin, HooksMixin, IdentifyMixin, Lo
         HooksMixin.__init__(self)
         TaskMixin.__init__(self, rev_timeout=rev_timeout)
         InboxMixin.__init__(self, inbox_maxsize=inbox_maxsize)
-        
 
     @property
     def available(self):
@@ -41,7 +44,7 @@ class AioActor(ManageMixin, InboxMixin, TaskMixin, HooksMixin, IdentifyMixin, Lo
         if self.paused:
             return False
         if self.inbox_maxsize > 3 and self.inbox_maxsize > self.inbox.qsize() >= int(self.inbox_maxsize * 0.8):
-            warnings.warn(f"inbox {self.id} nearly full", InboxNearllyFullWarning)
+            warnings.warn(f"inbox {self.aid} nearly full", InboxNearllyFullWarning)
         return True
 
     async def close(self, timeout=None):

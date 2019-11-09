@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: aio_parallel_tools 0.0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-11-07 10:13+0800\n"
+"POT-Creation-Date: 2019-11-09 17:53+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -34,25 +34,6 @@ msgstr ""
 msgid "aio\\_parallel\\_tools.aio\\_actor.actor\\_abc module"
 msgstr ""
 
-#: aio_parallel_tools.aio_actor.actor_abc.ActorABC:1 of
-msgid "基类：:class:`abc.ABC`"
-msgstr ""
-
-#: aio_parallel_tools.aio_actor.actor_abc.ActorABC.receive:1
-#: aio_parallel_tools.aio_actor.actor_basic_copy.Actor.receive:1 of
-msgid "Define in your subclass."
-msgstr ""
-
-#: aio_parallel_tools.aio_actor.actor_abc.ActorABC.send:1 of
-msgid "Send a message to the actor."
-msgstr ""
-
-#: aio_parallel_tools.aio_actor.actor_abc.ActorABC.send_nowait:1
-#: aio_parallel_tools.aio_actor.actor_basic_copy.Actor.send:1
-#: aio_parallel_tools.aio_actor.actor_basic_copy.Actor.send_nowait:1 of
-msgid "Send a message to the actor"
-msgstr ""
-
 #: ../../document/aio_parallel_tools.aio_actor.rst:23
 msgid "aio\\_parallel\\_tools.aio\\_actor.actor\\_basic module"
 msgstr ""
@@ -61,61 +42,8 @@ msgstr ""
 msgid "aio\\_parallel\\_tools.aio\\_actor.actor\\_basic\\_copy module"
 msgstr ""
 
-#: aio_parallel_tools.aio_actor.actor_basic_copy.Actor:1 of
-msgid "基类：:class:`object`"
-msgstr ""
-
-#: aio_parallel_tools.aio_actor.actor_basic_copy.Actor.after_actor_close:1 of
-msgid "actor关闭后执行的钩子."
-msgstr ""
-
-#: aio_parallel_tools.aio_actor.actor_basic_copy.Actor.after_actor_start:1 of
-msgid "actor启动后执行的钩子."
-msgstr ""
-
-#: aio_parallel_tools.aio_actor.actor_basic_copy.Actor.after_deal_rev:1 of
-msgid "每次处理收到的消息后执行的钩子."
-msgstr ""
-
-#: aio_parallel_tools.aio_actor.actor_basic_copy.Actor.after_every_loop:1 of
-msgid "每个循环执行后执行的钩子."
-msgstr ""
-
-#: aio_parallel_tools.aio_actor.actor_basic_copy.Actor.befor_actor_colse:1 of
-msgid "actor关闭前执行的钩子."
-msgstr ""
-
-#: aio_parallel_tools.aio_actor.actor_basic_copy.Actor.before_actor_start:1 of
-msgid "actor启动前执行的钩子."
-msgstr ""
-
-#: aio_parallel_tools.aio_actor.actor_basic_copy.Actor.before_deal_rev:1 of
-msgid "每次处理收到的消息前执行的钩子."
-msgstr ""
-
-#: aio_parallel_tools.aio_actor.actor_basic_copy.Actor.before_every_loop:1 of
-msgid "每个循环执行前执行的钩子."
-msgstr ""
-
-#: aio_parallel_tools.aio_actor.actor_basic_copy.ActorExit:1
-#: aio_parallel_tools.aio_actor.signal.ActorExit:1 of
-msgid "基类：:class:`Exception`"
-msgstr ""
-
-#: aio_parallel_tools.aio_actor.actor_basic_copy.ActorTimeoutWarning:1
-#: aio_parallel_tools.aio_actor.actor_basic_copy.InboxNearllyFullWarning:1
-#: aio_parallel_tools.aio_actor.exception_and_warning.ActorTimeoutWarning:1
-#: aio_parallel_tools.aio_actor.exception_and_warning.InboxNearllyFullWarning:1
-#: of
-msgid "基类：:class:`Warning`"
-msgstr ""
-
 #: ../../document/aio_parallel_tools.aio_actor.rst:39
 msgid "aio\\_parallel\\_tools.aio\\_actor.actor\\_manager module"
-msgstr ""
-
-#: aio_parallel_tools.aio_actor.actor_manager.ActorManagerRegister:1 of
-msgid "基类：:class:`type`"
 msgstr ""
 
 #: ../../document/aio_parallel_tools.aio_actor.rst:47
@@ -126,6 +54,22 @@ msgstr ""
 msgid "Exceptions and warnings."
 msgstr ""
 
+#: aio_parallel_tools.aio_actor.exception_and_warning.ActorIsPaused:1
+#: aio_parallel_tools.aio_actor.exception_and_warning.NoAvailableActor:1
+#: aio_parallel_tools.aio_actor.signal.ActorExit:1 of
+msgid "基类：:class:`Exception`"
+msgstr ""
+
+#: aio_parallel_tools.aio_actor.exception_and_warning.ActorIsPaused:1 of
+msgid "Actor is Paused."
+msgstr ""
+
+#: aio_parallel_tools.aio_actor.exception_and_warning.ActorTimeoutWarning:1
+#: aio_parallel_tools.aio_actor.exception_and_warning.InboxNearllyFullWarning:1
+#: of
+msgid "基类：:class:`Warning`"
+msgstr ""
+
 #: aio_parallel_tools.aio_actor.exception_and_warning.ActorTimeoutWarning:1 of
 msgid "Actor Timeout Warning."
 msgstr ""
@@ -133,6 +77,10 @@ msgstr ""
 #: aio_parallel_tools.aio_actor.exception_and_warning.InboxNearllyFullWarning:1
 #: of
 msgid "Inbox Nearlly Full Warning."
+msgstr ""
+
+#: aio_parallel_tools.aio_actor.exception_and_warning.NoAvailableActor:1 of
+msgid "No Available Actor."
 msgstr ""
 
 #: ../../document/aio_parallel_tools.aio_actor.rst:55
@@ -164,5 +112,47 @@ msgstr ""
 #~ msgstr ""
 
 #~ msgid "Bases: :class:`type`"
+#~ msgstr ""
+
+#~ msgid "基类：:class:`abc.ABC`"
+#~ msgstr ""
+
+#~ msgid "Define in your subclass."
+#~ msgstr ""
+
+#~ msgid "Send a message to the actor."
+#~ msgstr ""
+
+#~ msgid "Send a message to the actor"
+#~ msgstr ""
+
+#~ msgid "基类：:class:`object`"
+#~ msgstr ""
+
+#~ msgid "actor关闭后执行的钩子."
+#~ msgstr ""
+
+#~ msgid "actor启动后执行的钩子."
+#~ msgstr ""
+
+#~ msgid "每次处理收到的消息后执行的钩子."
+#~ msgstr ""
+
+#~ msgid "每个循环执行后执行的钩子."
+#~ msgstr ""
+
+#~ msgid "actor关闭前执行的钩子."
+#~ msgstr ""
+
+#~ msgid "actor启动前执行的钩子."
+#~ msgstr ""
+
+#~ msgid "每次处理收到的消息前执行的钩子."
+#~ msgstr ""
+
+#~ msgid "每个循环执行前执行的钩子."
+#~ msgstr ""
+
+#~ msgid "基类：:class:`type`"
 #~ msgstr ""
 

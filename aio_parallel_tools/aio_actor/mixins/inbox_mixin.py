@@ -64,27 +64,27 @@ class InboxMixin:
                 self.inbox.task_done()
         return result
 
-    def send_nowait(self, msg) -> None:
+    def send_nowait(self, message) -> None:
         '''
         Send a message to the actor
         '''
         if self.paused:
             raise ActorIsPaused("choose another to send")
-        self.inbox.put_nowait(msg)
+        self.inbox.put_nowait(message)
 
-    async def send(self, msg, timeout=None) -> None:
+    async def send(self, message, timeout=None) -> None:
         '''Send a message to the actor.'''
         if self.paused:
             raise ActorIsPaused("choose another to send")
         if not timeout:
-            await self.inbox.put(msg)
+            await self.inbox.put(message)
         else:
             try:
-                await asyncio.wait_for(self.inbox.put(msg), timeout=timeout)
+                await asyncio.wait_for(self.inbox.put(message), timeout=timeout)
             except asyncio.TimeoutError:
-                await self.handle_send_timeout(msg)
+                await self.handle_send_timeout(message)
             except Exception as e:
                 raise e
 
-    async def handle_send_timeout(self, msg):
-        warnings.warn(f"msg {msg} send timeout", ActorTimeoutWarning)
+    async def handle_send_timeout(self, message):
+        warnings.warn(f"message {message} send timeout", ActorTimeoutWarning)

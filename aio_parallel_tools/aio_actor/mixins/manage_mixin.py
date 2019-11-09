@@ -45,27 +45,27 @@ class ManageMixin:
         return result
 
     @classmethod
-    async def Send(cls: ActorABC, msg: Any, timeout=None):
+    async def Send(cls: ActorABC, message: Any, timeout=None):
         candidates = cls.BestToSendScope()
         if len(candidates) > 0:
             ins = candidates[0]
-            await ins.send(msg, timeout)
+            await ins.send(message, timeout)
         else:
             raise NoAvailableActor("No Available Actor.")
 
     @classmethod
-    async def SendRandom(cls: ActorABC, msg: Any, timeout=None):
+    async def SendRandom(cls: ActorABC, message: Any, timeout=None):
         candidates = cls.AvailableScope()
         if len(candidates) > 0:
             ins = random.choice(candidates)
-            await ins.send(msg, timeout)
+            await ins.send(message, timeout)
         else:
             raise NoAvailableActor("No Available Actor.")
 
     @classmethod
-    async def Publish(cls: ActorABC, msg: Any, timeout=None):
+    async def Publish(cls: ActorABC, message: Any, timeout=None):
         candidates = cls.AvailableScope()
-        await asyncio.gather(*[ins.send(msg, timeout) for ins in candidates])
+        await asyncio.gather(*[ins.send(message, timeout) for ins in candidates])
 
     @classmethod
     def FindById(cls: ActorABC, aid: str):
@@ -73,11 +73,11 @@ class ManageMixin:
         return [i for i in candidates if i.aid == aid]
 
     @classmethod
-    async def SendById(cls: ActorABC, aid: str, msg: Any, timeout=None):
+    async def SendById(cls: ActorABC, aid: str, message: Any, timeout=None):
         candidates = cls.FindById(aid)
         if len(candidates) > 0:
             ins = [0]
-            await ins.send(msg, timeout)
+            await ins.send(message, timeout)
         else:
             raise NoAvailableActor("No Available Actor.")
 

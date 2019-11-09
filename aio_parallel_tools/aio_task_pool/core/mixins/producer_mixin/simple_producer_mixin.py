@@ -12,7 +12,7 @@ class SimpleProducerMixin:
 
     Requirement: 
 
-        queue (Property): msg queue.
+        queue (Property): message queue.
 
         loop (Property): event loop.
 
@@ -118,12 +118,12 @@ class SimpleProducerMixin:
         if not self.paused:
             task = self._make_task(task_func, func_args, func_kwargs)
             fut = task.fut
-            msg = self.make_message(task, **kwargs)
+            message = self.make_message(task, **kwargs)
             if blocking:
-                await self.queue.put(msg)
+                await self.queue.put(message)
                 return await fut
             else:
-                asyncio.create_task(self.queue.put(msg))
+                asyncio.create_task(self.queue.put(message))
                 return fut
         else:
             raise NotAvailable("task pool is paused")
@@ -152,9 +152,9 @@ class SimpleProducerMixin:
         if not self.paused:
             task = self._make_task(task_func, func_args, func_kwargs)
             fut = task.fut
-            msg = self.make_message(task, **kwargs)
+            message = self.make_message(task, **kwargs)
             try:
-                self.queue.put_nowait(msg)
+                self.queue.put_nowait(message)
             except asyncio.QueueFull as qfe:
                 raise NotAvailable("task pool can not put task any more")
             except Exception as e:

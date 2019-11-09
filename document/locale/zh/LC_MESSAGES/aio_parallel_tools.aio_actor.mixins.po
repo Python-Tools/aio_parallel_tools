@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: aio_parallel_tools 0.0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-11-07 10:13+0800\n"
+"POT-Creation-Date: 2019-11-09 17:53+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -30,23 +30,27 @@ msgstr ""
 msgid "aio\\_parallel\\_tools.aio\\_actor.mixins.hooks\\_mixin module"
 msgstr ""
 
+#: aio_parallel_tools.aio_actor.mixins.hooks_mixin:1
+#: aio_parallel_tools.aio_actor.mixins.hooks_mixin.HooksMixin:1 of
+msgid "Define all hooks."
+msgstr ""
+
 #: aio_parallel_tools.aio_actor.mixins.hooks_mixin.HooksMixin:1
 #: aio_parallel_tools.aio_actor.mixins.id_mixin.IdentifyMixin:1
 #: aio_parallel_tools.aio_actor.mixins.inbox_mixin.InboxMixin:1
 #: aio_parallel_tools.aio_actor.mixins.loop_mixin.LoopMixin:1
-#: aio_parallel_tools.aio_actor.mixins.manage_mixin.ManageMixin:1
 #: aio_parallel_tools.aio_actor.mixins.task_mixin.TaskMixin:1 of
 msgid "基类：:class:`object`"
 msgstr ""
 
 #: aio_parallel_tools.aio_actor.mixins.hooks_mixin.HooksMixin.after_actor_close:1
 #: of
-msgid "actor关闭后执行的钩子."
+msgid "Execute after actor close."
 msgstr ""
 
 #: aio_parallel_tools.aio_actor.mixins.hooks_mixin.HooksMixin.after_actor_start:1
 #: of
-msgid "actor启动后执行的钩子."
+msgid "Execute after actor start."
 msgstr ""
 
 #: aio_parallel_tools.aio_actor.mixins.hooks_mixin.HooksMixin.after_deal_rev:1
@@ -61,12 +65,12 @@ msgstr ""
 
 #: aio_parallel_tools.aio_actor.mixins.hooks_mixin.HooksMixin.befor_actor_colse:1
 #: of
-msgid "actor关闭前执行的钩子."
+msgid "Execute before actor close."
 msgstr ""
 
 #: aio_parallel_tools.aio_actor.mixins.hooks_mixin.HooksMixin.before_actor_start:1
 #: of
-msgid "actor启动前执行的钩子."
+msgid "Execute before actor start."
 msgstr ""
 
 #: aio_parallel_tools.aio_actor.mixins.hooks_mixin.HooksMixin.before_deal_rev:1
@@ -85,6 +89,42 @@ msgstr ""
 
 #: ../../document/aio_parallel_tools.aio_actor.mixins.rst:24
 msgid "aio\\_parallel\\_tools.aio\\_actor.mixins.inbox\\_mixin module"
+msgstr ""
+
+#: aio_parallel_tools.aio_actor.mixins.inbox_mixin.InboxMixin.clean_inbox:1 of
+msgid "Clean the Actor's inbox."
+msgstr ""
+
+#: aio_parallel_tools.aio_actor.mixins.inbox_mixin.InboxMixin.clean_inbox of
+msgid "引发"
+msgstr ""
+
+#: aio_parallel_tools.aio_actor.mixins.inbox_mixin.InboxMixin.clean_inbox:3 of
+msgid "exception unknown"
+msgstr ""
+
+#: aio_parallel_tools.aio_actor.mixins.inbox_mixin.InboxMixin.clean_inbox of
+msgid "返回"
+msgstr ""
+
+#: aio_parallel_tools.aio_actor.mixins.inbox_mixin.InboxMixin.clean_inbox:5 of
+msgid "the rest message not deal with."
+msgstr ""
+
+#: aio_parallel_tools.aio_actor.mixins.inbox_mixin.InboxMixin.clean_inbox of
+msgid "返回类型"
+msgstr ""
+
+#: aio_parallel_tools.aio_actor.mixins.inbox_mixin.InboxMixin.close_accept:1 of
+msgid "Close accept message."
+msgstr ""
+
+#: aio_parallel_tools.aio_actor.mixins.inbox_mixin.InboxMixin.inbox:1 of
+msgid "The Actor's message box."
+msgstr ""
+
+#: aio_parallel_tools.aio_actor.mixins.inbox_mixin.InboxMixin.paused:1 of
+msgid "Check if the Actor is paused."
 msgstr ""
 
 #: aio_parallel_tools.aio_actor.mixins.inbox_mixin.InboxMixin.send:1 of
@@ -112,5 +152,17 @@ msgid "Module contents"
 msgstr ""
 
 #~ msgid "Bases: :class:`object`"
+#~ msgstr ""
+
+#~ msgid "actor关闭后执行的钩子."
+#~ msgstr ""
+
+#~ msgid "actor启动后执行的钩子."
+#~ msgstr ""
+
+#~ msgid "actor关闭前执行的钩子."
+#~ msgstr ""
+
+#~ msgid "actor启动前执行的钩子."
 #~ msgstr ""
 

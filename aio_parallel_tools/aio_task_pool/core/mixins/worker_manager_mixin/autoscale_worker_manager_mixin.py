@@ -19,7 +19,7 @@ class AutoScaleWorkerManagerMixin:
     Requirement:
         loop (Property): event loop.
 
-        queue (Property): msg queue.
+        queue (Property): message queue.
 
         make_close_signal (Method): Make close signal to send.
 
@@ -228,9 +228,9 @@ class AutoScaleWorkerManagerMixin:
 
     async def _worker(self) -> None:
         while True:
-            msg = await self.queue.get()
+            message = await self.queue.get()
             try:
-                message = self.parser_message(msg)
+                message = self.parser_message(message)
                 if message is WorkerCloseSignal:
                     break
                 else:
@@ -266,13 +266,13 @@ class AutoScaleWorkerManagerMixin:
 
     async def _close_worker(self) -> None:
         """Send a close signal to a worker."""
-        msg = self.make_close_signal()
-        await self.queue.put(msg)
+        message = self.make_close_signal()
+        await self.queue.put(message)
 
     def _close_worker_nowait(self) -> None:
         """Send a close signal to a worker with no waiting."""
-        msg = self.make_close_signal()
-        self.queue.put_nowait(msg)
+        message = self.make_close_signal()
+        self.queue.put_nowait(message)
 
     async def close_workers(self):
         """Send worker pool size's close signal to the queue."""

@@ -48,7 +48,7 @@ msgstr ""
 
 #: aio_parallel_tools.aio_task_pool.core.mixins.producer_mixin.simple_producer_mixin.SimpleProducerMixin:5
 #: of
-msgid "queue (Property): msg queue."
+msgid "queue (Property): message queue."
 msgstr ""
 
 #: aio_parallel_tools.aio_task_pool.core.mixins.producer_mixin.simple_producer_mixin.SimpleProducerMixin:7

@@ -6,5 +6,5 @@ class IdentifyMixin:
         self._id = str(uuid.uuid4())
 
     @property
-    def id(self):
+    def aid(self):
         return self._id

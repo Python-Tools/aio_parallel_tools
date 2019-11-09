@@ -1,5 +1,6 @@
 import asyncio
 import warnings
+from typing import List, Any
 from aio_parallel_tools.aio_actor.exception_and_warning import ActorTimeoutWarning, ActorIsPaused
 from aio_parallel_tools.aio_actor.signal import ActorExit
 
@@ -84,12 +85,6 @@ class InboxMixin:
                 await self.handle_send_timeout(msg)
             except Exception as e:
                 raise e
-
-    async def throw_error(self, error, timeout=None):
-        await self.send(error, timeout=timeout)
-
-    def throw_error_nowait(self, error):
-        self.send_nowait(error)
 
     async def handle_send_timeout(self, msg):
         warnings.warn(f"msg {msg} send timeout", ActorTimeoutWarning)

@@ -7,6 +7,7 @@ from aio_parallel_tools.aio_actor.mixins.id_mixin import IdentifyMixin
 from aio_parallel_tools.aio_actor.mixins.inbox_mixin import InboxMixin
 from aio_parallel_tools.aio_actor.mixins.task_mixin import TaskMixin
 from aio_parallel_tools.aio_actor.mixins.loop_mixin import LoopMixin
+from aio_parallel_tools.aio_actor.mixins.manage_mixin import ManageMixin
 
 from aio_parallel_tools.aio_actor.actor_abc import ActorABC
 from aio_parallel_tools.aio_actor.actor_manager import ActorManagerRegister
@@ -14,16 +15,18 @@ from aio_parallel_tools.aio_actor.exception_and_warning import InboxNearllyFullW
 from aio_parallel_tools.aio_actor.signal import ActorExit
 
 
-class Actor(InboxMixin, TaskMixin, HooksMixin, IdentifyMixin, LoopMixin, ActorABC, metaclass=ActorManagerRegister):
+class AioActor(ManageMixin, InboxMixin, TaskMixin, HooksMixin, IdentifyMixin, LoopMixin, ActorABC):
 
     def __init__(self, inbox_maxsize=0, loop=None, rev_timeout=None):
-        self._loop = loop or asyncio.get_event_loop()
+        
         ActorABC.__init__(self)
         LoopMixin.__init__(self, loop=loop)
+        ManageMixin.__init__(self)
         IdentifyMixin.__init__(self)
         HooksMixin.__init__(self)
         TaskMixin.__init__(self, rev_timeout=rev_timeout)
         InboxMixin.__init__(self, inbox_maxsize=inbox_maxsize)
+        
 
     @property
     def available(self):
@@ -44,6 +47,7 @@ class Actor(InboxMixin, TaskMixin, HooksMixin, IdentifyMixin, LoopMixin, ActorAB
     async def close(self, timeout=None):
         await self.send(ActorExit, timeout=timeout)
         self.close_accept()
+        await self.close_task()
 
     def close_nowait(self):
         self.send_nowait(ActorExit)

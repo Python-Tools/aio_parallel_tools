@@ -2,6 +2,7 @@ import random
 import asyncio
 from typing import List, Any
 from aio_parallel_tools.aio_actor.actor_abc import ActorABC
+from aio_parallel_tools.aio_actor.exception_and_warning import NoAvailableActor
 
 
 class ManageMixin:
@@ -14,16 +15,16 @@ class ManageMixin:
         self.__class__.Members.remove(self)
 
     @classmethod
-    async def Start(cls: ActorABC, num: int, inbox_maxsize=0, loop=None, rev_timeout=None):
+    def Start(cls: ActorABC, num: int, inbox_maxsize=0, loop=None, rev_timeout=None):
         instances = [cls(inbox_maxsize=inbox_maxsize, loop=loop, rev_timeout=rev_timeout) for _ in range(num)]
-        await asyncio.gather(*[ins.start() for ins in instances])
+        [ins.start() for ins in instances]
 
     @classmethod
-    async def Restart(cls: ActorABC, num: int):
+    def Restart(cls: ActorABC, num: int):
         candidates = cls.NotAvailableScope()
         if len(candidates) > num:
             candidates = random.choices(candidates, num)
-        await asyncio.gather(*[ins.start() for ins in candidates])
+        [ins.start() for ins in candidates]
 
     @classmethod
     async def Close(cls: ActorABC, num: int):
@@ -33,28 +34,52 @@ class ManageMixin:
         await asyncio.gather(*[ins.close() for ins in candidates])
 
     @classmethod
-    async def Clean(cls: ActorABC):
+    def Clean(cls: ActorABC):
         """clean up all not running actors."""
         candidates = cls.NotRunningScope()
-        for candidate in candidates:
-            
-        await asyncio.gather(*[ins.close() for ins in candidates])
+        result = []
+        for ins in candidates:
+            result.append(ins.clean_inbox())
+            cls.Members.remove(ins)
+            del ins
+        return result
 
     @classmethod
-    def Send(cls: ActorABC, msg: Any):
-        pass
+    async def Send(cls: ActorABC, msg: Any, timeout=None):
+        candidates = cls.BestToSendScope()
+        if len(candidates) > 0:
+            ins = candidates[0]
+            await ins.send(msg, timeout)
+        else:
+            raise NoAvailableActor("No Available Actor.")
 
     @classmethod
-    def FindById(cls: ActorABC, id: Any):
-        pass
+    async def SendRandom(cls: ActorABC, msg: Any, timeout=None):
+        candidates = cls.AvailableScope()
+        if len(candidates) > 0:
+            ins = random.choice(candidates)
+            await ins.send(msg, timeout)
+        else:
+            raise NoAvailableActor("No Available Actor.")
 
     @classmethod
-    async def Scale(cls: ActorABC, number: int):
-        pass
+    async def Publish(cls: ActorABC, msg: Any, timeout=None):
+        candidates = cls.AvailableScope()
+        await asyncio.gather(*[ins.send(msg, timeout) for ins in candidates])
 
     @classmethod
-    async def Throw(cls: ActorABC, exception: Exception):
-        pass
+    def FindById(cls: ActorABC, aid: str):
+        candidates = list(cls.Members)
+        return [i for i in candidates if i.aid == aid]
+
+    @classmethod
+    async def SendById(cls: ActorABC, aid: str, msg: Any, timeout=None):
+        candidates = cls.FindById(aid)
+        if len(candidates) > 0:
+            ins = [0]
+            await ins.send(msg, timeout)
+        else:
+            raise NoAvailableActor("No Available Actor.")
 
     @classmethod
     def RunningScope(cls: ActorABC) -> List[ActorABC]:
@@ -81,7 +106,9 @@ class ManageMixin:
         return [i for i in list(cls.Members) if i.available is False]
 
     @classmethod
-    def Best_To_Send_Scope(cls: ActorABC, num: int) -> List[ActorABC]:
+    def BestToSendScope(cls: ActorABC, num: int = None) -> List[ActorABC]:
         candidates = cls.AvailableScope()
-        result = sorted(candidates, key=lambda x: x.inbox_size)[:num]
+        result = sorted(candidates, key=lambda x: x.inbox_size)
+        if num:
+            result = result[:num]
         return result

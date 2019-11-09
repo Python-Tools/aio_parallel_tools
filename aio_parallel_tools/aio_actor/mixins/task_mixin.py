@@ -10,6 +10,7 @@ class TaskMixin:
         self._rev_timeout = rev_timeout
         self._task = None
         self._running = False
+        self._actor_fut = None
 
     @property
     def running(self):
@@ -20,12 +21,13 @@ class TaskMixin:
         return self._task
 
     async def _run(self):
+
         await self.before_every_loop()
         self._running = True
         while self.running:
             await self.before_every_loop()
             try:
-                if self.rev_timeout is None:
+                if self._rev_timeout is None:
                     message = await self.inbox.get()
                 else:
                     message = await asyncio.wait_for(self.inbox.get(), timeout=self._rev_timeout)
@@ -38,7 +40,8 @@ class TaskMixin:
                         warnings.warn("actor closed")
                         self._running = False
                         self.befor_actor_colse()
-                        asyncio.current_task().cancel()
+                        # asyncio.current_task().cancel()
+                        break
                     elif isinstance(message, Exception):
                         self._running = False
                         self.befor_actor_colse()
@@ -47,7 +50,7 @@ class TaskMixin:
                         try:
                             result = await self.receive(message)
                         except Exception as e:
-                            warnings.warn(f"actor {self.__class__.__name__} receive error: {e}")
+                            warnings.warn(f"actor {self.__class__.__name__} receive {message} error:  {e}")
                             try:
                                 await self.after_deal_rev(message, e)
                             except Exception as e:
@@ -65,8 +68,22 @@ class TaskMixin:
     async def handle_rev_timeout(self):
         warnings.warn(f"actor {self.__class__.__name__} rev msg timeout", ActorTimeoutWarning)
 
+    def task_done_callback(self, fut):
+        try:
+            result = fut.result()
+        except Exception as e:
+            self._actor_fut.set_result(False)
+        else:
+            self._actor_fut.set_result(True)
+
+
     def start_task(self):
         if not self.running:
             task = asyncio.create_task(self._run())
+            self._actor_fut = self.loop.create_future()
             task.add_done_callback(self.after_actor_close)
+            task.add_done_callback(self.task_done_callback)
             self._task = task
+
+    async def close_task(self):
+        await self._actor_fut

@@ -56,6 +56,7 @@ Install
 Document
 -------------------
 
+https://python-tools.github.io/aio_parallel_tools/
 
 Change Log
 ------------------

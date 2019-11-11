@@ -43,6 +43,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_rev_timeout</span> <span class="o">=</span> <span class="n">rev_timeout</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_task</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_running</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_actor_fut</span> <span class="o">=</span> <span class="kc">None</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">running</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -53,41 +54,72 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_task</span>
 
     <span class="k">async</span> <span class="k">def</span> <span class="nf">_run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
         <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">before_every_loop</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_running</span> <span class="o">=</span> <span class="kc">True</span>
         <span class="k">while</span> <span class="bp">self</span><span class="o">.</span><span class="n">running</span><span class="p">:</span>
             <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">before_every_loop</span><span class="p">()</span>
             <span class="k">try</span><span class="p">:</span>
-                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">rev_timeout</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_rev_timeout</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
                     <span class="n">message</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">inbox</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
                 <span class="k">else</span><span class="p">:</span>
                     <span class="n">message</span> <span class="o">=</span> <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">wait_for</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">inbox</span><span class="o">.</span><span class="n">get</span><span class="p">(),</span> <span class="n">timeout</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_rev_timeout</span><span class="p">)</span>
             <span class="k">except</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">TimeoutError</span><span class="p">:</span>
                 <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">handle_rev_timeout</span><span class="p">()</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="n">message</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">before_deal_rev</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
-                <span class="k">if</span> <span class="n">message</span> <span class="ow">is</span> <span class="n">ActorExit</span><span class="p">:</span>
-                    <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">&quot;actor closed&quot;</span><span class="p">)</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">_running</span> <span class="o">=</span> <span class="kc">False</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">befor_actor_colse</span><span class="p">()</span>
-                    <span class="n">asyncio</span><span class="o">.</span><span class="n">current_task</span><span class="p">()</span><span class="o">.</span><span class="n">cancel</span><span class="p">()</span>
-                <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="ne">Exception</span><span class="p">):</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">_running</span> <span class="o">=</span> <span class="kc">False</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">befor_actor_colse</span><span class="p">()</span>
-                    <span class="k">raise</span> <span class="n">message</span>
-                <span class="k">else</span><span class="p">:</span>
-                    <span class="n">result</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">receive</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
-                    <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">after_deal_rev</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
-            <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">after_every_loop</span><span class="p">()</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">message</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">before_deal_rev</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="n">message</span> <span class="ow">is</span> <span class="n">ActorExit</span><span class="p">:</span>
+                        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">&quot;actor closed&quot;</span><span class="p">)</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">_running</span> <span class="o">=</span> <span class="kc">False</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">befor_actor_colse</span><span class="p">()</span>
+                        <span class="c1"># asyncio.current_task().cancel()</span>
+                        <span class="k">break</span>
+                    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="ne">Exception</span><span class="p">):</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">_running</span> <span class="o">=</span> <span class="kc">False</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">befor_actor_colse</span><span class="p">()</span>
+                        <span class="k">raise</span> <span class="n">message</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="k">try</span><span class="p">:</span>
+                            <span class="n">result</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">receive</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
+                        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;actor </span><span class="si">{self.__class__.__name__}</span><span class="s2"> receive </span><span class="si">{message}</span><span class="s2"> error:  </span><span class="si">{e}</span><span class="s2">&quot;</span><span class="p">)</span>
+                            <span class="k">try</span><span class="p">:</span>
+                                <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">after_deal_rev</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span>
+                            <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                                <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;actor </span><span class="si">{self.__class__.__name__}</span><span class="s2"> after deal rev error: </span><span class="si">{e}</span><span class="s2">&quot;</span><span class="p">)</span>
+                        <span class="k">else</span><span class="p">:</span>
+                            <span class="k">try</span><span class="p">:</span>
+                                <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">after_deal_rev</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="n">result</span><span class="p">)</span>
+                            <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                                <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;actor </span><span class="si">{self.__class__.__name__}</span><span class="s2"> after deal rev error: </span><span class="si">{e}</span><span class="s2">&quot;</span><span class="p">)</span>
+                <span class="k">finally</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">inbox</span><span class="o">.</span><span class="n">task_done</span><span class="p">()</span>
+            <span class="k">finally</span><span class="p">:</span>
+                <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">after_every_loop</span><span class="p">()</span>
 
 <div class="viewcode-block" id="TaskMixin.handle_rev_timeout"><a class="viewcode-back" href="../../../../aio_parallel_tools.aio_actor.mixins.html#aio_parallel_tools.aio_actor.mixins.task_mixin.TaskMixin.handle_rev_timeout">[文档]</a>    <span class="k">async</span> <span class="k">def</span> <span class="nf">handle_rev_timeout</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;actor </span><span class="si">{self.__class__.__name__}</span><span class="s2"> rev message timeout&quot;</span><span class="p">,</span> <span class="n">ActorTimeoutWarning</span><span class="p">)</span></div>
 
+<div class="viewcode-block" id="TaskMixin.task_done_callback"><a class="viewcode-back" href="../../../../aio_parallel_tools.aio_actor.mixins.html#aio_parallel_tools.aio_actor.mixins.task_mixin.TaskMixin.task_done_callback">[文档]</a>    <span class="k">def</span> <span class="nf">task_done_callback</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fut</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="n">fut</span><span class="o">.</span><span class="n">result</span><span class="p">()</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_actor_fut</span><span class="o">.</span><span class="n">set_result</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_actor_fut</span><span class="o">.</span><span class="n">set_result</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span></div>
+
+
 <div class="viewcode-block" id="TaskMixin.start_task"><a class="viewcode-back" href="../../../../aio_parallel_tools.aio_actor.mixins.html#aio_parallel_tools.aio_actor.mixins.task_mixin.TaskMixin.start_task">[文档]</a>    <span class="k">def</span> <span class="nf">start_task</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">task</span> <span class="o">=</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">create_task</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_run</span><span class="p">())</span>
-        <span class="n">task</span><span class="o">.</span><span class="n">add_done_callback</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">after_actor_close</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_task</span> <span class="o">=</span> <span class="n">task</span></div></div>
-    
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">running</span><span class="p">:</span>
+            <span class="n">task</span> <span class="o">=</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">create_task</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_run</span><span class="p">())</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_actor_fut</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">loop</span><span class="o">.</span><span class="n">create_future</span><span class="p">()</span>
+            <span class="n">task</span><span class="o">.</span><span class="n">add_done_callback</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">after_actor_close</span><span class="p">)</span>
+            <span class="n">task</span><span class="o">.</span><span class="n">add_done_callback</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">task_done_callback</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_task</span> <span class="o">=</span> <span class="n">task</span></div>
+
+<div class="viewcode-block" id="TaskMixin.close_task"><a class="viewcode-back" href="../../../../aio_parallel_tools.aio_actor.mixins.html#aio_parallel_tools.aio_actor.mixins.task_mixin.TaskMixin.close_task">[文档]</a>    <span class="k">async</span> <span class="k">def</span> <span class="nf">close_task</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_actor_fut</span></div></div>
 </pre></div>
 
           </div>
@@ -122,22 +154,31 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../../pages/task_pool.html#operations">操作</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../pages/actor_and_manager.html">Actor和其管理器</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../pages/actor_and_manager.html#how-to-use">如何使用</a></li>
+</ul>
+</li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../../aio_parallel_tools.html">模型信息</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../aio_parallel_tools.html">模块信息</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../../../aio_parallel_tools.aio_task_pool.html">aio_parallel_tools.aio_task_pool package</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../../../aio_parallel_tools.aio_task_pool.html#taskpools">任务池</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../aio_parallel_tools.aio_task_pool.html#module-aio_parallel_tools.aio_task_pool.aio_autoscale_task_pool_lifo">aio_autoscale_task_pool_lifo module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../aio_parallel_tools.aio_task_pool.html#module-aio_parallel_tools.aio_task_pool.aio_autoscale_task_pool_priority">aio_autoscale_task_pool_priority module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../aio_parallel_tools.aio_task_pool.html#module-aio_parallel_tools.aio_task_pool.aio_autoscale_task_pool_simple">aio_autoscale_task_pool_simple module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../aio_parallel_tools.aio_task_pool.html#module-aio_parallel_tools.aio_task_pool.aio_fixed_task_pool_lifo">aio_fixed_task_pool_lifo module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../aio_parallel_tools.aio_task_pool.html#module-aio_parallel_tools.aio_task_pool.aio_fixed_task_pool_priority">aio_fixed_task_pool_priority module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../aio_parallel_tools.aio_task_pool.html#module-aio_parallel_tools.aio_task_pool.aio_fixed_task_pool_simple">aio_fixed_task_pool_simple module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../aio_parallel_tools.aio_task_pool.html#module-aio_parallel_tools.aio_task_pool.aio_autoscale_task_pool_lifo">使用后进先出队列的自扩展异步任务池</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../aio_parallel_tools.aio_task_pool.html#module-aio_parallel_tools.aio_task_pool.aio_autoscale_task_pool_priority">使用优先级队列的异步自动扩展任务池</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../aio_parallel_tools.aio_task_pool.html#module-aio_parallel_tools.aio_task_pool.aio_autoscale_task_pool_simple">使用默认队列的异步自扩展任务池</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../aio_parallel_tools.aio_task_pool.html#module-aio_parallel_tools.aio_task_pool.aio_fixed_task_pool_lifo">使用后进先出队列的固定异步任务池</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../aio_parallel_tools.aio_task_pool.html#module-aio_parallel_tools.aio_task_pool.aio_fixed_task_pool_priority">使用优先级队列的固定异步任务池</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../aio_parallel_tools.aio_task_pool.html#module-aio_parallel_tools.aio_task_pool.aio_fixed_task_pool_simple">使用默认队列的固定异步任务池</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../aio_parallel_tools.aio_task_pool.html#task-pool-core-api">Task Pool Core API</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../../../aio_parallel_tools.aio_task_pool.core.html">接口</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../../aio_parallel_tools.aio_task_pool.core.html#mixins">混入类</a></li>
 </ul>
 </li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../aio_parallel_tools.aio_actor.html">aio_parallel_tools.aio_actor package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../aio_parallel_tools.aio_actor.html#module-aio_parallel_tools.aio_actor.actor_abc">Actor API</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../aio_parallel_tools.aio_actor.html#module-aio_parallel_tools.aio_actor.actor_basic">Base Class</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../aio_parallel_tools.aio_actor.html#module-aio_parallel_tools.aio_actor.actor_manager">Actor Manager</a></li>
 </ul>
 </li>
 </ul>
@@ -179,7 +220,7 @@
       &copy;2019, huangsizhe.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.2.1</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.1.2</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
     </div>

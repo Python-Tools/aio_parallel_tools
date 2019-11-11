@@ -1,21 +1,21 @@
 """Asynchronous Actor Abstract Base Class."""
 import abc
 import asyncio
-from typing import Any, List
+from typing import Any, List, Optional
 
 
 class ActorABC:
     """Asynchronous Actor Abstract Base Class."""
 
     @abc.abstractclassmethod
-    def Start(cls, num: int, inbox_maxsize=0, loop=None, rev_timeout=None):
+    def Start(cls, num: int, inbox_maxsize: int = 0, loop: Optional[asyncio.events.AbstractEventLoop] = None, rev_timeout: Optional[int] = None):
         """Create and start a number of actor.
 
         Args:
             num (int): The number of actor to create and start.
-            inbox_maxsize (int, optional): [description]. Defaults to 0.
-            loop ([type], optional): [description]. Defaults to None.
-            rev_timeout ([type], optional): [description]. Defaults to None.
+            inbox_maxsize (int, optional): inbox's Size. Defaults to 0.
+            loop (Optional[asyncio.events.AbstractEventLoop], optional): Event loop which the actors running on. Defaults to None.
+            rev_timeout ([int], optional): timeout for waiting for the recive function. Defaults to None.
 
         """
         return NotImplemented

@@ -1,17 +1,8 @@
 aio\_parallel\_tools.aio\_actor package
 =======================================
 
-Subpackages
------------
 
-.. toctree::
-
-   aio_parallel_tools.aio_actor.mixins
-
-Submodules
-----------
-
-aio\_parallel\_tools.aio\_actor.actor\_abc module
+Actor API
 -------------------------------------------------
 
 .. automodule:: aio_parallel_tools.aio_actor.actor_abc
@@ -19,7 +10,7 @@ aio\_parallel\_tools.aio\_actor.actor\_abc module
    :undoc-members:
    :show-inheritance:
 
-aio\_parallel\_tools.aio\_actor.actor\_basic module
+Base Class
 ---------------------------------------------------
 
 .. automodule:: aio_parallel_tools.aio_actor.actor_basic
@@ -27,43 +18,10 @@ aio\_parallel\_tools.aio\_actor.actor\_basic module
    :undoc-members:
    :show-inheritance:
 
-aio\_parallel\_tools.aio\_actor.actor\_basic\_copy module
----------------------------------------------------------
-
-.. automodule:: aio_parallel_tools.aio_actor.actor_basic_copy
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-aio\_parallel\_tools.aio\_actor.actor\_manager module
+Actor Manager
 -----------------------------------------------------
 
 .. automodule:: aio_parallel_tools.aio_actor.actor_manager
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-aio\_parallel\_tools.aio\_actor.exception\_and\_warning module
---------------------------------------------------------------
-
-.. automodule:: aio_parallel_tools.aio_actor.exception_and_warning
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-aio\_parallel\_tools.aio\_actor.signal module
----------------------------------------------
-
-.. automodule:: aio_parallel_tools.aio_actor.signal
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-
-Module contents
----------------
-
-.. automodule:: aio_parallel_tools.aio_actor
    :members:
    :undoc-members:
    :show-inheritance:

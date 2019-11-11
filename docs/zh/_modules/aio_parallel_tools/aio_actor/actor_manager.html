@@ -31,26 +31,46 @@
           <div class="body" role="main">
             
   <h1>aio_parallel_tools.aio_actor.actor_manager 源代码</h1><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">random</span>
+<span></span><span class="sd">&quot;&quot;&quot;Functions for managing Actors.&quot;&quot;&quot;</span>
+<span class="kn">import</span> <span class="nn">random</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="k">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span>
+<span class="kn">from</span> <span class="nn">aio_parallel_tools.aio_actor.actor_abc</span> <span class="k">import</span> <span class="n">ActorABC</span>
 <span class="n">_registry_class</span> <span class="o">=</span> <span class="p">{}</span>
 
 
 <div class="viewcode-block" id="ActorManagerRegister"><a class="viewcode-back" href="../../../aio_parallel_tools.aio_actor.html#aio_parallel_tools.aio_actor.actor_manager.ActorManagerRegister">[文档]</a><span class="k">class</span> <span class="nc">ActorManagerRegister</span><span class="p">(</span><span class="nb">type</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Meta class for regist subclass for management.&quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="nf">__new__</span><span class="p">(</span><span class="n">meta</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">bases</span><span class="p">,</span> <span class="n">class_dict</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Set Members to all subclass and regist subclass.&quot;&quot;&quot;</span>
         <span class="bp">cls</span> <span class="o">=</span> <span class="nb">type</span><span class="o">.</span><span class="fm">__new__</span><span class="p">(</span><span class="n">meta</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">bases</span><span class="p">,</span> <span class="n">class_dict</span><span class="p">)</span>
         <span class="bp">cls</span><span class="o">.</span><span class="n">Members</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
-        <span class="n">_registry_class</span><span class="p">[</span><span class="bp">cls</span><span class="o">.</span><span class="vm">__name__</span><span class="p">]</span> <span class="o">=</span> <span class="bp">cls</span>
+        <span class="k">if</span> <span class="bp">cls</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">!=</span> <span class="s2">&quot;AioActor&quot;</span><span class="p">:</span>
+            <span class="n">_registry_class</span><span class="p">[</span><span class="bp">cls</span><span class="o">.</span><span class="vm">__name__</span><span class="p">]</span> <span class="o">=</span> <span class="bp">cls</span>
         <span class="k">return</span> <span class="bp">cls</span></div>
 
 
-<div class="viewcode-block" id="actor_size"><a class="viewcode-back" href="../../../aio_parallel_tools.aio_actor.html#aio_parallel_tools.aio_actor.actor_manager.actor_size">[文档]</a><span class="k">def</span> <span class="nf">actor_size</span><span class="p">(</span><span class="n">class_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
-    <span class="n">actor_type</span> <span class="o">=</span> <span class="n">_registry_class</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">class_name</span><span class="p">)</span><span class="o">.</span><span class="n">Len</span><span class="p">()</span>
-    <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="n">actor_type</span><span class="p">)</span></div>
+<div class="viewcode-block" id="has_actor"><a class="viewcode-back" href="../../../aio_parallel_tools.aio_actor.html#aio_parallel_tools.aio_actor.actor_manager.has_actor">[文档]</a><span class="k">def</span> <span class="nf">has_actor</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+    <span class="sd">&quot;&quot;&quot;Get all actor name.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        List[str]: all actor name.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="n">_registry_class</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span></div>
 
 
-<div class="viewcode-block" id="get_one_actor"><a class="viewcode-back" href="../../../aio_parallel_tools.aio_actor.html#aio_parallel_tools.aio_actor.actor_manager.get_one_actor">[文档]</a><span class="k">def</span> <span class="nf">get_one_actor</span><span class="p">(</span><span class="n">class_name</span><span class="p">):</span>
-    <span class="k">pass</span></div>
+<div class="viewcode-block" id="get_actor"><a class="viewcode-back" href="../../../aio_parallel_tools.aio_actor.html#aio_parallel_tools.aio_actor.actor_manager.get_actor">[文档]</a><span class="k">def</span> <span class="nf">get_actor</span><span class="p">(</span><span class="n">actor_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ActorABC</span><span class="p">]:</span>
+    <span class="sd">&quot;&quot;&quot;Get actor class by name.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        actor_name (str): actor class&#39;s name</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Optional[ActorABC]: actor class</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">_registry_class</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">actor_name</span><span class="p">)</span></div>
 </pre></div>
 
           </div>
@@ -85,22 +105,31 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../pages/task_pool.html#operations">操作</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../../../pages/actor_and_manager.html">Actor和其管理器</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../pages/actor_and_manager.html#how-to-use">如何使用</a></li>
+</ul>
+</li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../aio_parallel_tools.html">模型信息</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../aio_parallel_tools.html">模块信息</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../../aio_parallel_tools.aio_task_pool.html">aio_parallel_tools.aio_task_pool package</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../../aio_parallel_tools.aio_task_pool.html#taskpools">任务池</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../aio_parallel_tools.aio_task_pool.html#module-aio_parallel_tools.aio_task_pool.aio_autoscale_task_pool_lifo">aio_autoscale_task_pool_lifo module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../aio_parallel_tools.aio_task_pool.html#module-aio_parallel_tools.aio_task_pool.aio_autoscale_task_pool_priority">aio_autoscale_task_pool_priority module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../aio_parallel_tools.aio_task_pool.html#module-aio_parallel_tools.aio_task_pool.aio_autoscale_task_pool_simple">aio_autoscale_task_pool_simple module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../aio_parallel_tools.aio_task_pool.html#module-aio_parallel_tools.aio_task_pool.aio_fixed_task_pool_lifo">aio_fixed_task_pool_lifo module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../aio_parallel_tools.aio_task_pool.html#module-aio_parallel_tools.aio_task_pool.aio_fixed_task_pool_priority">aio_fixed_task_pool_priority module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../aio_parallel_tools.aio_task_pool.html#module-aio_parallel_tools.aio_task_pool.aio_fixed_task_pool_simple">aio_fixed_task_pool_simple module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../aio_parallel_tools.aio_task_pool.html#module-aio_parallel_tools.aio_task_pool.aio_autoscale_task_pool_lifo">使用后进先出队列的自扩展异步任务池</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../aio_parallel_tools.aio_task_pool.html#module-aio_parallel_tools.aio_task_pool.aio_autoscale_task_pool_priority">使用优先级队列的异步自动扩展任务池</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../aio_parallel_tools.aio_task_pool.html#module-aio_parallel_tools.aio_task_pool.aio_autoscale_task_pool_simple">使用默认队列的异步自扩展任务池</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../aio_parallel_tools.aio_task_pool.html#module-aio_parallel_tools.aio_task_pool.aio_fixed_task_pool_lifo">使用后进先出队列的固定异步任务池</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../aio_parallel_tools.aio_task_pool.html#module-aio_parallel_tools.aio_task_pool.aio_fixed_task_pool_priority">使用优先级队列的固定异步任务池</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../aio_parallel_tools.aio_task_pool.html#module-aio_parallel_tools.aio_task_pool.aio_fixed_task_pool_simple">使用默认队列的固定异步任务池</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../aio_parallel_tools.aio_task_pool.html#task-pool-core-api">Task Pool Core API</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../../aio_parallel_tools.aio_task_pool.core.html">接口</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../aio_parallel_tools.aio_task_pool.core.html#mixins">混入类</a></li>
 </ul>
 </li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../aio_parallel_tools.aio_actor.html">aio_parallel_tools.aio_actor package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../aio_parallel_tools.aio_actor.html#module-aio_parallel_tools.aio_actor.actor_abc">Actor API</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../aio_parallel_tools.aio_actor.html#module-aio_parallel_tools.aio_actor.actor_basic">Base Class</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../aio_parallel_tools.aio_actor.html#module-aio_parallel_tools.aio_actor.actor_manager">Actor Manager</a></li>
 </ul>
 </li>
 </ul>
@@ -142,7 +171,7 @@
       &copy;2019, huangsizhe.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.2.1</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.1.2</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
     </div>

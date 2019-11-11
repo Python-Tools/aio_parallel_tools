@@ -1,0 +1,248 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>aio_parallel_tools.aio_actor.actor_basic &#8212; aio_parallel_tools  documentation</title>
+    <link rel="stylesheet" href="../../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+   
+  <link rel="stylesheet" href="../../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <h1>Source code for aio_parallel_tools.aio_actor.actor_basic</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;Async Actor Tool.&quot;&quot;&quot;</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
+<span class="kn">import</span> <span class="nn">uuid</span>
+<span class="kn">import</span> <span class="nn">asyncio</span>
+
+<span class="kn">from</span> <span class="nn">typing</span> <span class="k">import</span> <span class="n">Optional</span>
+
+<span class="kn">from</span> <span class="nn">aio_parallel_tools.aio_actor.mixins.hooks_mixin</span> <span class="k">import</span> <span class="n">HooksMixin</span>
+<span class="kn">from</span> <span class="nn">aio_parallel_tools.aio_actor.mixins.id_mixin</span> <span class="k">import</span> <span class="n">IdentifyMixin</span>
+<span class="kn">from</span> <span class="nn">aio_parallel_tools.aio_actor.mixins.inbox_mixin</span> <span class="k">import</span> <span class="n">InboxMixin</span>
+<span class="kn">from</span> <span class="nn">aio_parallel_tools.aio_actor.mixins.task_mixin</span> <span class="k">import</span> <span class="n">TaskMixin</span>
+<span class="kn">from</span> <span class="nn">aio_parallel_tools.aio_actor.mixins.loop_mixin</span> <span class="k">import</span> <span class="n">LoopMixin</span>
+<span class="kn">from</span> <span class="nn">aio_parallel_tools.aio_actor.mixins.manage_mixin</span> <span class="k">import</span> <span class="n">ManageMixin</span>
+
+<span class="kn">from</span> <span class="nn">aio_parallel_tools.aio_actor.actor_abc</span> <span class="k">import</span> <span class="n">ActorABC</span>
+<span class="kn">from</span> <span class="nn">aio_parallel_tools.aio_actor.actor_manager</span> <span class="k">import</span> <span class="n">ActorManagerRegister</span>
+<span class="kn">from</span> <span class="nn">aio_parallel_tools.aio_actor.exception_and_warning</span> <span class="k">import</span> <span class="n">InboxNearllyFullWarning</span>
+<span class="kn">from</span> <span class="nn">aio_parallel_tools.aio_actor.signal</span> <span class="k">import</span> <span class="n">ActorExit</span>
+
+
+<div class="viewcode-block" id="AioActor"><a class="viewcode-back" href="../../../aio_parallel_tools.aio_actor.html#aio_parallel_tools.aio_actor.actor_basic.AioActor">[docs]</a><span class="k">class</span> <span class="nc">AioActor</span><span class="p">(</span><span class="n">ManageMixin</span><span class="p">,</span> <span class="n">InboxMixin</span><span class="p">,</span> <span class="n">TaskMixin</span><span class="p">,</span> <span class="n">HooksMixin</span><span class="p">,</span> <span class="n">IdentifyMixin</span><span class="p">,</span> <span class="n">LoopMixin</span><span class="p">,</span> <span class="n">ActorABC</span><span class="p">,</span> <span class="n">metaclass</span><span class="o">=</span><span class="n">ActorManagerRegister</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Base Async Actor class.</span>
+
+<span class="sd">    To use the base class,we should create a sub class and write a implement of async method `receive`.</span>
+
+<span class="sd">    Usage:</span>
+
+<span class="sd">    &gt;&gt;&gt; class Pinger(AioActor):</span>
+<span class="sd">    ...     async def receive(self, message):</span>
+<span class="sd">    ...         print(message)</span>
+<span class="sd">    ...         try:</span>
+<span class="sd">    ...             await ActorManager.get_actor(&quot;Ponger&quot;).Send(&#39;ping&#39;)</span>
+<span class="sd">    ...         except Exception as e:</span>
+<span class="sd">    ...             print(f&quot;receive run error {e}&quot;)</span>
+<span class="sd">    ...         finally:</span>
+<span class="sd">    ...             await asyncio.sleep(0.5)</span>
+<span class="sd">    &gt;&gt;&gt; class Ponger(AioActor):</span>
+<span class="sd">    ...     async def receive(self, message):</span>
+<span class="sd">    ...     print(message)</span>
+<span class="sd">    ...     try:</span>
+<span class="sd">    ...         await ActorManager.get_actor(&quot;Pinger&quot;).Send(&#39;pong&#39;)</span>
+<span class="sd">    ...     except Exception as e:</span>
+<span class="sd">    ...         print(f&quot;receive run error {e}&quot;)</span>
+<span class="sd">    ...     finally:</span>
+<span class="sd">    ...         await asyncio.sleep(0.5)</span>
+<span class="sd">    &gt;&gt;&gt; async def main():</span>
+<span class="sd">            Pinger.Start(num=3)</span>
+<span class="sd">            Ponger.Start(num=3)</span>
+<span class="sd">            await asyncio.sleep(1)</span>
+<span class="sd">            for i in Pinger.Members:</span>
+<span class="sd">                print(&quot;****************&quot;)</span>
+<span class="sd">                print(i.aid)</span>
+<span class="sd">                print(i.available)</span>
+<span class="sd">                print(i.running)</span>
+<span class="sd">                print(i.paused)</span>
+<span class="sd">                print(&quot;****************&quot;)</span>
+<span class="sd">            await Pinger.Send(&quot;start&quot;)</span>
+<span class="sd">            await asyncio.sleep(10)</span>
+<span class="sd">            await Pinger.Close(num=3)</span>
+<span class="sd">            await Ponger.Close(num=3)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">inbox_maxsize</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">loop</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">asyncio</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">AbstractEventLoop</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">rev_timeout</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+        <span class="n">ActorABC</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="n">LoopMixin</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">loop</span><span class="o">=</span><span class="n">loop</span><span class="p">)</span>
+        <span class="n">ManageMixin</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="n">IdentifyMixin</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="n">HooksMixin</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="n">TaskMixin</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rev_timeout</span><span class="o">=</span><span class="n">rev_timeout</span><span class="p">)</span>
+        <span class="n">InboxMixin</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">inbox_maxsize</span><span class="o">=</span><span class="n">inbox_maxsize</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">available</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">task</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">False</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">task</span><span class="o">.</span><span class="n">done</span><span class="p">():</span>
+            <span class="k">return</span> <span class="kc">False</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">running</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">False</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">inbox</span><span class="o">.</span><span class="n">full</span><span class="p">():</span>
+            <span class="k">return</span> <span class="kc">False</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">paused</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">False</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">inbox_maxsize</span> <span class="o">&gt;</span> <span class="mi">3</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">inbox_maxsize</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">inbox</span><span class="o">.</span><span class="n">qsize</span><span class="p">()</span> <span class="o">&gt;=</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">inbox_maxsize</span> <span class="o">*</span> <span class="mf">0.8</span><span class="p">):</span>
+            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;inbox </span><span class="si">{self.aid}</span><span class="s2"> nearly full&quot;</span><span class="p">,</span> <span class="n">InboxNearllyFullWarning</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">True</span>
+
+<div class="viewcode-block" id="AioActor.close"><a class="viewcode-back" href="../../../aio_parallel_tools.aio_actor.html#aio_parallel_tools.aio_actor.actor_basic.AioActor.close">[docs]</a>    <span class="k">async</span> <span class="k">def</span> <span class="nf">close</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">timeout</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+        <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">ActorExit</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="n">timeout</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">close_accept</span><span class="p">()</span>
+        <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">close_task</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="AioActor.close_nowait"><a class="viewcode-back" href="../../../aio_parallel_tools.aio_actor.html#aio_parallel_tools.aio_actor.actor_basic.AioActor.close_nowait">[docs]</a>    <span class="k">def</span> <span class="nf">close_nowait</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">send_nowait</span><span class="p">(</span><span class="n">ActorExit</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="AioActor.start"><a class="viewcode-back" href="../../../aio_parallel_tools.aio_actor.html#aio_parallel_tools.aio_actor.actor_basic.AioActor.start">[docs]</a>    <span class="k">def</span> <span class="nf">start</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">before_actor_start</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">start_accept</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">start_task</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">after_actor_start</span><span class="p">()</span></div></div>
+</pre></div>
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../../index.html">aio_parallel_tools</a></h1>
+
+
+
+<p class="blurb">Tools for develope asynchronous script easily.</p>
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=Python-Tools&repo=aio_parallel_tools&type=watch&count=true&size=large&v=2"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+
+
+
+<h3>Navigation</h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../pages/task_pool.html">Task Pool</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../pages/task_pool.html#kinds-of-task-pool">Kinds of task pool</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../pages/task_pool.html#how-to-use">How to use</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../pages/task_pool.html#operations">Operations</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../pages/actor_and_manager.html">Actor and it’s Manager</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../pages/actor_and_manager.html#how-to-use">How to use</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../aio_parallel_tools.html">Modules</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../aio_parallel_tools.aio_task_pool.html">aio_parallel_tools.aio_task_pool package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../aio_parallel_tools.aio_task_pool.html#module-aio_parallel_tools.aio_task_pool.aio_autoscale_task_pool_lifo">Async autoscale task pool with lifo queue</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../aio_parallel_tools.aio_task_pool.html#module-aio_parallel_tools.aio_task_pool.aio_autoscale_task_pool_priority">Async autoscale task pool with priority queue</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../aio_parallel_tools.aio_task_pool.html#module-aio_parallel_tools.aio_task_pool.aio_autoscale_task_pool_simple">Async autoscale task pool with default queue</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../aio_parallel_tools.aio_task_pool.html#module-aio_parallel_tools.aio_task_pool.aio_fixed_task_pool_lifo">Async fixed task pool with lifo queue</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../aio_parallel_tools.aio_task_pool.html#module-aio_parallel_tools.aio_task_pool.aio_fixed_task_pool_priority">Async fixed task pool with priority queue</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../aio_parallel_tools.aio_task_pool.html#module-aio_parallel_tools.aio_task_pool.aio_fixed_task_pool_simple">Async fixed task pool with default queue</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../aio_parallel_tools.aio_task_pool.html#task-pool-core-api">Task Pool Core API</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../aio_parallel_tools.aio_task_pool.core.html">Interface</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../aio_parallel_tools.aio_task_pool.core.html#mixins">Mixins</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../aio_parallel_tools.aio_actor.html">aio_parallel_tools.aio_actor package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../aio_parallel_tools.aio_actor.html#module-aio_parallel_tools.aio_actor.actor_abc">Actor API</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../aio_parallel_tools.aio_actor.html#module-aio_parallel_tools.aio_actor.actor_basic">Base Class</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../aio_parallel_tools.aio_actor.html#module-aio_parallel_tools.aio_actor.actor_manager">Actor Manager</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../../index.html">Documentation overview</a><ul>
+  <li><a href="../../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2019, huangsizhe.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.1.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+    </div>
+
+    
+    <a href="https://github.com/Python-Tools/aio_parallel_tools" class="github">
+        <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"  class="github"/>
+    </a>
+    
+
+    
+  </body>
+</html>

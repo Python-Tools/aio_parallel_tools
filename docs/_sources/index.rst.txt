@@ -45,6 +45,15 @@ Example
             task_pool.submit(test, func_args=["d"])
         )
 
+    class Pinger(AioActor):
+        async def receive(self, message):
+            print(message)
+            try:
+                await ActorManager.get_actor("Ponger").Send('ping')
+            except Exception as e:
+                print(f"receive run error {e}")
+            finally:
+                await asyncio.sleep(0.5)
 
 
 Install
@@ -59,6 +68,7 @@ Task pool
    :maxdepth: 2
 
    pages/task_pool
+   pages/actor_and_manager
 
 
 API

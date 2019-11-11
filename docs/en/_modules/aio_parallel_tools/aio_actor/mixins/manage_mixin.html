@@ -31,35 +31,120 @@
           <div class="body" role="main">
             
   <h1>Source code for aio_parallel_tools.aio_actor.mixins.manage_mixin</h1><div class="highlight"><pre>
-<div class="viewcode-block" id="ManageMixin"><a class="viewcode-back" href="../../../../aio_parallel_tools.aio_actor.mixins.html#aio_parallel_tools.aio_actor.mixins.manage_mixin.ManageMixin">[docs]</a><span></span><span class="k">class</span> <span class="nc">ManageMixin</span><span class="p">:</span>
+<span></span><span class="kn">import</span> <span class="nn">random</span>
+<span class="kn">import</span> <span class="nn">asyncio</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="k">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Any</span>
+<span class="kn">from</span> <span class="nn">aio_parallel_tools.aio_actor.actor_abc</span> <span class="k">import</span> <span class="n">ActorABC</span>
+<span class="kn">from</span> <span class="nn">aio_parallel_tools.aio_actor.exception_and_warning</span> <span class="k">import</span> <span class="n">NoAvailableActor</span>
+
+
+<div class="viewcode-block" id="ManageMixin"><a class="viewcode-back" href="../../../../aio_parallel_tools.aio_actor.mixins.html#aio_parallel_tools.aio_actor.mixins.manage_mixin.ManageMixin">[docs]</a><span class="k">class</span> <span class="nc">ManageMixin</span><span class="p">:</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="n">Members</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">Members</span><span class="o">=</span><span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">Members</span> <span class="o">=</span> <span class="kc">None</span>
+
+<div class="viewcode-block" id="ManageMixin.remove"><a class="viewcode-back" href="../../../../aio_parallel_tools.aio_actor.mixins.html#aio_parallel_tools.aio_actor.mixins.manage_mixin.ManageMixin.remove">[docs]</a>    <span class="k">def</span> <span class="nf">remove</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="n">Members</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="ManageMixin.Start"><a class="viewcode-back" href="../../../../aio_parallel_tools.aio_actor.mixins.html#aio_parallel_tools.aio_actor.mixins.manage_mixin.ManageMixin.Start">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">Start</span><span class="p">(</span><span class="bp">cls</span><span class="p">:</span> <span class="n">ActorABC</span><span class="p">,</span> <span class="n">num</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">inbox_maxsize</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">loop</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">rev_timeout</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="n">instances</span> <span class="o">=</span> <span class="p">[</span><span class="bp">cls</span><span class="p">(</span><span class="n">inbox_maxsize</span><span class="o">=</span><span class="n">inbox_maxsize</span><span class="p">,</span> <span class="n">loop</span><span class="o">=</span><span class="n">loop</span><span class="p">,</span> <span class="n">rev_timeout</span><span class="o">=</span><span class="n">rev_timeout</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num</span><span class="p">)]</span>
+        <span class="p">[</span><span class="n">ins</span><span class="o">.</span><span class="n">start</span><span class="p">()</span> <span class="k">for</span> <span class="n">ins</span> <span class="ow">in</span> <span class="n">instances</span><span class="p">]</span></div>
+
+<div class="viewcode-block" id="ManageMixin.Restart"><a class="viewcode-back" href="../../../../aio_parallel_tools.aio_actor.mixins.html#aio_parallel_tools.aio_actor.mixins.manage_mixin.ManageMixin.Restart">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">Restart</span><span class="p">(</span><span class="bp">cls</span><span class="p">:</span> <span class="n">ActorABC</span><span class="p">,</span> <span class="n">num</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+        <span class="n">candidates</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">NotAvailableScope</span><span class="p">()</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">candidates</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">num</span><span class="p">:</span>
+            <span class="n">candidates</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">choices</span><span class="p">(</span><span class="n">candidates</span><span class="p">,</span> <span class="n">num</span><span class="p">)</span>
+        <span class="p">[</span><span class="n">ins</span><span class="o">.</span><span class="n">start</span><span class="p">()</span> <span class="k">for</span> <span class="n">ins</span> <span class="ow">in</span> <span class="n">candidates</span><span class="p">]</span></div>
+
+<div class="viewcode-block" id="ManageMixin.Close"><a class="viewcode-back" href="../../../../aio_parallel_tools.aio_actor.mixins.html#aio_parallel_tools.aio_actor.mixins.manage_mixin.ManageMixin.Close">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">async</span> <span class="k">def</span> <span class="nf">Close</span><span class="p">(</span><span class="bp">cls</span><span class="p">:</span> <span class="n">ActorABC</span><span class="p">,</span> <span class="n">num</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+        <span class="n">candidates</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">cls</span><span class="o">.</span><span class="n">Members</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">candidates</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">num</span><span class="p">:</span>
+            <span class="n">candidates</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">choices</span><span class="p">(</span><span class="n">candidates</span><span class="p">,</span> <span class="n">num</span><span class="p">)</span>
+        <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">gather</span><span class="p">(</span><span class="o">*</span><span class="p">[</span><span class="n">ins</span><span class="o">.</span><span class="n">close</span><span class="p">()</span> <span class="k">for</span> <span class="n">ins</span> <span class="ow">in</span> <span class="n">candidates</span><span class="p">])</span></div>
+
+<div class="viewcode-block" id="ManageMixin.Clean"><a class="viewcode-back" href="../../../../aio_parallel_tools.aio_actor.mixins.html#aio_parallel_tools.aio_actor.mixins.manage_mixin.ManageMixin.Clean">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">Clean</span><span class="p">(</span><span class="bp">cls</span><span class="p">:</span> <span class="n">ActorABC</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;clean up all not running actors.&quot;&quot;&quot;</span>
+        <span class="n">candidates</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">NotRunningScope</span><span class="p">()</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">ins</span> <span class="ow">in</span> <span class="n">candidates</span><span class="p">:</span>
+            <span class="n">result</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ins</span><span class="o">.</span><span class="n">clean_inbox</span><span class="p">())</span>
+            <span class="bp">cls</span><span class="o">.</span><span class="n">Members</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">ins</span><span class="p">)</span>
+            <span class="k">del</span> <span class="n">ins</span>
+        <span class="k">return</span> <span class="n">result</span></div>
 
 <div class="viewcode-block" id="ManageMixin.Send"><a class="viewcode-back" href="../../../../aio_parallel_tools.aio_actor.mixins.html#aio_parallel_tools.aio_actor.mixins.manage_mixin.ManageMixin.Send">[docs]</a>    <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">Send</span><span class="p">(</span><span class="n">clz</span><span class="p">,</span> <span class="n">message</span><span class="p">):</span>
-        <span class="k">pass</span></div>
+    <span class="k">async</span> <span class="k">def</span> <span class="nf">Send</span><span class="p">(</span><span class="bp">cls</span><span class="p">:</span> <span class="n">ActorABC</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="n">candidates</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">BestToSendScope</span><span class="p">()</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">candidates</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">ins</span> <span class="o">=</span> <span class="n">candidates</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="k">await</span> <span class="n">ins</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="n">timeout</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">NoAvailableActor</span><span class="p">(</span><span class="s2">&quot;No Available Actor.&quot;</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="ManageMixin.Scale"><a class="viewcode-back" href="../../../../aio_parallel_tools.aio_actor.mixins.html#aio_parallel_tools.aio_actor.mixins.manage_mixin.ManageMixin.Scale">[docs]</a>    <span class="nd">@classmethod</span>
-    <span class="k">async</span> <span class="k">def</span> <span class="nf">Scale</span><span class="p">(</span><span class="n">clz</span><span class="p">,</span> <span class="n">number</span><span class="p">):</span>
-        <span class="k">pass</span></div>
+<div class="viewcode-block" id="ManageMixin.SendRandom"><a class="viewcode-back" href="../../../../aio_parallel_tools.aio_actor.mixins.html#aio_parallel_tools.aio_actor.mixins.manage_mixin.ManageMixin.SendRandom">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">async</span> <span class="k">def</span> <span class="nf">SendRandom</span><span class="p">(</span><span class="bp">cls</span><span class="p">:</span> <span class="n">ActorABC</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="n">candidates</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">AvailableScope</span><span class="p">()</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">candidates</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">ins</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">candidates</span><span class="p">)</span>
+            <span class="k">await</span> <span class="n">ins</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="n">timeout</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">NoAvailableActor</span><span class="p">(</span><span class="s2">&quot;No Available Actor.&quot;</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="ManageMixin.Throw"><a class="viewcode-back" href="../../../../aio_parallel_tools.aio_actor.mixins.html#aio_parallel_tools.aio_actor.mixins.manage_mixin.ManageMixin.Throw">[docs]</a>    <span class="nd">@classmethod</span>
-    <span class="k">async</span> <span class="k">def</span> <span class="nf">Throw</span><span class="p">(</span><span class="n">clz</span><span class="p">,</span> <span class="n">exception</span><span class="p">):</span>
-        <span class="k">pass</span></div>
+<div class="viewcode-block" id="ManageMixin.Publish"><a class="viewcode-back" href="../../../../aio_parallel_tools.aio_actor.mixins.html#aio_parallel_tools.aio_actor.mixins.manage_mixin.ManageMixin.Publish">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">async</span> <span class="k">def</span> <span class="nf">Publish</span><span class="p">(</span><span class="bp">cls</span><span class="p">:</span> <span class="n">ActorABC</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="n">candidates</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">AvailableScope</span><span class="p">()</span>
+        <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">gather</span><span class="p">(</span><span class="o">*</span><span class="p">[</span><span class="n">ins</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="n">timeout</span><span class="p">)</span> <span class="k">for</span> <span class="n">ins</span> <span class="ow">in</span> <span class="n">candidates</span><span class="p">])</span></div>
 
-<div class="viewcode-block" id="ManageMixin.RunningLen"><a class="viewcode-back" href="../../../../aio_parallel_tools.aio_actor.mixins.html#aio_parallel_tools.aio_actor.mixins.manage_mixin.ManageMixin.RunningLen">[docs]</a>    <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">RunningLen</span><span class="p">(</span><span class="n">clz</span><span class="p">):</span>
-        <span class="k">pass</span></div>
+<div class="viewcode-block" id="ManageMixin.FindById"><a class="viewcode-back" href="../../../../aio_parallel_tools.aio_actor.mixins.html#aio_parallel_tools.aio_actor.mixins.manage_mixin.ManageMixin.FindById">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">FindById</span><span class="p">(</span><span class="bp">cls</span><span class="p">:</span> <span class="n">ActorABC</span><span class="p">,</span> <span class="n">aid</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="n">candidates</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">cls</span><span class="o">.</span><span class="n">Members</span><span class="p">)</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">candidates</span> <span class="k">if</span> <span class="n">i</span><span class="o">.</span><span class="n">aid</span> <span class="o">==</span> <span class="n">aid</span><span class="p">]</span></div>
 
-<div class="viewcode-block" id="ManageMixin.AvailableLen"><a class="viewcode-back" href="../../../../aio_parallel_tools.aio_actor.mixins.html#aio_parallel_tools.aio_actor.mixins.manage_mixin.ManageMixin.AvailableLen">[docs]</a>    <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">AvailableLen</span><span class="p">(</span><span class="n">clz</span><span class="p">):</span>
-        <span class="k">pass</span></div>
+<div class="viewcode-block" id="ManageMixin.SendById"><a class="viewcode-back" href="../../../../aio_parallel_tools.aio_actor.mixins.html#aio_parallel_tools.aio_actor.mixins.manage_mixin.ManageMixin.SendById">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">async</span> <span class="k">def</span> <span class="nf">SendById</span><span class="p">(</span><span class="bp">cls</span><span class="p">:</span> <span class="n">ActorABC</span><span class="p">,</span> <span class="n">aid</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="n">candidates</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">FindById</span><span class="p">(</span><span class="n">aid</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">candidates</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">ins</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="k">await</span> <span class="n">ins</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="n">timeout</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">NoAvailableActor</span><span class="p">(</span><span class="s2">&quot;No Available Actor.&quot;</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="ManageMixin.Len"><a class="viewcode-back" href="../../../../aio_parallel_tools.aio_actor.mixins.html#aio_parallel_tools.aio_actor.mixins.manage_mixin.ManageMixin.Len">[docs]</a>    <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">Len</span><span class="p">(</span><span class="n">clz</span><span class="p">):</span>
-        <span class="k">pass</span></div></div>
+<div class="viewcode-block" id="ManageMixin.RunningScope"><a class="viewcode-back" href="../../../../aio_parallel_tools.aio_actor.mixins.html#aio_parallel_tools.aio_actor.mixins.manage_mixin.ManageMixin.RunningScope">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">RunningScope</span><span class="p">(</span><span class="bp">cls</span><span class="p">:</span> <span class="n">ActorABC</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">ActorABC</span><span class="p">]:</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="bp">cls</span><span class="o">.</span><span class="n">Members</span><span class="p">)</span> <span class="k">if</span> <span class="n">i</span><span class="o">.</span><span class="n">running</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">]</span></div>
+
+<div class="viewcode-block" id="ManageMixin.NotRunningScope"><a class="viewcode-back" href="../../../../aio_parallel_tools.aio_actor.mixins.html#aio_parallel_tools.aio_actor.mixins.manage_mixin.ManageMixin.NotRunningScope">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">NotRunningScope</span><span class="p">(</span><span class="bp">cls</span><span class="p">:</span> <span class="n">ActorABC</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">ActorABC</span><span class="p">]:</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="bp">cls</span><span class="o">.</span><span class="n">Members</span><span class="p">)</span> <span class="k">if</span> <span class="n">i</span><span class="o">.</span><span class="n">running</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">]</span></div>
+
+<div class="viewcode-block" id="ManageMixin.PausedScope"><a class="viewcode-back" href="../../../../aio_parallel_tools.aio_actor.mixins.html#aio_parallel_tools.aio_actor.mixins.manage_mixin.ManageMixin.PausedScope">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">PausedScope</span><span class="p">(</span><span class="bp">cls</span><span class="p">:</span> <span class="n">ActorABC</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">ActorABC</span><span class="p">]:</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="bp">cls</span><span class="o">.</span><span class="n">Members</span><span class="p">)</span> <span class="k">if</span> <span class="n">i</span><span class="o">.</span><span class="n">paused</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">]</span></div>
+
+<div class="viewcode-block" id="ManageMixin.NotPausedScope"><a class="viewcode-back" href="../../../../aio_parallel_tools.aio_actor.mixins.html#aio_parallel_tools.aio_actor.mixins.manage_mixin.ManageMixin.NotPausedScope">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">NotPausedScope</span><span class="p">(</span><span class="bp">cls</span><span class="p">:</span> <span class="n">ActorABC</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">ActorABC</span><span class="p">]:</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="bp">cls</span><span class="o">.</span><span class="n">Members</span><span class="p">)</span> <span class="k">if</span> <span class="n">i</span><span class="o">.</span><span class="n">paused</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">]</span></div>
+
+<div class="viewcode-block" id="ManageMixin.AvailableScope"><a class="viewcode-back" href="../../../../aio_parallel_tools.aio_actor.mixins.html#aio_parallel_tools.aio_actor.mixins.manage_mixin.ManageMixin.AvailableScope">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">AvailableScope</span><span class="p">(</span><span class="bp">cls</span><span class="p">:</span> <span class="n">ActorABC</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">ActorABC</span><span class="p">]:</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="bp">cls</span><span class="o">.</span><span class="n">Members</span><span class="p">)</span> <span class="k">if</span> <span class="n">i</span><span class="o">.</span><span class="n">available</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">]</span></div>
+
+<div class="viewcode-block" id="ManageMixin.NotAvailableScope"><a class="viewcode-back" href="../../../../aio_parallel_tools.aio_actor.mixins.html#aio_parallel_tools.aio_actor.mixins.manage_mixin.ManageMixin.NotAvailableScope">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">NotAvailableScope</span><span class="p">(</span><span class="bp">cls</span><span class="p">:</span> <span class="n">ActorABC</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">ActorABC</span><span class="p">]:</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="bp">cls</span><span class="o">.</span><span class="n">Members</span><span class="p">)</span> <span class="k">if</span> <span class="n">i</span><span class="o">.</span><span class="n">available</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">]</span></div>
+
+<div class="viewcode-block" id="ManageMixin.BestToSendScope"><a class="viewcode-back" href="../../../../aio_parallel_tools.aio_actor.mixins.html#aio_parallel_tools.aio_actor.mixins.manage_mixin.ManageMixin.BestToSendScope">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">BestToSendScope</span><span class="p">(</span><span class="bp">cls</span><span class="p">:</span> <span class="n">ActorABC</span><span class="p">,</span> <span class="n">num</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">ActorABC</span><span class="p">]:</span>
+        <span class="n">candidates</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">AvailableScope</span><span class="p">()</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">candidates</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">inbox_size</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">num</span><span class="p">:</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="n">result</span><span class="p">[:</span><span class="n">num</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">result</span></div></div>
 </pre></div>
 
           </div>
@@ -94,22 +179,31 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../../pages/task_pool.html#operations">Operations</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../pages/actor_and_manager.html">Actor and it’s Manager</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../pages/actor_and_manager.html#how-to-use">How to use</a></li>
+</ul>
+</li>
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../aio_parallel_tools.html">Modules</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../../../aio_parallel_tools.aio_task_pool.html">aio_parallel_tools.aio_task_pool package</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../../../aio_parallel_tools.aio_task_pool.html#taskpools">TaskPools</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../aio_parallel_tools.aio_task_pool.html#module-aio_parallel_tools.aio_task_pool.aio_autoscale_task_pool_lifo">aio_autoscale_task_pool_lifo module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../aio_parallel_tools.aio_task_pool.html#module-aio_parallel_tools.aio_task_pool.aio_autoscale_task_pool_priority">aio_autoscale_task_pool_priority module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../aio_parallel_tools.aio_task_pool.html#module-aio_parallel_tools.aio_task_pool.aio_autoscale_task_pool_simple">aio_autoscale_task_pool_simple module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../aio_parallel_tools.aio_task_pool.html#module-aio_parallel_tools.aio_task_pool.aio_fixed_task_pool_lifo">aio_fixed_task_pool_lifo module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../aio_parallel_tools.aio_task_pool.html#module-aio_parallel_tools.aio_task_pool.aio_fixed_task_pool_priority">aio_fixed_task_pool_priority module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../aio_parallel_tools.aio_task_pool.html#module-aio_parallel_tools.aio_task_pool.aio_fixed_task_pool_simple">aio_fixed_task_pool_simple module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../aio_parallel_tools.aio_task_pool.html#module-aio_parallel_tools.aio_task_pool.aio_autoscale_task_pool_lifo">Async autoscale task pool with lifo queue</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../aio_parallel_tools.aio_task_pool.html#module-aio_parallel_tools.aio_task_pool.aio_autoscale_task_pool_priority">Async autoscale task pool with priority queue</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../aio_parallel_tools.aio_task_pool.html#module-aio_parallel_tools.aio_task_pool.aio_autoscale_task_pool_simple">Async autoscale task pool with default queue</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../aio_parallel_tools.aio_task_pool.html#module-aio_parallel_tools.aio_task_pool.aio_fixed_task_pool_lifo">Async fixed task pool with lifo queue</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../aio_parallel_tools.aio_task_pool.html#module-aio_parallel_tools.aio_task_pool.aio_fixed_task_pool_priority">Async fixed task pool with priority queue</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../aio_parallel_tools.aio_task_pool.html#module-aio_parallel_tools.aio_task_pool.aio_fixed_task_pool_simple">Async fixed task pool with default queue</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../aio_parallel_tools.aio_task_pool.html#task-pool-core-api">Task Pool Core API</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../../../aio_parallel_tools.aio_task_pool.core.html">Interface</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../../aio_parallel_tools.aio_task_pool.core.html#mixins">Mixins</a></li>
 </ul>
 </li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../aio_parallel_tools.aio_actor.html">aio_parallel_tools.aio_actor package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../aio_parallel_tools.aio_actor.html#module-aio_parallel_tools.aio_actor.actor_abc">Actor API</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../aio_parallel_tools.aio_actor.html#module-aio_parallel_tools.aio_actor.actor_basic">Base Class</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../aio_parallel_tools.aio_actor.html#module-aio_parallel_tools.aio_actor.actor_manager">Actor Manager</a></li>
 </ul>
 </li>
 </ul>
@@ -151,7 +245,7 @@
       &copy;2019, huangsizhe.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.2.1</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.1.2</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
     </div>

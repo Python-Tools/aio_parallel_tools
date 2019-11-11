@@ -12,7 +12,8 @@ class ActorManagerRegister(type):
         """Set Members to all subclass and regist subclass."""
         cls = type.__new__(meta, name, bases, class_dict)
         cls.Members = set()
-        _registry_class[cls.__name__] = cls
+        if cls.__name__ != "AioActor":
+            _registry_class[cls.__name__] = cls
         return cls
 
 

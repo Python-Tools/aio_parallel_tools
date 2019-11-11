@@ -3,10 +3,7 @@ aio\_parallel\_tools.aio\_task\_pool package
 
 
 
-TaskPools
-----------
-
-aio\_autoscale\_task\_pool\_lifo module
+Async autoscale task pool with lifo queue
 ----------------------------------------------------------------------------
 
 .. automodule:: aio_parallel_tools.aio_task_pool.aio_autoscale_task_pool_lifo
@@ -14,7 +11,7 @@ aio\_autoscale\_task\_pool\_lifo module
    :undoc-members:
    :show-inheritance:
 
-aio\_autoscale\_task\_pool\_priority module
+Async autoscale task pool with priority queue
 --------------------------------------------------------------------------------
 
 .. automodule:: aio_parallel_tools.aio_task_pool.aio_autoscale_task_pool_priority
@@ -22,7 +19,7 @@ aio\_autoscale\_task\_pool\_priority module
    :undoc-members:
    :show-inheritance:
 
-aio\_autoscale\_task\_pool\_simple module
+Async autoscale task pool with default queue
 ------------------------------------------------------------------------------
 
 .. automodule:: aio_parallel_tools.aio_task_pool.aio_autoscale_task_pool_simple
@@ -30,7 +27,7 @@ aio\_autoscale\_task\_pool\_simple module
    :undoc-members:
    :show-inheritance:
 
-aio\_fixed\_task\_pool\_lifo module
+Async fixed task pool with lifo queue
 ------------------------------------------------------------------------
 
 .. automodule:: aio_parallel_tools.aio_task_pool.aio_fixed_task_pool_lifo
@@ -38,7 +35,7 @@ aio\_fixed\_task\_pool\_lifo module
    :undoc-members:
    :show-inheritance:
 
-aio\_fixed\_task\_pool\_priority module
+Async fixed task pool with priority queue
 ----------------------------------------------------------------------------
 
 .. automodule:: aio_parallel_tools.aio_task_pool.aio_fixed_task_pool_priority
@@ -46,7 +43,7 @@ aio\_fixed\_task\_pool\_priority module
    :undoc-members:
    :show-inheritance:
 
-aio\_fixed\_task\_pool\_simple module
+Async fixed task pool with default queue
 --------------------------------------------------------------------------
 
 .. automodule:: aio_parallel_tools.aio_task_pool.aio_fixed_task_pool_simple

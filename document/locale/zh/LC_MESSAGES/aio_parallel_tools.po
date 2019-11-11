@@ -20,5 +20,5 @@ msgstr ""
 
 #: ../../document/aio_parallel_tools.rst:2
 msgid "Modules"
-msgstr "模型信息"
+msgstr "模块信息"
 

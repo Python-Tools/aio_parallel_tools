@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: aio_parallel_tools 0.0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-11-09 17:53+0800\n"
+"POT-Creation-Date: 2019-11-11 14:25+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -39,6 +39,7 @@ msgstr ""
 #: aio_parallel_tools.aio_actor.mixins.id_mixin.IdentifyMixin:1
 #: aio_parallel_tools.aio_actor.mixins.inbox_mixin.InboxMixin:1
 #: aio_parallel_tools.aio_actor.mixins.loop_mixin.LoopMixin:1
+#: aio_parallel_tools.aio_actor.mixins.manage_mixin.ManageMixin:1
 #: aio_parallel_tools.aio_actor.mixins.task_mixin.TaskMixin:1 of
 msgid "基类：:class:`object`"
 msgstr ""
@@ -141,6 +142,10 @@ msgstr ""
 
 #: ../../document/aio_parallel_tools.aio_actor.mixins.rst:40
 msgid "aio\\_parallel\\_tools.aio\\_actor.mixins.manage\\_mixin module"
+msgstr ""
+
+#: aio_parallel_tools.aio_actor.mixins.manage_mixin.ManageMixin.Clean:1 of
+msgid "clean up all not running actors."
 msgstr ""
 
 #: ../../document/aio_parallel_tools.aio_actor.mixins.rst:48

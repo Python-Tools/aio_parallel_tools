@@ -33,7 +33,7 @@
             
   <div class="section" id="welcome-to-aio-parallel-tools-s-documentation">
 <h1>欢迎使用aio parallel tools!<a class="headerlink" href="#welcome-to-aio-parallel-tools-s-documentation" title="永久链接至标题">¶</a></h1>
-<p>最近修改: 2019 年 11 月 07 日</p>
+<p>最近修改: 2019 年 11 月 11 日</p>
 <p>选择语言:  <a class="reference external" href="https://python-tools.github.io/aio_parallel_tools/zh/index.html">zh</a>  | <a class="reference external" href="https://python-tools.github.io/aio_parallel_tools/en/index.html">en</a></p>
 <ul class="simple">
 <li><p>版本: 0.0.1</p></li>
@@ -63,6 +63,16 @@
         <span class="n">task_pool</span><span class="o">.</span><span class="n">submit</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="n">func_args</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;a&quot;</span><span class="p">]),</span>
         <span class="n">task_pool</span><span class="o">.</span><span class="n">submit</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="n">func_args</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;d&quot;</span><span class="p">])</span>
     <span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">Pinger</span><span class="p">(</span><span class="n">AioActor</span><span class="p">):</span>
+    <span class="n">async</span> <span class="k">def</span> <span class="nf">receive</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">):</span>
+        <span class="k">print</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">await</span> <span class="n">ActorManager</span><span class="o">.</span><span class="n">get_actor</span><span class="p">(</span><span class="s2">&quot;Ponger&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">Send</span><span class="p">(</span><span class="s1">&#39;ping&#39;</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">print</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;receive run error {e}&quot;</span><span class="p">)</span>
+        <span class="k">finally</span><span class="p">:</span>
+            <span class="n">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -83,6 +93,10 @@
 <li class="toctree-l2"><a class="reference internal" href="pages/task_pool.html#operations">操作</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="pages/actor_and_manager.html">Actor和其管理器</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="pages/actor_and_manager.html#how-to-use">如何使用</a></li>
+</ul>
+</li>
 </ul>
 </div>
 </div>
@@ -90,20 +104,25 @@
 <h2>API<a class="headerlink" href="#api" title="永久链接至标题">¶</a></h2>
 <div class="toctree-wrapper compound">
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="aio_parallel_tools.html">模型信息</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="aio_parallel_tools.html">模块信息</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="aio_parallel_tools.aio_task_pool.html">aio_parallel_tools.aio_task_pool package</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="aio_parallel_tools.aio_task_pool.html#taskpools">任务池</a></li>
-<li class="toctree-l3"><a class="reference internal" href="aio_parallel_tools.aio_task_pool.html#module-aio_parallel_tools.aio_task_pool.aio_autoscale_task_pool_lifo">aio_autoscale_task_pool_lifo module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="aio_parallel_tools.aio_task_pool.html#module-aio_parallel_tools.aio_task_pool.aio_autoscale_task_pool_priority">aio_autoscale_task_pool_priority module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="aio_parallel_tools.aio_task_pool.html#module-aio_parallel_tools.aio_task_pool.aio_autoscale_task_pool_simple">aio_autoscale_task_pool_simple module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="aio_parallel_tools.aio_task_pool.html#module-aio_parallel_tools.aio_task_pool.aio_fixed_task_pool_lifo">aio_fixed_task_pool_lifo module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="aio_parallel_tools.aio_task_pool.html#module-aio_parallel_tools.aio_task_pool.aio_fixed_task_pool_priority">aio_fixed_task_pool_priority module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="aio_parallel_tools.aio_task_pool.html#module-aio_parallel_tools.aio_task_pool.aio_fixed_task_pool_simple">aio_fixed_task_pool_simple module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="aio_parallel_tools.aio_task_pool.html#module-aio_parallel_tools.aio_task_pool.aio_autoscale_task_pool_lifo">使用后进先出队列的自扩展异步任务池</a></li>
+<li class="toctree-l3"><a class="reference internal" href="aio_parallel_tools.aio_task_pool.html#module-aio_parallel_tools.aio_task_pool.aio_autoscale_task_pool_priority">使用优先级队列的异步自动扩展任务池</a></li>
+<li class="toctree-l3"><a class="reference internal" href="aio_parallel_tools.aio_task_pool.html#module-aio_parallel_tools.aio_task_pool.aio_autoscale_task_pool_simple">使用默认队列的异步自扩展任务池</a></li>
+<li class="toctree-l3"><a class="reference internal" href="aio_parallel_tools.aio_task_pool.html#module-aio_parallel_tools.aio_task_pool.aio_fixed_task_pool_lifo">使用后进先出队列的固定异步任务池</a></li>
+<li class="toctree-l3"><a class="reference internal" href="aio_parallel_tools.aio_task_pool.html#module-aio_parallel_tools.aio_task_pool.aio_fixed_task_pool_priority">使用优先级队列的固定异步任务池</a></li>
+<li class="toctree-l3"><a class="reference internal" href="aio_parallel_tools.aio_task_pool.html#module-aio_parallel_tools.aio_task_pool.aio_fixed_task_pool_simple">使用默认队列的固定异步任务池</a></li>
 <li class="toctree-l3"><a class="reference internal" href="aio_parallel_tools.aio_task_pool.html#task-pool-core-api">Task Pool Core API</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="aio_parallel_tools.aio_task_pool.core.html">接口</a></li>
 <li class="toctree-l4"><a class="reference internal" href="aio_parallel_tools.aio_task_pool.core.html#mixins">混入类</a></li>
 </ul>
 </li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="aio_parallel_tools.aio_actor.html">aio_parallel_tools.aio_actor package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="aio_parallel_tools.aio_actor.html#module-aio_parallel_tools.aio_actor.actor_abc">Actor API</a></li>
+<li class="toctree-l3"><a class="reference internal" href="aio_parallel_tools.aio_actor.html#module-aio_parallel_tools.aio_actor.actor_basic">Base Class</a></li>
+<li class="toctree-l3"><a class="reference internal" href="aio_parallel_tools.aio_actor.html#module-aio_parallel_tools.aio_actor.actor_manager">Actor Manager</a></li>
 </ul>
 </li>
 </ul>
@@ -155,22 +174,31 @@
 <li class="toctree-l2"><a class="reference internal" href="pages/task_pool.html#operations">操作</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="pages/actor_and_manager.html">Actor和其管理器</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="pages/actor_and_manager.html#how-to-use">如何使用</a></li>
+</ul>
+</li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="aio_parallel_tools.html">模型信息</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="aio_parallel_tools.html">模块信息</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="aio_parallel_tools.aio_task_pool.html">aio_parallel_tools.aio_task_pool package</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="aio_parallel_tools.aio_task_pool.html#taskpools">任务池</a></li>
-<li class="toctree-l3"><a class="reference internal" href="aio_parallel_tools.aio_task_pool.html#module-aio_parallel_tools.aio_task_pool.aio_autoscale_task_pool_lifo">aio_autoscale_task_pool_lifo module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="aio_parallel_tools.aio_task_pool.html#module-aio_parallel_tools.aio_task_pool.aio_autoscale_task_pool_priority">aio_autoscale_task_pool_priority module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="aio_parallel_tools.aio_task_pool.html#module-aio_parallel_tools.aio_task_pool.aio_autoscale_task_pool_simple">aio_autoscale_task_pool_simple module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="aio_parallel_tools.aio_task_pool.html#module-aio_parallel_tools.aio_task_pool.aio_fixed_task_pool_lifo">aio_fixed_task_pool_lifo module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="aio_parallel_tools.aio_task_pool.html#module-aio_parallel_tools.aio_task_pool.aio_fixed_task_pool_priority">aio_fixed_task_pool_priority module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="aio_parallel_tools.aio_task_pool.html#module-aio_parallel_tools.aio_task_pool.aio_fixed_task_pool_simple">aio_fixed_task_pool_simple module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="aio_parallel_tools.aio_task_pool.html#module-aio_parallel_tools.aio_task_pool.aio_autoscale_task_pool_lifo">使用后进先出队列的自扩展异步任务池</a></li>
+<li class="toctree-l3"><a class="reference internal" href="aio_parallel_tools.aio_task_pool.html#module-aio_parallel_tools.aio_task_pool.aio_autoscale_task_pool_priority">使用优先级队列的异步自动扩展任务池</a></li>
+<li class="toctree-l3"><a class="reference internal" href="aio_parallel_tools.aio_task_pool.html#module-aio_parallel_tools.aio_task_pool.aio_autoscale_task_pool_simple">使用默认队列的异步自扩展任务池</a></li>
+<li class="toctree-l3"><a class="reference internal" href="aio_parallel_tools.aio_task_pool.html#module-aio_parallel_tools.aio_task_pool.aio_fixed_task_pool_lifo">使用后进先出队列的固定异步任务池</a></li>
+<li class="toctree-l3"><a class="reference internal" href="aio_parallel_tools.aio_task_pool.html#module-aio_parallel_tools.aio_task_pool.aio_fixed_task_pool_priority">使用优先级队列的固定异步任务池</a></li>
+<li class="toctree-l3"><a class="reference internal" href="aio_parallel_tools.aio_task_pool.html#module-aio_parallel_tools.aio_task_pool.aio_fixed_task_pool_simple">使用默认队列的固定异步任务池</a></li>
 <li class="toctree-l3"><a class="reference internal" href="aio_parallel_tools.aio_task_pool.html#task-pool-core-api">Task Pool Core API</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="aio_parallel_tools.aio_task_pool.core.html">接口</a></li>
 <li class="toctree-l4"><a class="reference internal" href="aio_parallel_tools.aio_task_pool.core.html#mixins">混入类</a></li>
 </ul>
 </li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="aio_parallel_tools.aio_actor.html">aio_parallel_tools.aio_actor package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="aio_parallel_tools.aio_actor.html#module-aio_parallel_tools.aio_actor.actor_abc">Actor API</a></li>
+<li class="toctree-l3"><a class="reference internal" href="aio_parallel_tools.aio_actor.html#module-aio_parallel_tools.aio_actor.actor_basic">Base Class</a></li>
+<li class="toctree-l3"><a class="reference internal" href="aio_parallel_tools.aio_actor.html#module-aio_parallel_tools.aio_actor.actor_manager">Actor Manager</a></li>
 </ul>
 </li>
 </ul>
@@ -211,7 +239,7 @@
       &copy;2019, huangsizhe.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.2.1</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.1.2</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
       |

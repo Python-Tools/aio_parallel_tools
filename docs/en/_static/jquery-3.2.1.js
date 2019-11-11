@@ -269,8 +269,8 @@ jQuery.extend( {
 	// Assume jQuery is ready without the ready module
 	isReady: true,
 
-	error: function( message ) {
-		throw new Error( message );
+	error: function( msg ) {
+		throw new Error( msg );
 	},
 
 	noop: function() {},
@@ -1576,8 +1576,8 @@ Sizzle.escape = function( sel ) {
 	return (sel + "").replace( rcssescape, fcssescape );
 };
 
-Sizzle.error = function( message ) {
-	throw new Error( "Syntax error, unrecognized expression: " + message );
+Sizzle.error = function( msg ) {
+	throw new Error( "Syntax error, unrecognized expression: " + msg );
 };
 
 /**

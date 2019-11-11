@@ -42,6 +42,18 @@
 
 <div class="viewcode-block" id="InboxNearllyFullWarning"><a class="viewcode-back" href="../../../aio_parallel_tools.aio_actor.html#aio_parallel_tools.aio_actor.exception_and_warning.InboxNearllyFullWarning">[docs]</a><span class="k">class</span> <span class="nc">InboxNearllyFullWarning</span><span class="p">(</span><span class="ne">Warning</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Inbox Nearlly Full Warning.&quot;&quot;&quot;</span>
+
+    <span class="k">pass</span></div>
+
+
+<div class="viewcode-block" id="ActorIsPaused"><a class="viewcode-back" href="../../../aio_parallel_tools.aio_actor.html#aio_parallel_tools.aio_actor.exception_and_warning.ActorIsPaused">[docs]</a><span class="k">class</span> <span class="nc">ActorIsPaused</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Actor is Paused.&quot;&quot;&quot;</span>
+
+    <span class="k">pass</span></div>
+
+
+<div class="viewcode-block" id="NoAvailableActor"><a class="viewcode-back" href="../../../aio_parallel_tools.aio_actor.html#aio_parallel_tools.aio_actor.exception_and_warning.NoAvailableActor">[docs]</a><span class="k">class</span> <span class="nc">NoAvailableActor</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;No Available Actor.&quot;&quot;&quot;</span>
     
     <span class="k">pass</span></div>
 </pre></div>
@@ -78,22 +90,31 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../pages/task_pool.html#operations">Operations</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../../../pages/actor_and_manager.html">Actor and it’s Manager</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../pages/actor_and_manager.html#how-to-use">How to use</a></li>
+</ul>
+</li>
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../aio_parallel_tools.html">Modules</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../../aio_parallel_tools.aio_task_pool.html">aio_parallel_tools.aio_task_pool package</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../../aio_parallel_tools.aio_task_pool.html#taskpools">TaskPools</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../aio_parallel_tools.aio_task_pool.html#module-aio_parallel_tools.aio_task_pool.aio_autoscale_task_pool_lifo">aio_autoscale_task_pool_lifo module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../aio_parallel_tools.aio_task_pool.html#module-aio_parallel_tools.aio_task_pool.aio_autoscale_task_pool_priority">aio_autoscale_task_pool_priority module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../aio_parallel_tools.aio_task_pool.html#module-aio_parallel_tools.aio_task_pool.aio_autoscale_task_pool_simple">aio_autoscale_task_pool_simple module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../aio_parallel_tools.aio_task_pool.html#module-aio_parallel_tools.aio_task_pool.aio_fixed_task_pool_lifo">aio_fixed_task_pool_lifo module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../aio_parallel_tools.aio_task_pool.html#module-aio_parallel_tools.aio_task_pool.aio_fixed_task_pool_priority">aio_fixed_task_pool_priority module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../aio_parallel_tools.aio_task_pool.html#module-aio_parallel_tools.aio_task_pool.aio_fixed_task_pool_simple">aio_fixed_task_pool_simple module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../aio_parallel_tools.aio_task_pool.html#module-aio_parallel_tools.aio_task_pool.aio_autoscale_task_pool_lifo">Async autoscale task pool with lifo queue</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../aio_parallel_tools.aio_task_pool.html#module-aio_parallel_tools.aio_task_pool.aio_autoscale_task_pool_priority">Async autoscale task pool with priority queue</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../aio_parallel_tools.aio_task_pool.html#module-aio_parallel_tools.aio_task_pool.aio_autoscale_task_pool_simple">Async autoscale task pool with default queue</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../aio_parallel_tools.aio_task_pool.html#module-aio_parallel_tools.aio_task_pool.aio_fixed_task_pool_lifo">Async fixed task pool with lifo queue</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../aio_parallel_tools.aio_task_pool.html#module-aio_parallel_tools.aio_task_pool.aio_fixed_task_pool_priority">Async fixed task pool with priority queue</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../aio_parallel_tools.aio_task_pool.html#module-aio_parallel_tools.aio_task_pool.aio_fixed_task_pool_simple">Async fixed task pool with default queue</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../aio_parallel_tools.aio_task_pool.html#task-pool-core-api">Task Pool Core API</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../../aio_parallel_tools.aio_task_pool.core.html">Interface</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../aio_parallel_tools.aio_task_pool.core.html#mixins">Mixins</a></li>
 </ul>
 </li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../aio_parallel_tools.aio_actor.html">aio_parallel_tools.aio_actor package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../aio_parallel_tools.aio_actor.html#module-aio_parallel_tools.aio_actor.actor_abc">Actor API</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../aio_parallel_tools.aio_actor.html#module-aio_parallel_tools.aio_actor.actor_basic">Base Class</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../aio_parallel_tools.aio_actor.html#module-aio_parallel_tools.aio_actor.actor_manager">Actor Manager</a></li>
 </ul>
 </li>
 </ul>
@@ -135,7 +156,7 @@
       &copy;2019, huangsizhe.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.2.1</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.1.2</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
     </div>

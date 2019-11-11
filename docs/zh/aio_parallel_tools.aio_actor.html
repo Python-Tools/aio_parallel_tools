@@ -14,6 +14,7 @@
     <script type="text/javascript" src="_static/language_data.js"></script>
     <link rel="index" title="索引" href="genindex.html" />
     <link rel="search" title="搜索" href="search.html" />
+    <link rel="prev" title="Worker Manager Mixin" href="aio_parallel_tools.aio_task_pool.core.mixins.worker_manager_mixin.html" />
    
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
   
@@ -32,285 +33,528 @@
             
   <div class="section" id="aio-parallel-tools-aio-actor-package">
 <h1>aio_parallel_tools.aio_actor package<a class="headerlink" href="#aio-parallel-tools-aio-actor-package" title="永久链接至标题">¶</a></h1>
-<div class="section" id="subpackages">
-<h2>Subpackages<a class="headerlink" href="#subpackages" title="永久链接至标题">¶</a></h2>
-<div class="toctree-wrapper compound">
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="aio_parallel_tools.aio_actor.mixins.html">aio_parallel_tools.aio_actor.mixins package</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="aio_parallel_tools.aio_actor.mixins.html#submodules">Submodules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="aio_parallel_tools.aio_actor.mixins.html#module-aio_parallel_tools.aio_actor.mixins.hooks_mixin">aio_parallel_tools.aio_actor.mixins.hooks_mixin module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="aio_parallel_tools.aio_actor.mixins.html#module-aio_parallel_tools.aio_actor.mixins.id_mixin">aio_parallel_tools.aio_actor.mixins.id_mixin module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="aio_parallel_tools.aio_actor.mixins.html#module-aio_parallel_tools.aio_actor.mixins.inbox_mixin">aio_parallel_tools.aio_actor.mixins.inbox_mixin module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="aio_parallel_tools.aio_actor.mixins.html#module-aio_parallel_tools.aio_actor.mixins.loop_mixin">aio_parallel_tools.aio_actor.mixins.loop_mixin module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="aio_parallel_tools.aio_actor.mixins.html#module-aio_parallel_tools.aio_actor.mixins.manage_mixin">aio_parallel_tools.aio_actor.mixins.manage_mixin module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="aio_parallel_tools.aio_actor.mixins.html#module-aio_parallel_tools.aio_actor.mixins.task_mixin">aio_parallel_tools.aio_actor.mixins.task_mixin module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="aio_parallel_tools.aio_actor.mixins.html#module-aio_parallel_tools.aio_actor.mixins">Module contents</a></li>
-</ul>
-</li>
-</ul>
-</div>
-</div>
-<div class="section" id="submodules">
-<h2>Submodules<a class="headerlink" href="#submodules" title="永久链接至标题">¶</a></h2>
-</div>
 <div class="section" id="module-aio_parallel_tools.aio_actor.actor_abc">
-<span id="aio-parallel-tools-aio-actor-actor-abc-module"></span><h2>aio_parallel_tools.aio_actor.actor_abc module<a class="headerlink" href="#module-aio_parallel_tools.aio_actor.actor_abc" title="永久链接至标题">¶</a></h2>
+<span id="actor-api"></span><h2>Actor API<a class="headerlink" href="#module-aio_parallel_tools.aio_actor.actor_abc" title="永久链接至标题">¶</a></h2>
+<p>异步Actor抽象基类</p>
 <dl class="class">
 <dt id="aio_parallel_tools.aio_actor.actor_abc.ActorABC">
 <em class="property">class </em><code class="sig-prename descclassname">aio_parallel_tools.aio_actor.actor_abc.</code><code class="sig-name descname">ActorABC</code><a class="reference internal" href="_modules/aio_parallel_tools/aio_actor/actor_abc.html#ActorABC"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#aio_parallel_tools.aio_actor.actor_abc.ActorABC" title="永久链接至目标">¶</a></dt>
-<dd><p>基类：<code class="xref py py-class docutils literal notranslate"><span class="pre">abc.ABC</span></code></p>
+<dd><p>基类：<code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>异步Actor抽象基类</p>
+<dl class="method">
+<dt id="aio_parallel_tools.aio_actor.actor_abc.ActorABC.AvailableScope">
+<em class="property">abstract classmethod </em><code class="sig-name descname">AvailableScope</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; List[Any]<a class="reference internal" href="_modules/aio_parallel_tools/aio_actor/actor_abc.html#ActorABC.AvailableScope"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#aio_parallel_tools.aio_actor.actor_abc.ActorABC.AvailableScope" title="永久链接至目标">¶</a></dt>
+<dd><p>获取到可用的actor实例</p>
+<dl class="field-list simple">
+<dt class="field-odd">返回</dt>
+<dd class="field-odd"><p>可用的actor实例列表</p>
+</dd>
+<dt class="field-even">返回类型</dt>
+<dd class="field-even"><p>List[Any]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="aio_parallel_tools.aio_actor.actor_abc.ActorABC.BestToSendScope">
+<em class="property">abstract classmethod </em><code class="sig-name descname">BestToSendScope</code><span class="sig-paren">(</span><em class="sig-param">num: int = None</em><span class="sig-paren">)</span> &#x2192; List[Any]<a class="reference internal" href="_modules/aio_parallel_tools/aio_actor/actor_abc.html#ActorABC.BestToSendScope"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#aio_parallel_tools.aio_actor.actor_abc.ActorABC.BestToSendScope" title="永久链接至目标">¶</a></dt>
+<dd><p>获取一定数量的最适合被发送消息的actor实例</p>
+<dl class="field-list simple">
+<dt class="field-odd">返回</dt>
+<dd class="field-odd"><p>一定数量的最适合被发送消息的actor实例列表</p>
+</dd>
+<dt class="field-even">返回类型</dt>
+<dd class="field-even"><p>List[Any]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="aio_parallel_tools.aio_actor.actor_abc.ActorABC.Clean">
+<em class="property">abstract classmethod </em><code class="sig-name descname">Clean</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/aio_parallel_tools/aio_actor/actor_abc.html#ActorABC.Clean"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#aio_parallel_tools.aio_actor.actor_abc.ActorABC.Clean" title="永久链接至目标">¶</a></dt>
+<dd><p>清理不可用的actor实例</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="aio_parallel_tools.aio_actor.actor_abc.ActorABC.Close">
+<em class="property">abstract classmethod </em><code class="sig-name descname">Close</code><span class="sig-paren">(</span><em class="sig-param">num: int</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aio_parallel_tools/aio_actor/actor_abc.html#ActorABC.Close"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#aio_parallel_tools.aio_actor.actor_abc.ActorABC.Close" title="永久链接至目标">¶</a></dt>
+<dd><p>关闭一定数量的可用actor</p>
+<dl class="field-list simple">
+<dt class="field-odd">参数</dt>
+<dd class="field-odd"><p><strong>num</strong> (<em>int</em>) -- 关闭一定数量的可用actor</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="aio_parallel_tools.aio_actor.actor_abc.ActorABC.FindById">
+<em class="property">abstract classmethod </em><code class="sig-name descname">FindById</code><span class="sig-paren">(</span><em class="sig-param">aid: str</em><span class="sig-paren">)</span> &#x2192; Any<a class="reference internal" href="_modules/aio_parallel_tools/aio_actor/actor_abc.html#ActorABC.FindById"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#aio_parallel_tools.aio_actor.actor_abc.ActorABC.FindById" title="永久链接至目标">¶</a></dt>
+<dd><p>通过id号查找到actor实例</p>
+<dl class="field-list simple">
+<dt class="field-odd">参数</dt>
+<dd class="field-odd"><p><strong>aid</strong> (<em>str</em>) -- str类型的actorid号</p>
+</dd>
+<dt class="field-even">返回</dt>
+<dd class="field-even"><p>一个actor实例</p>
+</dd>
+<dt class="field-odd">返回类型</dt>
+<dd class="field-odd"><p>Any</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="aio_parallel_tools.aio_actor.actor_abc.ActorABC.NotAvailableScope">
+<em class="property">abstract classmethod </em><code class="sig-name descname">NotAvailableScope</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; List[Any]<a class="reference internal" href="_modules/aio_parallel_tools/aio_actor/actor_abc.html#ActorABC.NotAvailableScope"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#aio_parallel_tools.aio_actor.actor_abc.ActorABC.NotAvailableScope" title="永久链接至目标">¶</a></dt>
+<dd><p>获取不可用的actor实例</p>
+<dl class="field-list simple">
+<dt class="field-odd">返回</dt>
+<dd class="field-odd"><p>不可用的actor实例列表</p>
+</dd>
+<dt class="field-even">返回类型</dt>
+<dd class="field-even"><p>List[Any]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="aio_parallel_tools.aio_actor.actor_abc.ActorABC.NotPausedScope">
+<em class="property">abstract classmethod </em><code class="sig-name descname">NotPausedScope</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; List[Any]<a class="reference internal" href="_modules/aio_parallel_tools/aio_actor/actor_abc.html#ActorABC.NotPausedScope"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#aio_parallel_tools.aio_actor.actor_abc.ActorABC.NotPausedScope" title="永久链接至目标">¶</a></dt>
+<dd><p>获取未被暂停的actor实例</p>
+<dl class="field-list simple">
+<dt class="field-odd">返回</dt>
+<dd class="field-odd"><p>未被暂停的actor实例列表</p>
+</dd>
+<dt class="field-even">返回类型</dt>
+<dd class="field-even"><p>List[Any]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="aio_parallel_tools.aio_actor.actor_abc.ActorABC.NotRunningScope">
+<em class="property">abstract classmethod </em><code class="sig-name descname">NotRunningScope</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; List[Any]<a class="reference internal" href="_modules/aio_parallel_tools/aio_actor/actor_abc.html#ActorABC.NotRunningScope"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#aio_parallel_tools.aio_actor.actor_abc.ActorABC.NotRunningScope" title="永久链接至目标">¶</a></dt>
+<dd><p>获取不再执行状态的actor实例</p>
+<dl class="field-list simple">
+<dt class="field-odd">返回</dt>
+<dd class="field-odd"><p>不再执行状态的actor实例列表</p>
+</dd>
+<dt class="field-even">返回类型</dt>
+<dd class="field-even"><p>List[Any]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="aio_parallel_tools.aio_actor.actor_abc.ActorABC.PausedScope">
+<em class="property">abstract classmethod </em><code class="sig-name descname">PausedScope</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; List[Any]<a class="reference internal" href="_modules/aio_parallel_tools/aio_actor/actor_abc.html#ActorABC.PausedScope"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#aio_parallel_tools.aio_actor.actor_abc.ActorABC.PausedScope" title="永久链接至目标">¶</a></dt>
+<dd><p>获取被暂停的actor实例</p>
+<dl class="field-list simple">
+<dt class="field-odd">返回</dt>
+<dd class="field-odd"><p>被暂停的actor实例列表</p>
+</dd>
+<dt class="field-even">返回类型</dt>
+<dd class="field-even"><p>List[Any]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="aio_parallel_tools.aio_actor.actor_abc.ActorABC.Publish">
+<em class="property">abstract classmethod </em><code class="sig-name descname">Publish</code><span class="sig-paren">(</span><em class="sig-param">message: Any</em>, <em class="sig-param">timeout: int</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aio_parallel_tools/aio_actor/actor_abc.html#ActorABC.Publish"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#aio_parallel_tools.aio_actor.actor_abc.ActorABC.Publish" title="永久链接至目标">¶</a></dt>
+<dd><p>发送消息给所有可用的actor实例</p>
+<dl class="field-list simple">
+<dt class="field-odd">参数</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>message</strong> (<em>Any</em>) -- 发送给actor实例的消息</p></li>
+<li><p><strong>timeout</strong> (<em>int</em>) -- 发送操作的过期时间</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="aio_parallel_tools.aio_actor.actor_abc.ActorABC.Restart">
+<em class="property">abstract classmethod </em><code class="sig-name descname">Restart</code><span class="sig-paren">(</span><em class="sig-param">num: int</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aio_parallel_tools/aio_actor/actor_abc.html#ActorABC.Restart"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#aio_parallel_tools.aio_actor.actor_abc.ActorABC.Restart" title="永久链接至目标">¶</a></dt>
+<dd><p>重启一定数量的不可用actor实例</p>
+<dl class="field-list simple">
+<dt class="field-odd">参数</dt>
+<dd class="field-odd"><p><strong>num</strong> (<em>int</em>) -- 要被重启的actor实例数量</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="aio_parallel_tools.aio_actor.actor_abc.ActorABC.RunningScope">
+<em class="property">abstract classmethod </em><code class="sig-name descname">RunningScope</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; List[Any]<a class="reference internal" href="_modules/aio_parallel_tools/aio_actor/actor_abc.html#ActorABC.RunningScope"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#aio_parallel_tools.aio_actor.actor_abc.ActorABC.RunningScope" title="永久链接至目标">¶</a></dt>
+<dd><p>获取执行状态的actor实例</p>
+<dl class="field-list simple">
+<dt class="field-odd">返回</dt>
+<dd class="field-odd"><p>不再执行状态的actor实例列表</p>
+</dd>
+<dt class="field-even">返回类型</dt>
+<dd class="field-even"><p>List[Any]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="aio_parallel_tools.aio_actor.actor_abc.ActorABC.Send">
+<em class="property">abstract classmethod </em><code class="sig-name descname">Send</code><span class="sig-paren">(</span><em class="sig-param">message: Any</em>, <em class="sig-param">timeout: int</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aio_parallel_tools/aio_actor/actor_abc.html#ActorABC.Send"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#aio_parallel_tools.aio_actor.actor_abc.ActorABC.Send" title="永久链接至目标">¶</a></dt>
+<dd><p>发送消息给最适合接收的actor实例</p>
+<dl class="field-list simple">
+<dt class="field-odd">参数</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>message</strong> (<em>Any</em>) -- 发送给actor实例的消息</p></li>
+<li><p><strong>timeout</strong> (<em>int</em>) -- 发送操作的过期时间</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="aio_parallel_tools.aio_actor.actor_abc.ActorABC.SendById">
+<em class="property">abstract classmethod </em><code class="sig-name descname">SendById</code><span class="sig-paren">(</span><em class="sig-param">aid: str</em>, <em class="sig-param">message: Any</em>, <em class="sig-param">timeout: int</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aio_parallel_tools/aio_actor/actor_abc.html#ActorABC.SendById"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#aio_parallel_tools.aio_actor.actor_abc.ActorABC.SendById" title="永久链接至目标">¶</a></dt>
+<dd><p>发送消息给指定id的actor实例</p>
+<dl class="field-list simple">
+<dt class="field-odd">参数</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>aid</strong> (<em>str</em>) -- str类型的actorid号</p></li>
+<li><p><strong>message</strong> (<em>Any</em>) -- 发送给actor实例的消息</p></li>
+<li><p><strong>timeout</strong> (<em>int</em>) -- 发送操作的过期时间</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="aio_parallel_tools.aio_actor.actor_abc.ActorABC.SendRandom">
+<em class="property">abstract classmethod </em><code class="sig-name descname">SendRandom</code><span class="sig-paren">(</span><em class="sig-param">message: Any</em>, <em class="sig-param">timeout</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aio_parallel_tools/aio_actor/actor_abc.html#ActorABC.SendRandom"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#aio_parallel_tools.aio_actor.actor_abc.ActorABC.SendRandom" title="永久链接至目标">¶</a></dt>
+<dd><p>发送消息给随机一个可用的actor实例</p>
+<dl class="field-list simple">
+<dt class="field-odd">参数</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>message</strong> (<em>Any</em>) -- 发送给actor实例的消息</p></li>
+<li><p><strong>timeout</strong> (<em>int</em>) -- 发送操作的过期时间</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="aio_parallel_tools.aio_actor.actor_abc.ActorABC.Start">
+<em class="property">abstract classmethod </em><code class="sig-name descname">Start</code><span class="sig-paren">(</span><em class="sig-param">num: int</em>, <em class="sig-param">inbox_maxsize: int = 0</em>, <em class="sig-param">loop: Optional[asyncio.events.AbstractEventLoop] = None</em>, <em class="sig-param">rev_timeout: Optional[int] = None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aio_parallel_tools/aio_actor/actor_abc.html#ActorABC.Start"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#aio_parallel_tools.aio_actor.actor_abc.ActorABC.Start" title="永久链接至目标">¶</a></dt>
+<dd><p>创建并启动一定数量的actor实例</p>
+<dl class="field-list simple">
+<dt class="field-odd">参数</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>num</strong> (<em>int</em>) -- 要创建并启动的actor实例数量</p></li>
+<li><p><strong>inbox_maxsize</strong> (<em>int</em><em>, </em><em>optional</em>) -- actor实例消息邮箱的大小,默认为0意味无限大.</p></li>
+<li><p><strong>loop</strong> (<em>Optional</em><em>[</em><em>asyncio.events.AbstractEventLoop</em><em>]</em><em>, </em><em>optional</em>) -- actor实例执行所在的事件循环</p></li>
+<li><p><strong>rev_timeout</strong> (<em>[</em><em>int</em><em>]</em><em>, </em><em>optional</em>) -- recive方法的执行超时时长.默认为None,意味不会超时.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="aio_parallel_tools.aio_actor.actor_abc.ActorABC.aid">
+<em class="property">abstract property </em><code class="sig-name descname">aid</code><a class="headerlink" href="#aio_parallel_tools.aio_actor.actor_abc.ActorABC.aid" title="永久链接至目标">¶</a></dt>
+<dd><p>获取actor实例的id</p>
+<dl class="field-list simple">
+<dt class="field-odd">返回</dt>
+<dd class="field-odd"><p>actor实例的id</p>
+</dd>
+<dt class="field-even">返回类型</dt>
+<dd class="field-even"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
 <dl class="method">
 <dt id="aio_parallel_tools.aio_actor.actor_abc.ActorABC.available">
 <em class="property">abstract property </em><code class="sig-name descname">available</code><a class="headerlink" href="#aio_parallel_tools.aio_actor.actor_abc.ActorABC.available" title="永久链接至目标">¶</a></dt>
-<dd></dd></dl>
+<dd><p>检查actor实例是否可用.</p>
+<dl class="field-list simple">
+<dt class="field-odd">返回</dt>
+<dd class="field-odd"><p>actor实例是否可用</p>
+</dd>
+<dt class="field-even">返回类型</dt>
+<dd class="field-even"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="method">
 <dt id="aio_parallel_tools.aio_actor.actor_abc.ActorABC.close">
-<em class="property">abstract async </em><code class="sig-name descname">close</code><span class="sig-paren">(</span><em class="sig-param">timeout=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aio_parallel_tools/aio_actor/actor_abc.html#ActorABC.close"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#aio_parallel_tools.aio_actor.actor_abc.ActorABC.close" title="永久链接至目标">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="aio_parallel_tools.aio_actor.actor_abc.ActorABC.id">
-<em class="property">abstract property </em><code class="sig-name descname">id</code><a class="headerlink" href="#aio_parallel_tools.aio_actor.actor_abc.ActorABC.id" title="永久链接至目标">¶</a></dt>
-<dd></dd></dl>
+<em class="property">abstract async </em><code class="sig-name descname">close</code><span class="sig-paren">(</span><em class="sig-param">timeout: Optional[int] = None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aio_parallel_tools/aio_actor/actor_abc.html#ActorABC.close"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#aio_parallel_tools.aio_actor.actor_abc.ActorABC.close" title="永久链接至目标">¶</a></dt>
+<dd><p>关闭actor实例</p>
+<dl class="field-list simple">
+<dt class="field-odd">参数</dt>
+<dd class="field-odd"><p><strong>timeout</strong> (<em>Optional</em><em>[</em><em>int</em><em>]</em><em>, </em><em>optional</em>) -- 关闭操作的超时时间.</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="method">
 <dt id="aio_parallel_tools.aio_actor.actor_abc.ActorABC.inbox_maxsize">
 <em class="property">abstract property </em><code class="sig-name descname">inbox_maxsize</code><a class="headerlink" href="#aio_parallel_tools.aio_actor.actor_abc.ActorABC.inbox_maxsize" title="永久链接至目标">¶</a></dt>
-<dd></dd></dl>
+<dd><p>actor对象内部的消息邮箱的最大容量</p>
+<dl class="field-list simple">
+<dt class="field-odd">返回</dt>
+<dd class="field-odd"><p>actor对象内部的消息邮箱的最大容量</p>
+</dd>
+<dt class="field-even">返回类型</dt>
+<dd class="field-even"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="method">
 <dt id="aio_parallel_tools.aio_actor.actor_abc.ActorABC.inbox_size">
 <em class="property">abstract property </em><code class="sig-name descname">inbox_size</code><a class="headerlink" href="#aio_parallel_tools.aio_actor.actor_abc.ActorABC.inbox_size" title="永久链接至目标">¶</a></dt>
-<dd></dd></dl>
+<dd><p>actor对象内部的消息邮箱的当前容量</p>
+<dl class="field-list simple">
+<dt class="field-odd">返回</dt>
+<dd class="field-odd"><p>actor对象内部的消息邮箱的当前容量</p>
+</dd>
+<dt class="field-even">返回类型</dt>
+<dd class="field-even"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="method">
 <dt id="aio_parallel_tools.aio_actor.actor_abc.ActorABC.loop">
 <em class="property">abstract property </em><code class="sig-name descname">loop</code><a class="headerlink" href="#aio_parallel_tools.aio_actor.actor_abc.ActorABC.loop" title="永久链接至目标">¶</a></dt>
-<dd></dd></dl>
+<dd><p>任务执行所在的事件循环</p>
+<dl class="field-list simple">
+<dt class="field-odd">返回</dt>
+<dd class="field-odd"><p>任务执行所在的事件循环</p>
+</dd>
+<dt class="field-even">返回类型</dt>
+<dd class="field-even"><p>asyncio.events.AbstractEventLoop</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="aio_parallel_tools.aio_actor.actor_abc.ActorABC.paused">
+<em class="property">abstract property </em><code class="sig-name descname">paused</code><a class="headerlink" href="#aio_parallel_tools.aio_actor.actor_abc.ActorABC.paused" title="永久链接至目标">¶</a></dt>
+<dd><p>检查actor实例是否被暂停</p>
+<dl class="field-list simple">
+<dt class="field-odd">返回</dt>
+<dd class="field-odd"><p>actor实例是否被暂停</p>
+</dd>
+<dt class="field-even">返回类型</dt>
+<dd class="field-even"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="method">
 <dt id="aio_parallel_tools.aio_actor.actor_abc.ActorABC.receive">
 <em class="property">abstract async </em><code class="sig-name descname">receive</code><span class="sig-paren">(</span><em class="sig-param">message</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aio_parallel_tools/aio_actor/actor_abc.html#ActorABC.receive"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#aio_parallel_tools.aio_actor.actor_abc.ActorABC.receive" title="永久链接至目标">¶</a></dt>
-<dd><p>Define in your subclass.</p>
+<dd><p>Actor的执行逻辑.需要被子类继承实现.</p>
+<dl class="field-list simple">
+<dt class="field-odd">参数</dt>
+<dd class="field-odd"><p><strong>message</strong> (<em>Any</em>) -- 发送给actor实例的消息</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="method">
 <dt id="aio_parallel_tools.aio_actor.actor_abc.ActorABC.running">
 <em class="property">abstract property </em><code class="sig-name descname">running</code><a class="headerlink" href="#aio_parallel_tools.aio_actor.actor_abc.ActorABC.running" title="永久链接至目标">¶</a></dt>
-<dd></dd></dl>
+<dd><p>检查actor实例是否在执行状态</p>
+<dl class="field-list simple">
+<dt class="field-odd">返回</dt>
+<dd class="field-odd"><p>actor实例是否在执行状态</p>
+</dd>
+<dt class="field-even">返回类型</dt>
+<dd class="field-even"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="method">
 <dt id="aio_parallel_tools.aio_actor.actor_abc.ActorABC.send">
 <em class="property">abstract async </em><code class="sig-name descname">send</code><span class="sig-paren">(</span><em class="sig-param">message</em>, <em class="sig-param">timeout=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aio_parallel_tools/aio_actor/actor_abc.html#ActorABC.send"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#aio_parallel_tools.aio_actor.actor_abc.ActorABC.send" title="永久链接至目标">¶</a></dt>
-<dd><p>Send a message to the actor.</p>
+<dd><p>向实例发送消息</p>
+<dl class="field-list simple">
+<dt class="field-odd">参数</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>message</strong> (<em>Any</em>) -- 发送给actor实例的消息</p></li>
+<li><p><strong>timeout</strong> (<em>int</em>) -- 发送操作的过期时间</p></li>
+</ul>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="method">
 <dt id="aio_parallel_tools.aio_actor.actor_abc.ActorABC.send_nowait">
 <em class="property">abstract </em><code class="sig-name descname">send_nowait</code><span class="sig-paren">(</span><em class="sig-param">message</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aio_parallel_tools/aio_actor/actor_abc.html#ActorABC.send_nowait"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#aio_parallel_tools.aio_actor.actor_abc.ActorABC.send_nowait" title="永久链接至目标">¶</a></dt>
-<dd><p>Send a message to the actor</p>
+<dd><p>使用同步接口向实例发送消息</p>
+<dl class="field-list simple">
+<dt class="field-odd">参数</dt>
+<dd class="field-odd"><p><strong>message</strong> (<em>Any</em>) -- 发送给actor实例的消息</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="method">
 <dt id="aio_parallel_tools.aio_actor.actor_abc.ActorABC.start">
 <em class="property">abstract </em><code class="sig-name descname">start</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/aio_parallel_tools/aio_actor/actor_abc.html#ActorABC.start"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#aio_parallel_tools.aio_actor.actor_abc.ActorABC.start" title="永久链接至目标">¶</a></dt>
-<dd></dd></dl>
+<dd><p>启动actor实例</p>
+</dd></dl>
 
 <dl class="method">
 <dt id="aio_parallel_tools.aio_actor.actor_abc.ActorABC.task">
 <em class="property">abstract property </em><code class="sig-name descname">task</code><a class="headerlink" href="#aio_parallel_tools.aio_actor.actor_abc.ActorABC.task" title="永久链接至目标">¶</a></dt>
-<dd></dd></dl>
+<dd><p>actor实例内部执行的任务</p>
+<dl class="field-list simple">
+<dt class="field-odd">返回</dt>
+<dd class="field-odd"><p>actor实例内部执行的任务</p>
+</dd>
+<dt class="field-even">返回类型</dt>
+<dd class="field-even"><p>asyncio.Task</p>
+</dd>
+</dl>
+</dd></dl>
 
 </dd></dl>
 
 </div>
-<div class="section" id="aio-parallel-tools-aio-actor-actor-basic-module">
-<h2>aio_parallel_tools.aio_actor.actor_basic module<a class="headerlink" href="#aio-parallel-tools-aio-actor-actor-basic-module" title="永久链接至标题">¶</a></h2>
-</div>
-<div class="section" id="module-aio_parallel_tools.aio_actor.actor_basic_copy">
-<span id="aio-parallel-tools-aio-actor-actor-basic-copy-module"></span><h2>aio_parallel_tools.aio_actor.actor_basic_copy module<a class="headerlink" href="#module-aio_parallel_tools.aio_actor.actor_basic_copy" title="永久链接至标题">¶</a></h2>
+<div class="section" id="module-aio_parallel_tools.aio_actor.actor_basic">
+<span id="base-class"></span><h2>Base Class<a class="headerlink" href="#module-aio_parallel_tools.aio_actor.actor_basic" title="永久链接至标题">¶</a></h2>
+<p>Async Actor Tool.</p>
 <dl class="class">
-<dt id="aio_parallel_tools.aio_actor.actor_basic_copy.Actor">
-<em class="property">class </em><code class="sig-prename descclassname">aio_parallel_tools.aio_actor.actor_basic_copy.</code><code class="sig-name descname">Actor</code><span class="sig-paren">(</span><em class="sig-param">inbox_maxsize=0</em>, <em class="sig-param">loop=None</em>, <em class="sig-param">rev_timeout=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aio_parallel_tools/aio_actor/actor_basic_copy.html#Actor"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#aio_parallel_tools.aio_actor.actor_basic_copy.Actor" title="永久链接至目标">¶</a></dt>
-<dd><p>基类：<code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<dl class="method">
-<dt id="aio_parallel_tools.aio_actor.actor_basic_copy.Actor.after_actor_close">
-<code class="sig-name descname">after_actor_close</code><span class="sig-paren">(</span><em class="sig-param">task</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aio_parallel_tools/aio_actor/actor_basic_copy.html#Actor.after_actor_close"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#aio_parallel_tools.aio_actor.actor_basic_copy.Actor.after_actor_close" title="永久链接至目标">¶</a></dt>
-<dd><p>actor关闭后执行的钩子.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="aio_parallel_tools.aio_actor.actor_basic_copy.Actor.after_actor_start">
-<code class="sig-name descname">after_actor_start</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/aio_parallel_tools/aio_actor/actor_basic_copy.html#Actor.after_actor_start"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#aio_parallel_tools.aio_actor.actor_basic_copy.Actor.after_actor_start" title="永久链接至目标">¶</a></dt>
-<dd><p>actor启动后执行的钩子.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="aio_parallel_tools.aio_actor.actor_basic_copy.Actor.after_deal_rev">
-<em class="property">async </em><code class="sig-name descname">after_deal_rev</code><span class="sig-paren">(</span><em class="sig-param">result</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aio_parallel_tools/aio_actor/actor_basic_copy.html#Actor.after_deal_rev"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#aio_parallel_tools.aio_actor.actor_basic_copy.Actor.after_deal_rev" title="永久链接至目标">¶</a></dt>
-<dd><p>每次处理收到的消息后执行的钩子.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="aio_parallel_tools.aio_actor.actor_basic_copy.Actor.after_every_loop">
-<em class="property">async </em><code class="sig-name descname">after_every_loop</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/aio_parallel_tools/aio_actor/actor_basic_copy.html#Actor.after_every_loop"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#aio_parallel_tools.aio_actor.actor_basic_copy.Actor.after_every_loop" title="永久链接至目标">¶</a></dt>
-<dd><p>每个循环执行后执行的钩子.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="aio_parallel_tools.aio_actor.actor_basic_copy.Actor.available">
-<em class="property">property </em><code class="sig-name descname">available</code><a class="headerlink" href="#aio_parallel_tools.aio_actor.actor_basic_copy.Actor.available" title="永久链接至目标">¶</a></dt>
+<dt id="aio_parallel_tools.aio_actor.actor_basic.AioActor">
+<em class="property">class </em><code class="sig-prename descclassname">aio_parallel_tools.aio_actor.actor_basic.</code><code class="sig-name descname">AioActor</code><span class="sig-paren">(</span><em class="sig-param">inbox_maxsize: int = 0</em>, <em class="sig-param">loop: Optional[asyncio.events.AbstractEventLoop] = None</em>, <em class="sig-param">rev_timeout: Optional[int] = None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aio_parallel_tools/aio_actor/actor_basic.html#AioActor"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#aio_parallel_tools.aio_actor.actor_basic.AioActor" title="永久链接至目标">¶</a></dt>
+<dd><p>基类：<a class="reference internal" href="aio_parallel_tools.aio_actor.mixins.html#aio_parallel_tools.aio_actor.mixins.manage_mixin.ManageMixin" title="aio_parallel_tools.aio_actor.mixins.manage_mixin.ManageMixin"><code class="xref py py-class docutils literal notranslate"><span class="pre">aio_parallel_tools.aio_actor.mixins.manage_mixin.ManageMixin</span></code></a>, <a class="reference internal" href="aio_parallel_tools.aio_actor.mixins.html#aio_parallel_tools.aio_actor.mixins.inbox_mixin.InboxMixin" title="aio_parallel_tools.aio_actor.mixins.inbox_mixin.InboxMixin"><code class="xref py py-class docutils literal notranslate"><span class="pre">aio_parallel_tools.aio_actor.mixins.inbox_mixin.InboxMixin</span></code></a>, <a class="reference internal" href="aio_parallel_tools.aio_actor.mixins.html#aio_parallel_tools.aio_actor.mixins.task_mixin.TaskMixin" title="aio_parallel_tools.aio_actor.mixins.task_mixin.TaskMixin"><code class="xref py py-class docutils literal notranslate"><span class="pre">aio_parallel_tools.aio_actor.mixins.task_mixin.TaskMixin</span></code></a>, <a class="reference internal" href="aio_parallel_tools.aio_actor.mixins.html#aio_parallel_tools.aio_actor.mixins.hooks_mixin.HooksMixin" title="aio_parallel_tools.aio_actor.mixins.hooks_mixin.HooksMixin"><code class="xref py py-class docutils literal notranslate"><span class="pre">aio_parallel_tools.aio_actor.mixins.hooks_mixin.HooksMixin</span></code></a>, <a class="reference internal" href="aio_parallel_tools.aio_actor.mixins.html#aio_parallel_tools.aio_actor.mixins.id_mixin.IdentifyMixin" title="aio_parallel_tools.aio_actor.mixins.id_mixin.IdentifyMixin"><code class="xref py py-class docutils literal notranslate"><span class="pre">aio_parallel_tools.aio_actor.mixins.id_mixin.IdentifyMixin</span></code></a>, <a class="reference internal" href="aio_parallel_tools.aio_actor.mixins.html#aio_parallel_tools.aio_actor.mixins.loop_mixin.LoopMixin" title="aio_parallel_tools.aio_actor.mixins.loop_mixin.LoopMixin"><code class="xref py py-class docutils literal notranslate"><span class="pre">aio_parallel_tools.aio_actor.mixins.loop_mixin.LoopMixin</span></code></a>, <a class="reference internal" href="#aio_parallel_tools.aio_actor.actor_abc.ActorABC" title="aio_parallel_tools.aio_actor.actor_abc.ActorABC"><code class="xref py py-class docutils literal notranslate"><span class="pre">aio_parallel_tools.aio_actor.actor_abc.ActorABC</span></code></a></p>
+<p>Base Async Actor class.</p>
+<p>要使用这个基类,我们需要创建一个子类并实现其中的异步方法`receive`</p>
+<p>Usage:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">Pinger</span><span class="p">(</span><span class="n">AioActor</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="k">async</span> <span class="k">def</span> <span class="nf">receive</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">):</span>
+<span class="gp">... </span>        <span class="nb">print</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
+<span class="gp">... </span>        <span class="k">try</span><span class="p">:</span>
+<span class="gp">... </span>            <span class="k">await</span> <span class="n">ActorManager</span><span class="o">.</span><span class="n">get_actor</span><span class="p">(</span><span class="s2">&quot;Ponger&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">Send</span><span class="p">(</span><span class="s1">&#39;ping&#39;</span><span class="p">)</span>
+<span class="gp">... </span>        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+<span class="gp">... </span>            <span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;receive run error </span><span class="si">{e}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="gp">... </span>        <span class="k">finally</span><span class="p">:</span>
+<span class="gp">... </span>            <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">Ponger</span><span class="p">(</span><span class="n">AioActor</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="k">async</span> <span class="k">def</span> <span class="nf">receive</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="k">try</span><span class="p">:</span>
+<span class="gp">... </span>        <span class="k">await</span> <span class="n">ActorManager</span><span class="o">.</span><span class="n">get_actor</span><span class="p">(</span><span class="s2">&quot;Pinger&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">Send</span><span class="p">(</span><span class="s1">&#39;pong&#39;</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+<span class="gp">... </span>        <span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;receive run error </span><span class="si">{e}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="k">finally</span><span class="p">:</span>
+<span class="gp">... </span>        <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">async</span> <span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+<span class="go">        Pinger.Start(num=3)</span>
+<span class="go">        Ponger.Start(num=3)</span>
+<span class="go">        await asyncio.sleep(1)</span>
+<span class="go">        for i in Pinger.Members:</span>
+<span class="go">            print(&quot;****************&quot;)</span>
+<span class="go">            print(i.aid)</span>
+<span class="go">            print(i.available)</span>
+<span class="go">            print(i.running)</span>
+<span class="go">            print(i.paused)</span>
+<span class="go">            print(&quot;****************&quot;)</span>
+<span class="go">        await Pinger.Send(&quot;start&quot;)</span>
+<span class="go">        await asyncio.sleep(10)</span>
+<span class="go">        await Pinger.Close(num=3)</span>
+<span class="go">        await Ponger.Close(num=3)</span>
+</pre></div>
+</div>
+<dl class="attribute">
+<dt id="aio_parallel_tools.aio_actor.actor_basic.AioActor.Members">
+<code class="sig-name descname">Members</code><em class="property"> = {}</em><a class="headerlink" href="#aio_parallel_tools.aio_actor.actor_basic.AioActor.Members" title="永久链接至目标">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
-<dt id="aio_parallel_tools.aio_actor.actor_basic_copy.Actor.befor_actor_colse">
-<code class="sig-name descname">befor_actor_colse</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/aio_parallel_tools/aio_actor/actor_basic_copy.html#Actor.befor_actor_colse"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#aio_parallel_tools.aio_actor.actor_basic_copy.Actor.befor_actor_colse" title="永久链接至目标">¶</a></dt>
-<dd><p>actor关闭前执行的钩子.</p>
+<dt id="aio_parallel_tools.aio_actor.actor_basic.AioActor.available">
+<em class="property">property </em><code class="sig-name descname">available</code><a class="headerlink" href="#aio_parallel_tools.aio_actor.actor_basic.AioActor.available" title="永久链接至目标">¶</a></dt>
+<dd><p>检查actor实例是否可用.</p>
+<dl class="field-list simple">
+<dt class="field-odd">返回</dt>
+<dd class="field-odd"><p>actor实例是否可用</p>
+</dd>
+<dt class="field-even">返回类型</dt>
+<dd class="field-even"><p>bool</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="method">
-<dt id="aio_parallel_tools.aio_actor.actor_basic_copy.Actor.before_actor_start">
-<code class="sig-name descname">before_actor_start</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/aio_parallel_tools/aio_actor/actor_basic_copy.html#Actor.before_actor_start"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#aio_parallel_tools.aio_actor.actor_basic_copy.Actor.before_actor_start" title="永久链接至目标">¶</a></dt>
-<dd><p>actor启动前执行的钩子.</p>
+<dt id="aio_parallel_tools.aio_actor.actor_basic.AioActor.close">
+<em class="property">async </em><code class="sig-name descname">close</code><span class="sig-paren">(</span><em class="sig-param">timeout: Optional[int] = None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aio_parallel_tools/aio_actor/actor_basic.html#AioActor.close"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#aio_parallel_tools.aio_actor.actor_basic.AioActor.close" title="永久链接至目标">¶</a></dt>
+<dd><p>关闭actor实例</p>
+<dl class="field-list simple">
+<dt class="field-odd">参数</dt>
+<dd class="field-odd"><p><strong>timeout</strong> (<em>Optional</em><em>[</em><em>int</em><em>]</em><em>, </em><em>optional</em>) -- 关闭操作的超时时间.</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="method">
-<dt id="aio_parallel_tools.aio_actor.actor_basic_copy.Actor.before_deal_rev">
-<em class="property">async </em><code class="sig-name descname">before_deal_rev</code><span class="sig-paren">(</span><em class="sig-param">message</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aio_parallel_tools/aio_actor/actor_basic_copy.html#Actor.before_deal_rev"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#aio_parallel_tools.aio_actor.actor_basic_copy.Actor.before_deal_rev" title="永久链接至目标">¶</a></dt>
-<dd><p>每次处理收到的消息前执行的钩子.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="aio_parallel_tools.aio_actor.actor_basic_copy.Actor.before_every_loop">
-<em class="property">async </em><code class="sig-name descname">before_every_loop</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/aio_parallel_tools/aio_actor/actor_basic_copy.html#Actor.before_every_loop"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#aio_parallel_tools.aio_actor.actor_basic_copy.Actor.before_every_loop" title="永久链接至目标">¶</a></dt>
-<dd><p>每个循环执行前执行的钩子.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="aio_parallel_tools.aio_actor.actor_basic_copy.Actor.close">
-<em class="property">async </em><code class="sig-name descname">close</code><span class="sig-paren">(</span><em class="sig-param">timeout=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aio_parallel_tools/aio_actor/actor_basic_copy.html#Actor.close"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#aio_parallel_tools.aio_actor.actor_basic_copy.Actor.close" title="永久链接至目标">¶</a></dt>
+<dt id="aio_parallel_tools.aio_actor.actor_basic.AioActor.close_nowait">
+<code class="sig-name descname">close_nowait</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/aio_parallel_tools/aio_actor/actor_basic.html#AioActor.close_nowait"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#aio_parallel_tools.aio_actor.actor_basic.AioActor.close_nowait" title="永久链接至目标">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
-<dt id="aio_parallel_tools.aio_actor.actor_basic_copy.Actor.close_nowait">
-<code class="sig-name descname">close_nowait</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/aio_parallel_tools/aio_actor/actor_basic_copy.html#Actor.close_nowait"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#aio_parallel_tools.aio_actor.actor_basic_copy.Actor.close_nowait" title="永久链接至目标">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="aio_parallel_tools.aio_actor.actor_basic_copy.Actor.handle_rev_timeout">
-<em class="property">async </em><code class="sig-name descname">handle_rev_timeout</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/aio_parallel_tools/aio_actor/actor_basic_copy.html#Actor.handle_rev_timeout"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#aio_parallel_tools.aio_actor.actor_basic_copy.Actor.handle_rev_timeout" title="永久链接至目标">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="aio_parallel_tools.aio_actor.actor_basic_copy.Actor.handle_send_timeout">
-<em class="property">async </em><code class="sig-name descname">handle_send_timeout</code><span class="sig-paren">(</span><em class="sig-param">message</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aio_parallel_tools/aio_actor/actor_basic_copy.html#Actor.handle_send_timeout"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#aio_parallel_tools.aio_actor.actor_basic_copy.Actor.handle_send_timeout" title="永久链接至目标">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="aio_parallel_tools.aio_actor.actor_basic_copy.Actor.receive">
-<em class="property">async </em><code class="sig-name descname">receive</code><span class="sig-paren">(</span><em class="sig-param">message</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aio_parallel_tools/aio_actor/actor_basic_copy.html#Actor.receive"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#aio_parallel_tools.aio_actor.actor_basic_copy.Actor.receive" title="永久链接至目标">¶</a></dt>
-<dd><p>Define in your subclass.</p>
+<dt id="aio_parallel_tools.aio_actor.actor_basic.AioActor.start">
+<code class="sig-name descname">start</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/aio_parallel_tools/aio_actor/actor_basic.html#AioActor.start"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#aio_parallel_tools.aio_actor.actor_basic.AioActor.start" title="永久链接至目标">¶</a></dt>
+<dd><p>启动actor实例</p>
 </dd></dl>
 
-<dl class="method">
-<dt id="aio_parallel_tools.aio_actor.actor_basic_copy.Actor.send">
-<em class="property">async </em><code class="sig-name descname">send</code><span class="sig-paren">(</span><em class="sig-param">message</em>, <em class="sig-param">timeout=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aio_parallel_tools/aio_actor/actor_basic_copy.html#Actor.send"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#aio_parallel_tools.aio_actor.actor_basic_copy.Actor.send" title="永久链接至目标">¶</a></dt>
-<dd><p>Send a message to the actor</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="aio_parallel_tools.aio_actor.actor_basic_copy.Actor.send_nowait">
-<code class="sig-name descname">send_nowait</code><span class="sig-paren">(</span><em class="sig-param">message</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aio_parallel_tools/aio_actor/actor_basic_copy.html#Actor.send_nowait"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#aio_parallel_tools.aio_actor.actor_basic_copy.Actor.send_nowait" title="永久链接至目标">¶</a></dt>
-<dd><p>Send a message to the actor</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="aio_parallel_tools.aio_actor.actor_basic_copy.Actor.start">
-<code class="sig-name descname">start</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/aio_parallel_tools/aio_actor/actor_basic_copy.html#Actor.start"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#aio_parallel_tools.aio_actor.actor_basic_copy.Actor.start" title="永久链接至目标">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="aio_parallel_tools.aio_actor.actor_basic_copy.Actor.throw_error">
-<em class="property">async </em><code class="sig-name descname">throw_error</code><span class="sig-paren">(</span><em class="sig-param">error</em>, <em class="sig-param">timeout=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aio_parallel_tools/aio_actor/actor_basic_copy.html#Actor.throw_error"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#aio_parallel_tools.aio_actor.actor_basic_copy.Actor.throw_error" title="永久链接至目标">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="aio_parallel_tools.aio_actor.actor_basic_copy.Actor.throw_error_nowait">
-<code class="sig-name descname">throw_error_nowait</code><span class="sig-paren">(</span><em class="sig-param">error</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aio_parallel_tools/aio_actor/actor_basic_copy.html#Actor.throw_error_nowait"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#aio_parallel_tools.aio_actor.actor_basic_copy.Actor.throw_error_nowait" title="永久链接至目标">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="exception">
-<dt id="aio_parallel_tools.aio_actor.actor_basic_copy.ActorExit">
-<em class="property">exception </em><code class="sig-prename descclassname">aio_parallel_tools.aio_actor.actor_basic_copy.</code><code class="sig-name descname">ActorExit</code><a class="reference internal" href="_modules/aio_parallel_tools/aio_actor/actor_basic_copy.html#ActorExit"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#aio_parallel_tools.aio_actor.actor_basic_copy.ActorExit" title="永久链接至目标">¶</a></dt>
-<dd><p>基类：<code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code></p>
-</dd></dl>
-
-<dl class="exception">
-<dt id="aio_parallel_tools.aio_actor.actor_basic_copy.ActorTimeoutWarning">
-<em class="property">exception </em><code class="sig-prename descclassname">aio_parallel_tools.aio_actor.actor_basic_copy.</code><code class="sig-name descname">ActorTimeoutWarning</code><a class="reference internal" href="_modules/aio_parallel_tools/aio_actor/actor_basic_copy.html#ActorTimeoutWarning"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#aio_parallel_tools.aio_actor.actor_basic_copy.ActorTimeoutWarning" title="永久链接至目标">¶</a></dt>
-<dd><p>基类：<code class="xref py py-class docutils literal notranslate"><span class="pre">Warning</span></code></p>
-</dd></dl>
-
-<dl class="exception">
-<dt id="aio_parallel_tools.aio_actor.actor_basic_copy.InboxNearllyFullWarning">
-<em class="property">exception </em><code class="sig-prename descclassname">aio_parallel_tools.aio_actor.actor_basic_copy.</code><code class="sig-name descname">InboxNearllyFullWarning</code><a class="reference internal" href="_modules/aio_parallel_tools/aio_actor/actor_basic_copy.html#InboxNearllyFullWarning"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#aio_parallel_tools.aio_actor.actor_basic_copy.InboxNearllyFullWarning" title="永久链接至目标">¶</a></dt>
-<dd><p>基类：<code class="xref py py-class docutils literal notranslate"><span class="pre">Warning</span></code></p>
 </dd></dl>
 
 </div>
 <div class="section" id="module-aio_parallel_tools.aio_actor.actor_manager">
-<span id="aio-parallel-tools-aio-actor-actor-manager-module"></span><h2>aio_parallel_tools.aio_actor.actor_manager module<a class="headerlink" href="#module-aio_parallel_tools.aio_actor.actor_manager" title="永久链接至标题">¶</a></h2>
+<span id="actor-manager"></span><h2>Actor Manager<a class="headerlink" href="#module-aio_parallel_tools.aio_actor.actor_manager" title="永久链接至标题">¶</a></h2>
+<p>Functions for managing Actors.</p>
 <dl class="class">
 <dt id="aio_parallel_tools.aio_actor.actor_manager.ActorManagerRegister">
 <em class="property">class </em><code class="sig-prename descclassname">aio_parallel_tools.aio_actor.actor_manager.</code><code class="sig-name descname">ActorManagerRegister</code><a class="reference internal" href="_modules/aio_parallel_tools/aio_actor/actor_manager.html#ActorManagerRegister"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#aio_parallel_tools.aio_actor.actor_manager.ActorManagerRegister" title="永久链接至目标">¶</a></dt>
 <dd><p>基类：<code class="xref py py-class docutils literal notranslate"><span class="pre">type</span></code></p>
+<p>用于注册Actor类的元类</p>
 </dd></dl>
 
 <dl class="function">
-<dt id="aio_parallel_tools.aio_actor.actor_manager.actor_size">
-<code class="sig-prename descclassname">aio_parallel_tools.aio_actor.actor_manager.</code><code class="sig-name descname">actor_size</code><span class="sig-paren">(</span><em class="sig-param">class_name: str</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aio_parallel_tools/aio_actor/actor_manager.html#actor_size"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#aio_parallel_tools.aio_actor.actor_manager.actor_size" title="永久链接至目标">¶</a></dt>
-<dd></dd></dl>
+<dt id="aio_parallel_tools.aio_actor.actor_manager.get_actor">
+<code class="sig-prename descclassname">aio_parallel_tools.aio_actor.actor_manager.</code><code class="sig-name descname">get_actor</code><span class="sig-paren">(</span><em class="sig-param">actor_name: str</em><span class="sig-paren">)</span> &#x2192; Optional[aio_parallel_tools.aio_actor.actor_abc.ActorABC]<a class="reference internal" href="_modules/aio_parallel_tools/aio_actor/actor_manager.html#get_actor"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#aio_parallel_tools.aio_actor.actor_manager.get_actor" title="永久链接至目标">¶</a></dt>
+<dd><p>通过类名获取Actor的子类</p>
+<dl class="field-list simple">
+<dt class="field-odd">参数</dt>
+<dd class="field-odd"><p><strong>actor_name</strong> (<em>str</em>) -- Actor的子类类名</p>
+</dd>
+<dt class="field-even">返回</dt>
+<dd class="field-even"><p>actor class</p>
+</dd>
+<dt class="field-odd">返回类型</dt>
+<dd class="field-odd"><p>Optional[<a class="reference internal" href="#aio_parallel_tools.aio_actor.actor_abc.ActorABC" title="aio_parallel_tools.aio_actor.actor_abc.ActorABC">ActorABC</a>]</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="function">
-<dt id="aio_parallel_tools.aio_actor.actor_manager.get_one_actor">
-<code class="sig-prename descclassname">aio_parallel_tools.aio_actor.actor_manager.</code><code class="sig-name descname">get_one_actor</code><span class="sig-paren">(</span><em class="sig-param">class_name</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aio_parallel_tools/aio_actor/actor_manager.html#get_one_actor"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#aio_parallel_tools.aio_actor.actor_manager.get_one_actor" title="永久链接至目标">¶</a></dt>
-<dd></dd></dl>
-
-</div>
-<div class="section" id="module-aio_parallel_tools.aio_actor.exception_and_warning">
-<span id="aio-parallel-tools-aio-actor-exception-and-warning-module"></span><h2>aio_parallel_tools.aio_actor.exception_and_warning module<a class="headerlink" href="#module-aio_parallel_tools.aio_actor.exception_and_warning" title="永久链接至标题">¶</a></h2>
-<p>Exceptions and warnings.</p>
-<dl class="exception">
-<dt id="aio_parallel_tools.aio_actor.exception_and_warning.ActorTimeoutWarning">
-<em class="property">exception </em><code class="sig-prename descclassname">aio_parallel_tools.aio_actor.exception_and_warning.</code><code class="sig-name descname">ActorTimeoutWarning</code><a class="reference internal" href="_modules/aio_parallel_tools/aio_actor/exception_and_warning.html#ActorTimeoutWarning"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#aio_parallel_tools.aio_actor.exception_and_warning.ActorTimeoutWarning" title="永久链接至目标">¶</a></dt>
-<dd><p>基类：<code class="xref py py-class docutils literal notranslate"><span class="pre">Warning</span></code></p>
-<p>Actor Timeout Warning.</p>
+<dt id="aio_parallel_tools.aio_actor.actor_manager.has_actor">
+<code class="sig-prename descclassname">aio_parallel_tools.aio_actor.actor_manager.</code><code class="sig-name descname">has_actor</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; List[str]<a class="reference internal" href="_modules/aio_parallel_tools/aio_actor/actor_manager.html#has_actor"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#aio_parallel_tools.aio_actor.actor_manager.has_actor" title="永久链接至目标">¶</a></dt>
+<dd><p>获取所有的actor子类名</p>
+<dl class="field-list simple">
+<dt class="field-odd">返回</dt>
+<dd class="field-odd"><p>所有的actor子类名</p>
+</dd>
+<dt class="field-even">返回类型</dt>
+<dd class="field-even"><p>List[str]</p>
+</dd>
+</dl>
 </dd></dl>
 
-<dl class="exception">
-<dt id="aio_parallel_tools.aio_actor.exception_and_warning.InboxNearllyFullWarning">
-<em class="property">exception </em><code class="sig-prename descclassname">aio_parallel_tools.aio_actor.exception_and_warning.</code><code class="sig-name descname">InboxNearllyFullWarning</code><a class="reference internal" href="_modules/aio_parallel_tools/aio_actor/exception_and_warning.html#InboxNearllyFullWarning"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#aio_parallel_tools.aio_actor.exception_and_warning.InboxNearllyFullWarning" title="永久链接至目标">¶</a></dt>
-<dd><p>基类：<code class="xref py py-class docutils literal notranslate"><span class="pre">Warning</span></code></p>
-<p>Inbox Nearlly Full Warning.</p>
-</dd></dl>
-
-</div>
-<div class="section" id="module-aio_parallel_tools.aio_actor.signal">
-<span id="aio-parallel-tools-aio-actor-signal-module"></span><h2>aio_parallel_tools.aio_actor.signal module<a class="headerlink" href="#module-aio_parallel_tools.aio_actor.signal" title="永久链接至标题">¶</a></h2>
-<p>Sigals to send to actors.</p>
-<dl class="exception">
-<dt id="aio_parallel_tools.aio_actor.signal.ActorExit">
-<em class="property">exception </em><code class="sig-prename descclassname">aio_parallel_tools.aio_actor.signal.</code><code class="sig-name descname">ActorExit</code><a class="reference internal" href="_modules/aio_parallel_tools/aio_actor/signal.html#ActorExit"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#aio_parallel_tools.aio_actor.signal.ActorExit" title="永久链接至目标">¶</a></dt>
-<dd><p>基类：<code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code></p>
-<p>Tell Actor it's time to close.</p>
-</dd></dl>
-
-</div>
-<div class="section" id="module-aio_parallel_tools.aio_actor">
-<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-aio_parallel_tools.aio_actor" title="永久链接至标题">¶</a></h2>
 </div>
 </div>
 
@@ -347,22 +591,31 @@
 <li class="toctree-l2"><a class="reference internal" href="pages/task_pool.html#operations">操作</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="pages/actor_and_manager.html">Actor和其管理器</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="pages/actor_and_manager.html#how-to-use">如何使用</a></li>
 </ul>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="aio_parallel_tools.html">模型信息</a><ul>
+</li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="aio_parallel_tools.html">模块信息</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="aio_parallel_tools.aio_task_pool.html">aio_parallel_tools.aio_task_pool package</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="aio_parallel_tools.aio_task_pool.html#taskpools">任务池</a></li>
-<li class="toctree-l3"><a class="reference internal" href="aio_parallel_tools.aio_task_pool.html#module-aio_parallel_tools.aio_task_pool.aio_autoscale_task_pool_lifo">aio_autoscale_task_pool_lifo module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="aio_parallel_tools.aio_task_pool.html#module-aio_parallel_tools.aio_task_pool.aio_autoscale_task_pool_priority">aio_autoscale_task_pool_priority module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="aio_parallel_tools.aio_task_pool.html#module-aio_parallel_tools.aio_task_pool.aio_autoscale_task_pool_simple">aio_autoscale_task_pool_simple module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="aio_parallel_tools.aio_task_pool.html#module-aio_parallel_tools.aio_task_pool.aio_fixed_task_pool_lifo">aio_fixed_task_pool_lifo module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="aio_parallel_tools.aio_task_pool.html#module-aio_parallel_tools.aio_task_pool.aio_fixed_task_pool_priority">aio_fixed_task_pool_priority module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="aio_parallel_tools.aio_task_pool.html#module-aio_parallel_tools.aio_task_pool.aio_fixed_task_pool_simple">aio_fixed_task_pool_simple module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="aio_parallel_tools.aio_task_pool.html#module-aio_parallel_tools.aio_task_pool.aio_autoscale_task_pool_lifo">使用后进先出队列的自扩展异步任务池</a></li>
+<li class="toctree-l3"><a class="reference internal" href="aio_parallel_tools.aio_task_pool.html#module-aio_parallel_tools.aio_task_pool.aio_autoscale_task_pool_priority">使用优先级队列的异步自动扩展任务池</a></li>
+<li class="toctree-l3"><a class="reference internal" href="aio_parallel_tools.aio_task_pool.html#module-aio_parallel_tools.aio_task_pool.aio_autoscale_task_pool_simple">使用默认队列的异步自扩展任务池</a></li>
+<li class="toctree-l3"><a class="reference internal" href="aio_parallel_tools.aio_task_pool.html#module-aio_parallel_tools.aio_task_pool.aio_fixed_task_pool_lifo">使用后进先出队列的固定异步任务池</a></li>
+<li class="toctree-l3"><a class="reference internal" href="aio_parallel_tools.aio_task_pool.html#module-aio_parallel_tools.aio_task_pool.aio_fixed_task_pool_priority">使用优先级队列的固定异步任务池</a></li>
+<li class="toctree-l3"><a class="reference internal" href="aio_parallel_tools.aio_task_pool.html#module-aio_parallel_tools.aio_task_pool.aio_fixed_task_pool_simple">使用默认队列的固定异步任务池</a></li>
 <li class="toctree-l3"><a class="reference internal" href="aio_parallel_tools.aio_task_pool.html#task-pool-core-api">Task Pool Core API</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="aio_parallel_tools.aio_task_pool.core.html">接口</a></li>
 <li class="toctree-l4"><a class="reference internal" href="aio_parallel_tools.aio_task_pool.core.html#mixins">混入类</a></li>
 </ul>
 </li>
+</ul>
+</li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">aio_parallel_tools.aio_actor package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#module-aio_parallel_tools.aio_actor.actor_abc">Actor API</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-aio_parallel_tools.aio_actor.actor_basic">Base Class</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-aio_parallel_tools.aio_actor.actor_manager">Actor Manager</a></li>
 </ul>
 </li>
 </ul>
@@ -373,6 +626,9 @@
 <h3>Related Topics</h3>
 <ul>
   <li><a href="index.html">Documentation overview</a><ul>
+  <li><a href="aio_parallel_tools.html">模块信息</a><ul>
+      <li>Previous: <a href="aio_parallel_tools.aio_task_pool.core.mixins.worker_manager_mixin.html" title="上一章">Worker Manager Mixin</a></li>
+  </ul></li>
   </ul></li>
 </ul>
 </div>
@@ -402,7 +658,7 @@
       &copy;2019, huangsizhe.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.2.1</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.1.2</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
       |

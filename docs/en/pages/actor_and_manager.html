@@ -1,0 +1,225 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Actor and it’s Manager &#8212; aio_parallel_tools  documentation</title>
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Modules" href="../aio_parallel_tools.html" />
+    <link rel="prev" title="Task Pool" href="task_pool.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="actor-and-it-s-manager">
+<h1>Actor and it’s Manager<a class="headerlink" href="#actor-and-it-s-manager" title="Permalink to this headline">¶</a></h1>
+<p>There are a Actor Base class for async tasks in this package.</p>
+<div class="section" id="how-to-use">
+<h2>How to use<a class="headerlink" href="#how-to-use" title="Permalink to this headline">¶</a></h2>
+<p>We can use <code class="docutils literal notranslate"><span class="pre">ActorManager</span></code> to manage the Actor’s Subclasses.
+And Use the Subclasses itself to manage it’s instacnes.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">asyncio</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">aio_parallel_tools</span> <span class="kn">import</span> <span class="n">AioActor</span><span class="p">,</span> <span class="n">ActorManager</span>
+<span class="k">except</span> <span class="ne">ModuleNotFoundError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">sys</span>
+    <span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+    <span class="n">p</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)</span><span class="o">.</span><span class="n">absolute</span><span class="p">()</span>
+    <span class="n">root</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">absolute</span><span class="p">()</span>
+    <span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">root</span><span class="p">))</span>
+    <span class="kn">from</span> <span class="nn">aio_parallel_tools</span> <span class="kn">import</span> <span class="n">AioActor</span><span class="p">,</span> <span class="n">ActorManager</span>
+
+
+<span class="k">class</span> <span class="nc">Pinger</span><span class="p">(</span><span class="n">AioActor</span><span class="p">):</span>
+    <span class="n">async</span> <span class="k">def</span> <span class="nf">receive</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">):</span>
+        <span class="k">print</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">await</span> <span class="n">ActorManager</span><span class="o">.</span><span class="n">get_actor</span><span class="p">(</span><span class="s2">&quot;Ponger&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">Send</span><span class="p">(</span><span class="s1">&#39;ping&#39;</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">print</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;receive run error {e}&quot;</span><span class="p">)</span>
+        <span class="k">finally</span><span class="p">:</span>
+            <span class="n">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)</span>
+
+
+<span class="k">class</span> <span class="nc">Ponger</span><span class="p">(</span><span class="n">AioActor</span><span class="p">):</span>
+    <span class="n">async</span> <span class="k">def</span> <span class="nf">receive</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">):</span>
+        <span class="k">print</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">await</span> <span class="n">ActorManager</span><span class="o">.</span><span class="n">get_actor</span><span class="p">(</span><span class="s2">&quot;Pinger&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">Send</span><span class="p">(</span><span class="s1">&#39;pong&#39;</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">print</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;receive run error {e}&quot;</span><span class="p">)</span>
+        <span class="k">finally</span><span class="p">:</span>
+            <span class="n">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)</span>
+
+
+<span class="n">async</span> <span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="n">actors</span> <span class="o">=</span> <span class="n">ActorManager</span><span class="o">.</span><span class="n">has_actor</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">actor_name</span> <span class="ow">in</span> <span class="n">actors</span><span class="p">:</span>
+        <span class="n">A</span> <span class="o">=</span> <span class="n">ActorManager</span><span class="o">.</span><span class="n">get_actor</span><span class="p">(</span><span class="n">actor_name</span><span class="p">)</span>
+        <span class="n">A</span><span class="o">.</span><span class="n">Start</span><span class="p">(</span><span class="n">num</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+    <span class="n">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">ActorManager</span><span class="o">.</span><span class="n">get_actor</span><span class="p">(</span><span class="s2">&quot;Pinger&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">Members</span><span class="p">:</span>
+        <span class="k">print</span><span class="p">(</span><span class="s2">&quot;****************&quot;</span><span class="p">)</span>
+        <span class="k">print</span><span class="p">(</span><span class="n">i</span><span class="o">.</span><span class="n">aid</span><span class="p">)</span>
+        <span class="k">print</span><span class="p">(</span><span class="n">i</span><span class="o">.</span><span class="n">available</span><span class="p">)</span>
+        <span class="k">print</span><span class="p">(</span><span class="n">i</span><span class="o">.</span><span class="n">running</span><span class="p">)</span>
+        <span class="k">print</span><span class="p">(</span><span class="n">i</span><span class="o">.</span><span class="n">paused</span><span class="p">)</span>
+        <span class="k">print</span><span class="p">(</span><span class="s2">&quot;****************&quot;</span><span class="p">)</span>
+
+    <span class="n">await</span> <span class="n">ActorManager</span><span class="o">.</span><span class="n">get_actor</span><span class="p">(</span><span class="s2">&quot;Pinger&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">Send</span><span class="p">(</span><span class="s2">&quot;start&quot;</span><span class="p">)</span>
+    <span class="n">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">actor_name</span> <span class="ow">in</span> <span class="n">actors</span><span class="p">:</span>
+        <span class="n">A</span> <span class="o">=</span> <span class="n">ActorManager</span><span class="o">.</span><span class="n">get_actor</span><span class="p">(</span><span class="n">actor_name</span><span class="p">)</span>
+        <span class="n">await</span> <span class="n">A</span><span class="o">.</span><span class="n">Close</span><span class="p">(</span><span class="n">num</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">loop</span> <span class="o">=</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">get_event_loop</span><span class="p">()</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">loop</span><span class="o">.</span><span class="n">run_until_complete</span><span class="p">(</span><span class="n">main</span><span class="p">())</span>
+    <span class="k">finally</span><span class="p">:</span>
+        <span class="c1"># 不管是什么异常，最终都要close掉loop循环</span>
+        <span class="n">loop</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">aio_parallel_tools</a></h1>
+
+
+
+<p class="blurb">Tools for develope asynchronous script easily.</p>
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=Python-Tools&repo=aio_parallel_tools&type=watch&count=true&size=large&v=2"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="task_pool.html">Task Pool</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="task_pool.html#kinds-of-task-pool">Kinds of task pool</a></li>
+<li class="toctree-l2"><a class="reference internal" href="task_pool.html#how-to-use">How to use</a></li>
+<li class="toctree-l2"><a class="reference internal" href="task_pool.html#operations">Operations</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Actor and it’s Manager</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#how-to-use">How to use</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../aio_parallel_tools.html">Modules</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../aio_parallel_tools.aio_task_pool.html">aio_parallel_tools.aio_task_pool package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../aio_parallel_tools.aio_task_pool.html#module-aio_parallel_tools.aio_task_pool.aio_autoscale_task_pool_lifo">Async autoscale task pool with lifo queue</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../aio_parallel_tools.aio_task_pool.html#module-aio_parallel_tools.aio_task_pool.aio_autoscale_task_pool_priority">Async autoscale task pool with priority queue</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../aio_parallel_tools.aio_task_pool.html#module-aio_parallel_tools.aio_task_pool.aio_autoscale_task_pool_simple">Async autoscale task pool with default queue</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../aio_parallel_tools.aio_task_pool.html#module-aio_parallel_tools.aio_task_pool.aio_fixed_task_pool_lifo">Async fixed task pool with lifo queue</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../aio_parallel_tools.aio_task_pool.html#module-aio_parallel_tools.aio_task_pool.aio_fixed_task_pool_priority">Async fixed task pool with priority queue</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../aio_parallel_tools.aio_task_pool.html#module-aio_parallel_tools.aio_task_pool.aio_fixed_task_pool_simple">Async fixed task pool with default queue</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../aio_parallel_tools.aio_task_pool.html#task-pool-core-api">Task Pool Core API</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../aio_parallel_tools.aio_task_pool.core.html">Interface</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../aio_parallel_tools.aio_task_pool.core.html#mixins">Mixins</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../aio_parallel_tools.aio_actor.html">aio_parallel_tools.aio_actor package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../aio_parallel_tools.aio_actor.html#module-aio_parallel_tools.aio_actor.actor_abc">Actor API</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../aio_parallel_tools.aio_actor.html#module-aio_parallel_tools.aio_actor.actor_basic">Base Class</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../aio_parallel_tools.aio_actor.html#module-aio_parallel_tools.aio_actor.actor_manager">Actor Manager</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="task_pool.html" title="previous chapter">Task Pool</a></li>
+      <li>Next: <a href="../aio_parallel_tools.html" title="next chapter">Modules</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2019, huangsizhe.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.1.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="../_sources/pages/actor_and_manager.md.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+    <a href="https://github.com/Python-Tools/aio_parallel_tools" class="github">
+        <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"  class="github"/>
+    </a>
+    
+
+    
+  </body>
+</html>

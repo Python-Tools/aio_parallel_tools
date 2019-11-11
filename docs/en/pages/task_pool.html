@@ -14,7 +14,7 @@
     <script type="text/javascript" src="../_static/language_data.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Modules" href="../aio_parallel_tools.html" />
+    <link rel="next" title="Actor and it’s Manager" href="actor_and_manager.html" />
     <link rel="prev" title="Welcome to aio parallel tools’s documentation!" href="../index.html" />
    
   <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
@@ -181,22 +181,31 @@ So we need a task pool to limit the parallelism of asynchronous tasks so that se
 <li class="toctree-l2"><a class="reference internal" href="#operations">Operations</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="actor_and_manager.html">Actor and it’s Manager</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="actor_and_manager.html#how-to-use">How to use</a></li>
+</ul>
+</li>
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../aio_parallel_tools.html">Modules</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../aio_parallel_tools.aio_task_pool.html">aio_parallel_tools.aio_task_pool package</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../aio_parallel_tools.aio_task_pool.html#taskpools">TaskPools</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../aio_parallel_tools.aio_task_pool.html#module-aio_parallel_tools.aio_task_pool.aio_autoscale_task_pool_lifo">aio_autoscale_task_pool_lifo module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../aio_parallel_tools.aio_task_pool.html#module-aio_parallel_tools.aio_task_pool.aio_autoscale_task_pool_priority">aio_autoscale_task_pool_priority module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../aio_parallel_tools.aio_task_pool.html#module-aio_parallel_tools.aio_task_pool.aio_autoscale_task_pool_simple">aio_autoscale_task_pool_simple module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../aio_parallel_tools.aio_task_pool.html#module-aio_parallel_tools.aio_task_pool.aio_fixed_task_pool_lifo">aio_fixed_task_pool_lifo module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../aio_parallel_tools.aio_task_pool.html#module-aio_parallel_tools.aio_task_pool.aio_fixed_task_pool_priority">aio_fixed_task_pool_priority module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../aio_parallel_tools.aio_task_pool.html#module-aio_parallel_tools.aio_task_pool.aio_fixed_task_pool_simple">aio_fixed_task_pool_simple module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../aio_parallel_tools.aio_task_pool.html#module-aio_parallel_tools.aio_task_pool.aio_autoscale_task_pool_lifo">Async autoscale task pool with lifo queue</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../aio_parallel_tools.aio_task_pool.html#module-aio_parallel_tools.aio_task_pool.aio_autoscale_task_pool_priority">Async autoscale task pool with priority queue</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../aio_parallel_tools.aio_task_pool.html#module-aio_parallel_tools.aio_task_pool.aio_autoscale_task_pool_simple">Async autoscale task pool with default queue</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../aio_parallel_tools.aio_task_pool.html#module-aio_parallel_tools.aio_task_pool.aio_fixed_task_pool_lifo">Async fixed task pool with lifo queue</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../aio_parallel_tools.aio_task_pool.html#module-aio_parallel_tools.aio_task_pool.aio_fixed_task_pool_priority">Async fixed task pool with priority queue</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../aio_parallel_tools.aio_task_pool.html#module-aio_parallel_tools.aio_task_pool.aio_fixed_task_pool_simple">Async fixed task pool with default queue</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../aio_parallel_tools.aio_task_pool.html#task-pool-core-api">Task Pool Core API</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../aio_parallel_tools.aio_task_pool.core.html">Interface</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../aio_parallel_tools.aio_task_pool.core.html#mixins">Mixins</a></li>
 </ul>
 </li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../aio_parallel_tools.aio_actor.html">aio_parallel_tools.aio_actor package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../aio_parallel_tools.aio_actor.html#module-aio_parallel_tools.aio_actor.actor_abc">Actor API</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../aio_parallel_tools.aio_actor.html#module-aio_parallel_tools.aio_actor.actor_basic">Base Class</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../aio_parallel_tools.aio_actor.html#module-aio_parallel_tools.aio_actor.actor_manager">Actor Manager</a></li>
 </ul>
 </li>
 </ul>
@@ -208,7 +217,7 @@ So we need a task pool to limit the parallelism of asynchronous tasks so that se
 <ul>
   <li><a href="../index.html">Documentation overview</a><ul>
       <li>Previous: <a href="../index.html" title="previous chapter">Welcome to aio parallel tools’s documentation!</a></li>
-      <li>Next: <a href="../aio_parallel_tools.html" title="next chapter">Modules</a></li>
+      <li>Next: <a href="actor_and_manager.html" title="next chapter">Actor and it’s Manager</a></li>
   </ul></li>
 </ul>
 </div>
@@ -238,7 +247,7 @@ So we need a task pool to limit the parallelism of asynchronous tasks so that se
       &copy;2019, huangsizhe.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.2.1</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.1.2</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
       |

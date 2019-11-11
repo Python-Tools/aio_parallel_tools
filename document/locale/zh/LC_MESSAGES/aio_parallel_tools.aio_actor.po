@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: aio_parallel_tools 0.0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-11-09 17:53+0800\n"
+"POT-Creation-Date: 2019-11-11 14:35+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -22,82 +22,372 @@ msgstr ""
 msgid "aio\\_parallel\\_tools.aio\\_actor package"
 msgstr ""
 
-#: ../../document/aio_parallel_tools.aio_actor.rst:5
-msgid "Subpackages"
+#: ../../document/aio_parallel_tools.aio_actor.rst:6
+msgid "Actor API"
 msgstr ""
 
-#: ../../document/aio_parallel_tools.aio_actor.rst:12
-msgid "Submodules"
+#: aio_parallel_tools.aio_actor.actor_abc:1
+#: aio_parallel_tools.aio_actor.actor_abc.ActorABC:1 of
+msgid "Asynchronous Actor Abstract Base Class."
+msgstr "异步Actor抽象基类"
+
+#: aio_parallel_tools.aio_actor.actor_abc.ActorABC:1 of
+msgid "基类：:class:`object`"
 msgstr ""
 
-#: ../../document/aio_parallel_tools.aio_actor.rst:15
-msgid "aio\\_parallel\\_tools.aio\\_actor.actor\\_abc module"
+#: aio_parallel_tools.aio_actor.actor_abc.ActorABC.AvailableScope:1 of
+msgid "Get the available actor instance."
+msgstr "获取到可用的actor实例"
+
+#: aio_parallel_tools.aio_actor.actor_abc.ActorABC.AvailableScope
+#: aio_parallel_tools.aio_actor.actor_abc.ActorABC.BestToSendScope
+#: aio_parallel_tools.aio_actor.actor_abc.ActorABC.FindById
+#: aio_parallel_tools.aio_actor.actor_abc.ActorABC.NotAvailableScope
+#: aio_parallel_tools.aio_actor.actor_abc.ActorABC.NotPausedScope
+#: aio_parallel_tools.aio_actor.actor_abc.ActorABC.NotRunningScope
+#: aio_parallel_tools.aio_actor.actor_abc.ActorABC.PausedScope
+#: aio_parallel_tools.aio_actor.actor_abc.ActorABC.RunningScope
+#: aio_parallel_tools.aio_actor.actor_abc.ActorABC.aid
+#: aio_parallel_tools.aio_actor.actor_abc.ActorABC.available
+#: aio_parallel_tools.aio_actor.actor_abc.ActorABC.inbox_maxsize
+#: aio_parallel_tools.aio_actor.actor_abc.ActorABC.inbox_size
+#: aio_parallel_tools.aio_actor.actor_abc.ActorABC.loop
+#: aio_parallel_tools.aio_actor.actor_abc.ActorABC.paused
+#: aio_parallel_tools.aio_actor.actor_abc.ActorABC.running
+#: aio_parallel_tools.aio_actor.actor_abc.ActorABC.task
+#: aio_parallel_tools.aio_actor.actor_basic.AioActor.available
+#: aio_parallel_tools.aio_actor.actor_manager.get_actor
+#: aio_parallel_tools.aio_actor.actor_manager.has_actor of
+msgid "返回"
 msgstr ""
 
-#: ../../document/aio_parallel_tools.aio_actor.rst:23
-msgid "aio\\_parallel\\_tools.aio\\_actor.actor\\_basic module"
+#: aio_parallel_tools.aio_actor.actor_abc.ActorABC.AvailableScope:3 of
+msgid "List of the available actor instance."
+msgstr "可用的actor实例列表"
+
+#: aio_parallel_tools.aio_actor.actor_abc.ActorABC.AvailableScope
+#: aio_parallel_tools.aio_actor.actor_abc.ActorABC.BestToSendScope
+#: aio_parallel_tools.aio_actor.actor_abc.ActorABC.FindById
+#: aio_parallel_tools.aio_actor.actor_abc.ActorABC.NotAvailableScope
+#: aio_parallel_tools.aio_actor.actor_abc.ActorABC.NotPausedScope
+#: aio_parallel_tools.aio_actor.actor_abc.ActorABC.NotRunningScope
+#: aio_parallel_tools.aio_actor.actor_abc.ActorABC.PausedScope
+#: aio_parallel_tools.aio_actor.actor_abc.ActorABC.RunningScope
+#: aio_parallel_tools.aio_actor.actor_abc.ActorABC.aid
+#: aio_parallel_tools.aio_actor.actor_abc.ActorABC.available
+#: aio_parallel_tools.aio_actor.actor_abc.ActorABC.inbox_maxsize
+#: aio_parallel_tools.aio_actor.actor_abc.ActorABC.inbox_size
+#: aio_parallel_tools.aio_actor.actor_abc.ActorABC.loop
+#: aio_parallel_tools.aio_actor.actor_abc.ActorABC.paused
+#: aio_parallel_tools.aio_actor.actor_abc.ActorABC.running
+#: aio_parallel_tools.aio_actor.actor_abc.ActorABC.task
+#: aio_parallel_tools.aio_actor.actor_basic.AioActor.available
+#: aio_parallel_tools.aio_actor.actor_manager.get_actor
+#: aio_parallel_tools.aio_actor.actor_manager.has_actor of
+msgid "返回类型"
 msgstr ""
 
-#: ../../document/aio_parallel_tools.aio_actor.rst:31
-msgid "aio\\_parallel\\_tools.aio\\_actor.actor\\_basic\\_copy module"
+#: aio_parallel_tools.aio_actor.actor_abc.ActorABC.BestToSendScope:1 of
+msgid "Get a number of the best to send actor instance."
+msgstr "获取一定数量的最适合被发送消息的actor实例"
+
+#: aio_parallel_tools.aio_actor.actor_abc.ActorABC.BestToSendScope:3 of
+msgid "A number of the best to send actor instance."
+msgstr "一定数量的最适合被发送消息的actor实例列表"
+
+#: aio_parallel_tools.aio_actor.actor_abc.ActorABC.Clean:1 of
+msgid "Clean all not available actors."
+msgstr "清理不可用的actor实例"
+
+#: aio_parallel_tools.aio_actor.actor_abc.ActorABC.Close:1
+#: aio_parallel_tools.aio_actor.actor_abc.ActorABC.Close:3 of
+msgid "Close a number of available actor."
+msgstr "关闭一定数量的可用actor"
+
+#: aio_parallel_tools.aio_actor.actor_abc.ActorABC.Close
+#: aio_parallel_tools.aio_actor.actor_abc.ActorABC.FindById
+#: aio_parallel_tools.aio_actor.actor_abc.ActorABC.Publish
+#: aio_parallel_tools.aio_actor.actor_abc.ActorABC.Restart
+#: aio_parallel_tools.aio_actor.actor_abc.ActorABC.Send
+#: aio_parallel_tools.aio_actor.actor_abc.ActorABC.SendById
+#: aio_parallel_tools.aio_actor.actor_abc.ActorABC.SendRandom
+#: aio_parallel_tools.aio_actor.actor_abc.ActorABC.Start
+#: aio_parallel_tools.aio_actor.actor_abc.ActorABC.close
+#: aio_parallel_tools.aio_actor.actor_abc.ActorABC.receive
+#: aio_parallel_tools.aio_actor.actor_abc.ActorABC.send
+#: aio_parallel_tools.aio_actor.actor_abc.ActorABC.send_nowait
+#: aio_parallel_tools.aio_actor.actor_basic.AioActor.close
+#: aio_parallel_tools.aio_actor.actor_manager.get_actor of
+msgid "参数"
 msgstr ""
 
-#: ../../document/aio_parallel_tools.aio_actor.rst:39
-msgid "aio\\_parallel\\_tools.aio\\_actor.actor\\_manager module"
+#: aio_parallel_tools.aio_actor.actor_abc.ActorABC.FindById:1 of
+msgid "Find a actor instance by id."
+msgstr "通过id号查找到actor实例"
+
+#: aio_parallel_tools.aio_actor.actor_abc.ActorABC.FindById:3
+#: aio_parallel_tools.aio_actor.actor_abc.ActorABC.SendById:3 of
+msgid "actor id in str"
+msgstr "str类型的actorid号"
+
+#: aio_parallel_tools.aio_actor.actor_abc.ActorABC.FindById:6 of
+msgid "a actor instance."
+msgstr "一个actor实例"
+
+#: aio_parallel_tools.aio_actor.actor_abc.ActorABC.NotAvailableScope:1 of
+msgid "Get the not available actor instance."
+msgstr "获取不可用的actor实例"
+
+#: aio_parallel_tools.aio_actor.actor_abc.ActorABC.NotAvailableScope:3 of
+msgid "List of the not available actor instance."
+msgstr "不可用的actor实例列表"
+
+#: aio_parallel_tools.aio_actor.actor_abc.ActorABC.NotPausedScope:1 of
+msgid "Get the not paused actor instance."
+msgstr "获取未被暂停的actor实例"
+
+#: aio_parallel_tools.aio_actor.actor_abc.ActorABC.NotPausedScope:3 of
+msgid "List of the not paused actor instance."
+msgstr "未被暂停的actor实例列表"
+
+#: aio_parallel_tools.aio_actor.actor_abc.ActorABC.NotRunningScope:1 of
+msgid "Get the not running actor instance."
+msgstr "获取不再执行状态的actor实例"
+
+#: aio_parallel_tools.aio_actor.actor_abc.ActorABC.NotRunningScope:3
+#: aio_parallel_tools.aio_actor.actor_abc.ActorABC.RunningScope:3 of
+msgid "List of the running actor instance."
+msgstr "不再执行状态的actor实例列表"
+
+#: aio_parallel_tools.aio_actor.actor_abc.ActorABC.PausedScope:1 of
+msgid "Get the paused actor instance."
+msgstr "获取被暂停的actor实例"
+
+#: aio_parallel_tools.aio_actor.actor_abc.ActorABC.PausedScope:3 of
+msgid "List of the paused actor instance."
+msgstr "被暂停的actor实例列表"
+
+#: aio_parallel_tools.aio_actor.actor_abc.ActorABC.Publish:1 of
+msgid "Send message to all available actor."
+msgstr "发送消息给所有可用的actor实例"
+
+#: aio_parallel_tools.aio_actor.actor_abc.ActorABC.Publish:3
+#: aio_parallel_tools.aio_actor.actor_abc.ActorABC.Send:3
+#: aio_parallel_tools.aio_actor.actor_abc.ActorABC.SendById:5
+#: aio_parallel_tools.aio_actor.actor_abc.ActorABC.SendRandom:3
+#: aio_parallel_tools.aio_actor.actor_abc.ActorABC.receive:3
+#: aio_parallel_tools.aio_actor.actor_abc.ActorABC.send:3
+#: aio_parallel_tools.aio_actor.actor_abc.ActorABC.send_nowait:3 of
+msgid "Message to send to the actor."
+msgstr "发送给actor实例的消息"
+
+#: aio_parallel_tools.aio_actor.actor_abc.ActorABC.Publish:5
+#: aio_parallel_tools.aio_actor.actor_abc.ActorABC.Send:5
+#: aio_parallel_tools.aio_actor.actor_abc.ActorABC.SendById:7
+#: aio_parallel_tools.aio_actor.actor_abc.ActorABC.SendRandom:5
+#: aio_parallel_tools.aio_actor.actor_abc.ActorABC.send:5 of
+msgid "Timeout of the sending action."
+msgstr "发送操作的过期时间"
+
+#: aio_parallel_tools.aio_actor.actor_abc.ActorABC.Restart:1 of
+msgid "Restart a number of not available actor."
+msgstr "重启一定数量的不可用actor实例"
+
+#: aio_parallel_tools.aio_actor.actor_abc.ActorABC.Restart:3 of
+msgid "The number of actor to restart."
+msgstr "要被重启的actor实例数量"
+
+#: aio_parallel_tools.aio_actor.actor_abc.ActorABC.RunningScope:1 of
+msgid "Get the running actor instance."
+msgstr "获取执行状态的actor实例"
+
+#: aio_parallel_tools.aio_actor.actor_abc.ActorABC.Send:1 of
+msgid "Send message to the most available actor."
+msgstr "发送消息给最适合接收的actor实例"
+
+#: aio_parallel_tools.aio_actor.actor_abc.ActorABC.SendById:1 of
+msgid "Find a actor instance by id to send message."
+msgstr "发送消息给指定id的actor实例"
+
+#: aio_parallel_tools.aio_actor.actor_abc.ActorABC.SendRandom:1 of
+msgid "Send message to a random available actor."
+msgstr "发送消息给随机一个可用的actor实例"
+
+#: aio_parallel_tools.aio_actor.actor_abc.ActorABC.Start:1 of
+msgid "Create and start a number of actor."
+msgstr "创建并启动一定数量的actor实例"
+
+#: aio_parallel_tools.aio_actor.actor_abc.ActorABC.Start:3 of
+msgid "The number of actor to create and start."
+msgstr "要创建并启动的actor实例数量"
+
+#: aio_parallel_tools.aio_actor.actor_abc.ActorABC.Start:5 of
+msgid "inbox's Size. Defaults to 0."
+msgstr "actor实例消息邮箱的大小,默认为0意味无限大."
+
+#: aio_parallel_tools.aio_actor.actor_abc.ActorABC.Start:7 of
+msgid "Event loop which the actors running on. Defaults to None."
+msgstr "actor实例执行所在的事件循环"
+
+#: aio_parallel_tools.aio_actor.actor_abc.ActorABC.Start:9 of
+msgid "timeout for waiting for the recive function. Defaults to None."
+msgstr "recive方法的执行超时时长.默认为None,意味不会超时."
+
+#: aio_parallel_tools.aio_actor.actor_abc.ActorABC.aid:1 of
+msgid "Get the id of the actor instance."
+msgstr "获取actor实例的id"
+
+#: aio_parallel_tools.aio_actor.actor_abc.ActorABC.aid:3 of
+msgid "The id of the actor instance."
+msgstr "actor实例的id"
+
+#: aio_parallel_tools.aio_actor.actor_abc.ActorABC.available:1
+#: aio_parallel_tools.aio_actor.actor_basic.AioActor.available:1 of
+msgid "Check if the actor instance is available."
+msgstr "检查actor实例是否可用."
+
+#: aio_parallel_tools.aio_actor.actor_abc.ActorABC.available:3
+#: aio_parallel_tools.aio_actor.actor_basic.AioActor.available:3 of
+msgid "if the actor instance is available."
+msgstr "actor实例是否可用"
+
+#: aio_parallel_tools.aio_actor.actor_abc.ActorABC.close:1
+#: aio_parallel_tools.aio_actor.actor_basic.AioActor.close:1 of
+msgid "Close the actor instance."
+msgstr "关闭actor实例"
+
+#: aio_parallel_tools.aio_actor.actor_abc.ActorABC.close:3
+#: aio_parallel_tools.aio_actor.actor_basic.AioActor.close:3 of
+msgid "timeout of closing action. Defaults to None."
+msgstr "关闭操作的超时时间."
+
+#: aio_parallel_tools.aio_actor.actor_abc.ActorABC.inbox_maxsize:1 of
+msgid "Max size of the actor instance's message box."
+msgstr "actor对象内部的消息邮箱的最大容量"
+
+#: aio_parallel_tools.aio_actor.actor_abc.ActorABC.inbox_maxsize:3 of
+msgid "The max size of the actor instance's message box."
+msgstr "actor对象内部的消息邮箱的最大容量"
+
+#: aio_parallel_tools.aio_actor.actor_abc.ActorABC.inbox_size:1
+#: aio_parallel_tools.aio_actor.actor_abc.ActorABC.inbox_size:3 of
+msgid "Size of the actor instance's message box."
+msgstr "actor对象内部的消息邮箱的当前容量"
+
+#: aio_parallel_tools.aio_actor.actor_abc.ActorABC.loop:1
+#: aio_parallel_tools.aio_actor.actor_abc.ActorABC.loop:3 of
+msgid "The event loop tasks running on."
+msgstr "任务执行所在的事件循环"
+
+#: aio_parallel_tools.aio_actor.actor_abc.ActorABC.paused:1 of
+msgid "Check if the actor instance is paused."
+msgstr "检查actor实例是否被暂停"
+
+#: aio_parallel_tools.aio_actor.actor_abc.ActorABC.paused:3 of
+msgid "if the actor instance is paused."
+msgstr "actor实例是否被暂停"
+
+#: aio_parallel_tools.aio_actor.actor_abc.ActorABC.receive:1 of
+msgid "Define in your subclass."
+msgstr "Actor的执行逻辑.需要被子类继承实现."
+
+#: aio_parallel_tools.aio_actor.actor_abc.ActorABC.running:1 of
+msgid "Check if the actor instance is running."
+msgstr "检查actor实例是否在执行状态"
+
+#: aio_parallel_tools.aio_actor.actor_abc.ActorABC.running:3 of
+msgid "If the actor instance is running.."
+msgstr "actor实例是否在执行状态"
+
+#: aio_parallel_tools.aio_actor.actor_abc.ActorABC.send:1 of
+msgid "Send a message to the actor instance."
+msgstr "向实例发送消息"
+
+#: aio_parallel_tools.aio_actor.actor_abc.ActorABC.send_nowait:1 of
+msgid "Send a message to the actor instance with no wait."
+msgstr "使用同步接口向实例发送消息"
+
+#: aio_parallel_tools.aio_actor.actor_abc.ActorABC.start:1
+#: aio_parallel_tools.aio_actor.actor_basic.AioActor.start:1 of
+msgid "Start the actor instance."
+msgstr "启动actor实例"
+
+#: aio_parallel_tools.aio_actor.actor_abc.ActorABC.task:1 of
+msgid "Task running inside the actor instance."
+msgstr "actor实例内部执行的任务"
+
+#: aio_parallel_tools.aio_actor.actor_abc.ActorABC.task:3 of
+msgid "The task running inside the actor instance."
+msgstr "actor实例内部执行的任务"
+
+#: ../../document/aio_parallel_tools.aio_actor.rst:14
+msgid "Base Class"
 msgstr ""
 
-#: ../../document/aio_parallel_tools.aio_actor.rst:47
-msgid "aio\\_parallel\\_tools.aio\\_actor.exception\\_and\\_warning module"
+#: aio_parallel_tools.aio_actor.actor_basic:1 of
+msgid "Async Actor Tool."
 msgstr ""
 
-#: aio_parallel_tools.aio_actor.exception_and_warning:1 of
-msgid "Exceptions and warnings."
+#: aio_parallel_tools.aio_actor.actor_basic.AioActor:1 of
+msgid ""
+"基类：:class:`aio_parallel_tools.aio_actor.mixins.manage_mixin.ManageMixin`,"
+" :class:`aio_parallel_tools.aio_actor.mixins.inbox_mixin.InboxMixin`, "
+":class:`aio_parallel_tools.aio_actor.mixins.task_mixin.TaskMixin`, "
+":class:`aio_parallel_tools.aio_actor.mixins.hooks_mixin.HooksMixin`, "
+":class:`aio_parallel_tools.aio_actor.mixins.id_mixin.IdentifyMixin`, "
+":class:`aio_parallel_tools.aio_actor.mixins.loop_mixin.LoopMixin`, "
+":class:`aio_parallel_tools.aio_actor.actor_abc.ActorABC`"
 msgstr ""
 
-#: aio_parallel_tools.aio_actor.exception_and_warning.ActorIsPaused:1
-#: aio_parallel_tools.aio_actor.exception_and_warning.NoAvailableActor:1
-#: aio_parallel_tools.aio_actor.signal.ActorExit:1 of
-msgid "基类：:class:`Exception`"
+#: aio_parallel_tools.aio_actor.actor_basic.AioActor:1 of
+msgid "Base Async Actor class."
 msgstr ""
 
-#: aio_parallel_tools.aio_actor.exception_and_warning.ActorIsPaused:1 of
-msgid "Actor is Paused."
+#: aio_parallel_tools.aio_actor.actor_basic.AioActor:3 of
+msgid ""
+"To use the base class,we should create a sub class and write a implement "
+"of async method `receive`."
+msgstr "要使用这个基类,我们需要创建一个子类并实现其中的异步方法`receive`"
+
+#: aio_parallel_tools.aio_actor.actor_basic.AioActor:5 of
+msgid "Usage:"
 msgstr ""
 
-#: aio_parallel_tools.aio_actor.exception_and_warning.ActorTimeoutWarning:1
-#: aio_parallel_tools.aio_actor.exception_and_warning.InboxNearllyFullWarning:1
-#: of
-msgid "基类：:class:`Warning`"
+#: ../../document/aio_parallel_tools.aio_actor.rst:22
+msgid "Actor Manager"
 msgstr ""
 
-#: aio_parallel_tools.aio_actor.exception_and_warning.ActorTimeoutWarning:1 of
-msgid "Actor Timeout Warning."
+#: aio_parallel_tools.aio_actor.actor_manager:1 of
+msgid "Functions for managing Actors."
 msgstr ""
 
-#: aio_parallel_tools.aio_actor.exception_and_warning.InboxNearllyFullWarning:1
-#: of
-msgid "Inbox Nearlly Full Warning."
+#: aio_parallel_tools.aio_actor.actor_manager.ActorManagerRegister:1 of
+msgid "基类：:class:`type`"
 msgstr ""
 
-#: aio_parallel_tools.aio_actor.exception_and_warning.NoAvailableActor:1 of
-msgid "No Available Actor."
+#: aio_parallel_tools.aio_actor.actor_manager.ActorManagerRegister:1 of
+msgid "Meta class for regist subclass for management."
+msgstr "用于注册Actor类的元类"
+
+#: aio_parallel_tools.aio_actor.actor_manager.get_actor:1 of
+msgid "Get actor class by name."
+msgstr "通过类名获取Actor的子类"
+
+#: aio_parallel_tools.aio_actor.actor_manager.get_actor:3 of
+msgid "actor class's name"
+msgstr "Actor的子类类名"
+
+#: aio_parallel_tools.aio_actor.actor_manager.get_actor:6 of
+msgid "actor class"
 msgstr ""
 
-#: ../../document/aio_parallel_tools.aio_actor.rst:55
-msgid "aio\\_parallel\\_tools.aio\\_actor.signal module"
-msgstr ""
+#: aio_parallel_tools.aio_actor.actor_manager.has_actor:1 of
+msgid "Get all actor name."
+msgstr "获取所有的actor子类名"
 
-#: aio_parallel_tools.aio_actor.signal:1 of
-msgid "Sigals to send to actors."
-msgstr ""
-
-#: aio_parallel_tools.aio_actor.signal.ActorExit:1 of
-msgid "Tell Actor it's time to close."
-msgstr ""
-
-#: ../../document/aio_parallel_tools.aio_actor.rst:64
-msgid "Module contents"
-msgstr ""
+#: aio_parallel_tools.aio_actor.actor_manager.has_actor:3 of
+msgid "all actor name."
+msgstr "所有的actor子类名"
 
 #~ msgid "Bases: :class:`abc.ABC`"
 #~ msgstr ""
@@ -154,5 +444,59 @@ msgstr ""
 #~ msgstr ""
 
 #~ msgid "基类：:class:`type`"
+#~ msgstr ""
+
+#~ msgid "aio\\_parallel\\_tools.aio\\_actor.actor\\_basic\\_copy module"
+#~ msgstr ""
+
+#~ msgid "Subpackages"
+#~ msgstr ""
+
+#~ msgid "Submodules"
+#~ msgstr ""
+
+#~ msgid "aio\\_parallel\\_tools.aio\\_actor.exception\\_and\\_warning module"
+#~ msgstr ""
+
+#~ msgid "Exceptions and warnings."
+#~ msgstr ""
+
+#~ msgid "基类：:class:`Exception`"
+#~ msgstr ""
+
+#~ msgid "Actor is Paused."
+#~ msgstr ""
+
+#~ msgid "基类：:class:`Warning`"
+#~ msgstr ""
+
+#~ msgid "Actor Timeout Warning."
+#~ msgstr ""
+
+#~ msgid "Inbox Nearlly Full Warning."
+#~ msgstr ""
+
+#~ msgid "No Available Actor."
+#~ msgstr ""
+
+#~ msgid "aio\\_parallel\\_tools.aio\\_actor.signal module"
+#~ msgstr ""
+
+#~ msgid "Sigals to send to actors."
+#~ msgstr ""
+
+#~ msgid "Tell Actor it's time to close."
+#~ msgstr ""
+
+#~ msgid "Module contents"
+#~ msgstr ""
+
+#~ msgid "aio\\_parallel\\_tools.aio\\_actor.actor\\_abc module"
+#~ msgstr ""
+
+#~ msgid "aio\\_parallel\\_tools.aio\\_actor.actor\\_basic module"
+#~ msgstr ""
+
+#~ msgid "aio\\_parallel\\_tools.aio\\_actor.actor\\_manager module"
 #~ msgstr ""
 

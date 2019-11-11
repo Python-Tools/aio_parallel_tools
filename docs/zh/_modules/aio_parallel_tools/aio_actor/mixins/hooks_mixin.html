@@ -31,28 +31,33 @@
           <div class="body" role="main">
             
   <h1>aio_parallel_tools.aio_actor.mixins.hooks_mixin 源代码</h1><div class="highlight"><pre>
-<div class="viewcode-block" id="HooksMixin"><a class="viewcode-back" href="../../../../aio_parallel_tools.aio_actor.mixins.html#aio_parallel_tools.aio_actor.mixins.hooks_mixin.HooksMixin">[文档]</a><span></span><span class="k">class</span> <span class="nc">HooksMixin</span><span class="p">:</span>
+<span></span><span class="sd">&quot;&quot;&quot;Define all hooks.&quot;&quot;&quot;</span>
+
+
+<div class="viewcode-block" id="HooksMixin"><a class="viewcode-back" href="../../../../aio_parallel_tools.aio_actor.mixins.html#aio_parallel_tools.aio_actor.mixins.hooks_mixin.HooksMixin">[文档]</a><span class="k">class</span> <span class="nc">HooksMixin</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Define all hooks.&quot;&quot;&quot;</span>
+
 <div class="viewcode-block" id="HooksMixin.before_actor_start"><a class="viewcode-back" href="../../../../aio_parallel_tools.aio_actor.mixins.html#aio_parallel_tools.aio_actor.mixins.hooks_mixin.HooksMixin.before_actor_start">[文档]</a>    <span class="k">def</span> <span class="nf">before_actor_start</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;actor启动前执行的钩子.&quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;Execute before actor start.&quot;&quot;&quot;</span>
         <span class="k">pass</span></div>
 
 <div class="viewcode-block" id="HooksMixin.after_actor_start"><a class="viewcode-back" href="../../../../aio_parallel_tools.aio_actor.mixins.html#aio_parallel_tools.aio_actor.mixins.hooks_mixin.HooksMixin.after_actor_start">[文档]</a>    <span class="k">def</span> <span class="nf">after_actor_start</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;actor启动后执行的钩子.&quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;Execute after actor start.&quot;&quot;&quot;</span>
         <span class="k">pass</span></div>
 
 <div class="viewcode-block" id="HooksMixin.befor_actor_colse"><a class="viewcode-back" href="../../../../aio_parallel_tools.aio_actor.mixins.html#aio_parallel_tools.aio_actor.mixins.hooks_mixin.HooksMixin.befor_actor_colse">[文档]</a>    <span class="k">def</span> <span class="nf">befor_actor_colse</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;actor关闭前执行的钩子.&quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;Execute before actor close.&quot;&quot;&quot;</span>
         <span class="k">pass</span></div>
 
 <div class="viewcode-block" id="HooksMixin.after_actor_close"><a class="viewcode-back" href="../../../../aio_parallel_tools.aio_actor.mixins.html#aio_parallel_tools.aio_actor.mixins.hooks_mixin.HooksMixin.after_actor_close">[文档]</a>    <span class="k">def</span> <span class="nf">after_actor_close</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">task</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;actor关闭后执行的钩子.&quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;Execute after actor close.&quot;&quot;&quot;</span>
         <span class="k">pass</span></div>
 
 <div class="viewcode-block" id="HooksMixin.before_deal_rev"><a class="viewcode-back" href="../../../../aio_parallel_tools.aio_actor.mixins.html#aio_parallel_tools.aio_actor.mixins.hooks_mixin.HooksMixin.before_deal_rev">[文档]</a>    <span class="k">async</span> <span class="k">def</span> <span class="nf">before_deal_rev</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;每次处理收到的消息前执行的钩子.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">message</span></div>
 
-<div class="viewcode-block" id="HooksMixin.after_deal_rev"><a class="viewcode-back" href="../../../../aio_parallel_tools.aio_actor.mixins.html#aio_parallel_tools.aio_actor.mixins.hooks_mixin.HooksMixin.after_deal_rev">[文档]</a>    <span class="k">async</span> <span class="k">def</span> <span class="nf">after_deal_rev</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">result</span><span class="p">):</span>
+<div class="viewcode-block" id="HooksMixin.after_deal_rev"><a class="viewcode-back" href="../../../../aio_parallel_tools.aio_actor.mixins.html#aio_parallel_tools.aio_actor.mixins.hooks_mixin.HooksMixin.after_deal_rev">[文档]</a>    <span class="k">async</span> <span class="k">def</span> <span class="nf">after_deal_rev</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">,</span> <span class="n">result</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;每次处理收到的消息后执行的钩子.&quot;&quot;&quot;</span>
         <span class="k">pass</span></div>
 
@@ -97,22 +102,31 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../../pages/task_pool.html#operations">操作</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../pages/actor_and_manager.html">Actor和其管理器</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../pages/actor_and_manager.html#how-to-use">如何使用</a></li>
+</ul>
+</li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../../aio_parallel_tools.html">模型信息</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../aio_parallel_tools.html">模块信息</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../../../aio_parallel_tools.aio_task_pool.html">aio_parallel_tools.aio_task_pool package</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../../../aio_parallel_tools.aio_task_pool.html#taskpools">任务池</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../aio_parallel_tools.aio_task_pool.html#module-aio_parallel_tools.aio_task_pool.aio_autoscale_task_pool_lifo">aio_autoscale_task_pool_lifo module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../aio_parallel_tools.aio_task_pool.html#module-aio_parallel_tools.aio_task_pool.aio_autoscale_task_pool_priority">aio_autoscale_task_pool_priority module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../aio_parallel_tools.aio_task_pool.html#module-aio_parallel_tools.aio_task_pool.aio_autoscale_task_pool_simple">aio_autoscale_task_pool_simple module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../aio_parallel_tools.aio_task_pool.html#module-aio_parallel_tools.aio_task_pool.aio_fixed_task_pool_lifo">aio_fixed_task_pool_lifo module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../aio_parallel_tools.aio_task_pool.html#module-aio_parallel_tools.aio_task_pool.aio_fixed_task_pool_priority">aio_fixed_task_pool_priority module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../aio_parallel_tools.aio_task_pool.html#module-aio_parallel_tools.aio_task_pool.aio_fixed_task_pool_simple">aio_fixed_task_pool_simple module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../aio_parallel_tools.aio_task_pool.html#module-aio_parallel_tools.aio_task_pool.aio_autoscale_task_pool_lifo">使用后进先出队列的自扩展异步任务池</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../aio_parallel_tools.aio_task_pool.html#module-aio_parallel_tools.aio_task_pool.aio_autoscale_task_pool_priority">使用优先级队列的异步自动扩展任务池</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../aio_parallel_tools.aio_task_pool.html#module-aio_parallel_tools.aio_task_pool.aio_autoscale_task_pool_simple">使用默认队列的异步自扩展任务池</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../aio_parallel_tools.aio_task_pool.html#module-aio_parallel_tools.aio_task_pool.aio_fixed_task_pool_lifo">使用后进先出队列的固定异步任务池</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../aio_parallel_tools.aio_task_pool.html#module-aio_parallel_tools.aio_task_pool.aio_fixed_task_pool_priority">使用优先级队列的固定异步任务池</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../aio_parallel_tools.aio_task_pool.html#module-aio_parallel_tools.aio_task_pool.aio_fixed_task_pool_simple">使用默认队列的固定异步任务池</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../aio_parallel_tools.aio_task_pool.html#task-pool-core-api">Task Pool Core API</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../../../aio_parallel_tools.aio_task_pool.core.html">接口</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../../aio_parallel_tools.aio_task_pool.core.html#mixins">混入类</a></li>
 </ul>
 </li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../aio_parallel_tools.aio_actor.html">aio_parallel_tools.aio_actor package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../aio_parallel_tools.aio_actor.html#module-aio_parallel_tools.aio_actor.actor_abc">Actor API</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../aio_parallel_tools.aio_actor.html#module-aio_parallel_tools.aio_actor.actor_basic">Base Class</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../aio_parallel_tools.aio_actor.html#module-aio_parallel_tools.aio_actor.actor_manager">Actor Manager</a></li>
 </ul>
 </li>
 </ul>
@@ -154,7 +168,7 @@
       &copy;2019, huangsizhe.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.2.1</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.1.2</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
     </div>

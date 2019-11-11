@@ -1,0 +1,38 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2019, huangsizhe
+# This file is distributed under the same license as the aio_parallel_tools
+# package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2019.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: aio_parallel_tools 0.0.1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-11-11 15:23+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.7.0\n"
+
+#: ../../document/pages/actor_and_manager.md:1
+msgid "Actor and it's Manager"
+msgstr "Actor和其管理器"
+
+#: ../../document/pages/actor_and_manager.md:3
+msgid "There are a Actor Base class for async tasks in this package."
+msgstr "包中有一个异步Actor相关的工具集,包括一个Actor基类和一个管理器"
+
+#: ../../document/pages/actor_and_manager.md:6
+msgid "How to use"
+msgstr "如何使用"
+
+#: ../../document/pages/actor_and_manager.md:8
+msgid ""
+"We can use ActorManager to manage the Actor's Subclasses. And Use the "
+"Subclasses itself to manage it's instacnes."
+msgstr "我们可以使用`ActorManager`管理所有的actor子类,并使用子类本身来管理其对应的所有实例."
+

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: aio_parallel_tools 0.0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-11-07 10:13+0800\n"
+"POT-Creation-Date: 2019-11-11 14:49+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -23,11 +23,7 @@ msgid "aio\\_parallel\\_tools.aio\\_task\\_pool package"
 msgstr ""
 
 #: ../../document/aio_parallel_tools.aio_task_pool.rst:7
-msgid "TaskPools"
-msgstr ""
-
-#: ../../document/aio_parallel_tools.aio_task_pool.rst:10
-msgid "aio\\_autoscale\\_task\\_pool\\_lifo module"
+msgid "Async autoscale task pool with lifo queue"
 msgstr ""
 
 #: aio_parallel_tools.aio_task_pool.aio_autoscale_task_pool_lifo:1
@@ -327,8 +323,8 @@ msgstr ""
 msgid "unknown error when waiting for left tasks done"
 msgstr ""
 
-#: ../../document/aio_parallel_tools.aio_task_pool.rst:18
-msgid "aio\\_autoscale\\_task\\_pool\\_priority module"
+#: ../../document/aio_parallel_tools.aio_task_pool.rst:15
+msgid "Async autoscale task pool with priority queue"
 msgstr ""
 
 #: aio_parallel_tools.aio_task_pool.aio_autoscale_task_pool_priority.AioAutoScaleTaskPoolPriority:1
@@ -343,8 +339,8 @@ msgid ""
 ":class:`aio_parallel_tools.aio_task_pool.core.task_pool_base.AioTaskPoolBase`"
 msgstr ""
 
-#: ../../document/aio_parallel_tools.aio_task_pool.rst:26
-msgid "aio\\_autoscale\\_task\\_pool\\_simple module"
+#: ../../document/aio_parallel_tools.aio_task_pool.rst:23
+msgid "Async autoscale task pool with default queue"
 msgstr ""
 
 #: aio_parallel_tools.aio_task_pool.aio_autoscale_task_pool_simple.AioAutoScaleTaskPoolSimple:1
@@ -359,8 +355,8 @@ msgid ""
 ":class:`aio_parallel_tools.aio_task_pool.core.task_pool_base.AioTaskPoolBase`"
 msgstr ""
 
-#: ../../document/aio_parallel_tools.aio_task_pool.rst:34
-msgid "aio\\_fixed\\_task\\_pool\\_lifo module"
+#: ../../document/aio_parallel_tools.aio_task_pool.rst:31
+msgid "Async fixed task pool with lifo queue"
 msgstr ""
 
 #: aio_parallel_tools.aio_task_pool.aio_fixed_task_pool_lifo.AioFixedTaskPoolLifo:1
@@ -380,8 +376,8 @@ msgstr ""
 msgid "Asynchronous Task Pool Class with lifo queue."
 msgstr ""
 
-#: ../../document/aio_parallel_tools.aio_task_pool.rst:42
-msgid "aio\\_fixed\\_task\\_pool\\_priority module"
+#: ../../document/aio_parallel_tools.aio_task_pool.rst:39
+msgid "Async fixed task pool with priority queue"
 msgstr ""
 
 #: aio_parallel_tools.aio_task_pool.aio_fixed_task_pool_priority.AioFixedTaskPoolPriority:1
@@ -479,8 +475,8 @@ msgstr ""
 msgid "a future which you can await it to get the result."
 msgstr ""
 
-#: ../../document/aio_parallel_tools.aio_task_pool.rst:50
-msgid "aio\\_fixed\\_task\\_pool\\_simple module"
+#: ../../document/aio_parallel_tools.aio_task_pool.rst:47
+msgid "Async fixed task pool with default queue"
 msgstr ""
 
 #: aio_parallel_tools.aio_task_pool.aio_fixed_task_pool_simple.AioFixedTaskPoolSimple:1
@@ -500,7 +496,7 @@ msgstr ""
 msgid "Simple Asynchronous Task Pool Class."
 msgstr ""
 
-#: ../../document/aio_parallel_tools.aio_task_pool.rst:58
+#: ../../document/aio_parallel_tools.aio_task_pool.rst:55
 msgid "Task Pool Core API"
 msgstr ""
 
@@ -580,5 +576,26 @@ msgstr ""
 #~ ":class:`aio_parallel_tools.aio_task_pool.core.mixins.queue_mixin.simpleq_mixin.SimpleQMixin`,"
 #~ " "
 #~ ":class:`aio_parallel_tools.aio_task_pool.core.task_pool_base.AioTaskPoolBase`"
+#~ msgstr ""
+
+#~ msgid "TaskPools"
+#~ msgstr ""
+
+#~ msgid "aio\\_autoscale\\_task\\_pool\\_lifo module"
+#~ msgstr ""
+
+#~ msgid "aio\\_autoscale\\_task\\_pool\\_priority module"
+#~ msgstr ""
+
+#~ msgid "aio\\_autoscale\\_task\\_pool\\_simple module"
+#~ msgstr ""
+
+#~ msgid "aio\\_fixed\\_task\\_pool\\_lifo module"
+#~ msgstr ""
+
+#~ msgid "aio\\_fixed\\_task\\_pool\\_priority module"
+#~ msgstr ""
+
+#~ msgid "aio\\_fixed\\_task\\_pool\\_simple module"
 #~ msgstr ""
 
